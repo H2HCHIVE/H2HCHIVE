@@ -52,45 +52,6 @@ body{
     background:#eee;
 }
 
-.content{
-    margin-top:24px;
-    background:white;
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-
-/* MV 버튼 */
-
-.mv-list{
-    display:flex;
-    flex-direction:column;
-    gap:12px;
-}
-
-.mv-btn{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    height:56px;
-
-    background:white;
-    border-radius:16px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-
-    text-decoration:none;
-    color:#222;
-
-    font-size:1rem;
-    font-weight:600;
-}
-
-.mv-btn:active{
-    background:#eee;
-}
-
 /* SNS */
 
 .sns-grid{
@@ -128,16 +89,27 @@ body{
     </div>
 
     <div class="grid">
-        <button class="card" onclick="showContent('stream')">스밍리스트</button>
-        <button class="card" onclick="showContent('guide')">가이드</button>
-        <button class="card" onclick="showContent('cheer')">응원법</button>
-        <button class="card" onclick="showContent('mv')">MV</button>
-        <button class="card" onclick="showContent('etc')">ETC</button>
-    </div>
 
-    <div class="content" id="content">
-        <h2>환영합니다</h2>
-        <p>위 카테고리를 눌러 내용을 확인하세요.</p>
+        <button class="card" onclick="location.href='stream.html'">
+            스밍리스트
+        </button>
+
+        <button class="card" onclick="location.href='guide.html'">
+            가이드
+        </button>
+
+        <button class="card" onclick="location.href='cheer.html'">
+            응원법
+        </button>
+
+        <button class="card" onclick="location.href='mv.html'">
+            MV
+        </button>
+
+        <button class="card" onclick="location.href='etc.html'">
+            ETC
+        </button>
+
     </div>
 
 </div>
@@ -161,63 +133,6 @@ body{
     </a>
 
 </div>
-
-<script>
-const data = {
-
-stream: `
-<h2>스밍리스트</h2>
-<p>여기에 스트리밍 링크와 안내를 입력하세요.</p>
-`,
-
-guide: `
-<h2>가이드</h2>
-<p>팬 활동 가이드를 입력하세요.</p>
-`,
-
-cheer: `
-<h2>응원법</h2>
-<p>응원법 내용을 입력하세요.</p>
-`,
-
-mv: `
-<h2>MV</h2>
-
-<div class="mv-list">
-
-    <a href="https://youtu.be/kxUA2wwYiME" target="_blank" class="mv-btn">
-        The Chase
-    </a>
-
-    <a href="https://youtu.be/n7kFRxFIPrI" target="_blank" class="mv-btn">
-        STYLE
-    </a>
-
-    <a href="https://youtu.be/ufwB9Uja_wM" target="_blank" class="mv-btn">
-        Pretty Please
-    </a>
-
-    <a href="https://youtu.be/Ur7aK4FvK-U" target="_blank" class="mv-btn">
-        FOCUS
-    </a>
-
-    <a href="https://youtu.be/F7sGJVUrkjQ" target="_blank" class="mv-btn">
-        RUDE!
-    </a>
-
-</div>
-`,
-
-etc: `
-<h2>ETC</h2>
-<p>기타 자료를 입력하세요.</p>
-`
-};
-
-function showContent(key){
-    document.getElementById('content').innerHTML = data[key];
-}
-</script>
 
 </body>
 </html>
