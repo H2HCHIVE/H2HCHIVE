@@ -62,9 +62,11 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
+/* SNS 영역 */
 .sns-title{
     text-align:center;
     margin:30px 0 12px;
+    font-size:1rem;
 }
 
 .sns-grid{
@@ -75,17 +77,23 @@ body{
 
 .sns-btn{
     background:white;
-    text-decoration:none;
-    color:#222;
-    text-align:center;
-    padding:16px;
     border-radius:18px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
-    font-weight:600;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:90px;
+    text-decoration:none;
 }
 
 .sns-btn:active{
     background:#eee;
+}
+
+.sns-btn img{
+    width:55px;
+    height:55px;
+    object-fit:contain;
 }
 </style>
 </head>
@@ -115,13 +123,23 @@ body{
     <h3 class="sns-title">OFFICIAL SNS</h3>
 
     <div class="sns-grid">
-        <a href="https://www.instagram.com/hearts2hearts" target="_blank" class="sns-btn">Instagram</a>
 
-        <a href="https://x.com/Hearts2Hearts" target="_blank" class="sns-btn">Twitter</a>
+        <a href="https://www.instagram.com/hearts2hearts" target="_blank" class="sns-btn">
+            <img src="인스타그램 아이콘.svg" alt="Instagram">
+        </a>
 
-        <a href="https://youtube.com/@hearts2hearts.official" target="_blank" class="sns-btn">YouTube</a>
+        <a href="https://x.com/Hearts2Hearts" target="_blank" class="sns-btn">
+            <img src="x 로고.svg" alt="Twitter">
+        </a>
 
-        <a href="https://weverse.io/hearts2hearts/highlight" target="_blank" class="sns-btn">Weverse</a>
+        <a href="https://youtube.com/@hearts2hearts.official" target="_blank" class="sns-btn">
+            <img src="유튜브 아이콘.svg" alt="YouTube">
+        </a>
+
+        <a href="https://weverse.io/hearts2hearts/highlight" target="_blank" class="sns-btn">
+            <img src="위버스 아이콘.svg" alt="Weverse">
+        </a>
+
     </div>
 
 </div>
