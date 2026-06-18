@@ -62,7 +62,6 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* SNS 영역 */
 .sns-title{
     text-align:center;
     margin:30px 0 12px;
@@ -101,11 +100,11 @@ body{
     </div>
 
     <div class="grid">
-        <button class="card" onclick="showContent('stream')">🎧 스밍리스트</button>
-        <button class="card" onclick="showContent('guide')">📖 가이드</button>
-        <button class="card" onclick="showContent('cheer')">📣 응원법</button>
-        <button class="card" onclick="showContent('mv')">🎬 MV</button>
-        <button class="card" onclick="showContent('etc')">📦 ETC</button>
+        <button class="card" onclick="showContent('stream')">스밍리스트</button>
+        <button class="card" onclick="showContent('guide')">가이드</button>
+        <button class="card" onclick="showContent('cheer')">응원법</button>
+        <button class="card" onclick="showContent('mv')">MV</button>
+        <button class="card" onclick="showContent('etc')">ETC</button>
     </div>
 
     <div class="content" id="content">
@@ -113,24 +112,27 @@ body{
         <p>위 카테고리를 눌러 내용을 확인하세요.</p>
     </div>
 
-    <h3 class="sns-title">🔗 OFFICIAL SNS</h3>
+    <h3 class="sns-title">OFFICIAL SNS</h3>
 
     <div class="sns-grid">
-        <a href="https://instagram.com/" target="https://www.instagram.com/hearts2hearts" class="sns-btn">Instagram</a>
-        <a href="https://x.com/" target="https://x.com/Hearts2Hearts" class="sns-btn">Twitter</a>
-        <a href="https://youtube.com/" target="https://youtube.com/@hearts2hearts.official" class="sns-btn">YouTube</a>
-        <a href="https://weverse.io/" target="https://weverse.io/hearts2hearts/highlight" class="sns-btn">Weverse</a>
+        <a href="https://www.instagram.com/hearts2hearts" target="_blank" class="sns-btn">Instagram</a>
+
+        <a href="https://x.com/Hearts2Hearts" target="_blank" class="sns-btn">Twitter</a>
+
+        <a href="https://youtube.com/@hearts2hearts.official" target="_blank" class="sns-btn">YouTube</a>
+
+        <a href="https://weverse.io/hearts2hearts/highlight" target="_blank" class="sns-btn">Weverse</a>
     </div>
 
 </div>
 
 <script>
 const data = {
-stream: "<h2>🎧 스밍리스트</h2><p>여기에 스트리밍 링크와 안내를 입력하세요.</p>",
-guide: "<h2>📖 가이드</h2><p>팬 활동 가이드를 입력하세요.</p>",
-cheer: "<h2>📣 응원법</h2><p>응원법 내용을 입력하세요.</p>",
-mv: "<h2>🎬 MV</h2><p>뮤직비디오 링크를 입력하세요.</p>",
-etc: "<h2>📦 ETC</h2><p>기타 자료를 입력하세요.</p>"
+stream: "<h2>스밍리스트</h2><p>여기에 스트리밍 링크와 안내를 입력하세요.</p>",
+guide: "<h2>가이드</h2><p>팬 활동 가이드를 입력하세요.</p>",
+cheer: "<h2>응원법</h2><p>응원법 내용을 입력하세요.</p>",
+mv: "<h2>MV</h2><p>뮤직비디오 링크를 입력하세요.</p>",
+etc: "<h2>ETC</h2><p>기타 자료를 입력하세요.</p>"
 };
 
 function showContent(key){
