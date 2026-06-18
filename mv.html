@@ -21,45 +21,45 @@ body{
 
 .back-btn{
     display:inline-block;
-    margin-bottom:20px;
     text-decoration:none;
     color:#222;
-    font-weight:600;
+    font-size:1.5rem;
+    margin-bottom:20px;
 }
 
 .title{
-    font-size:1.8rem;
+    font-size:2rem;
     font-weight:700;
-    margin-bottom:20px;
+    margin-bottom:24px;
 }
 
 .mv-list{
     display:flex;
     flex-direction:column;
-    gap:12px;
 }
 
-.mv-btn{
+.mv-link{
     display:flex;
-    justify-content:center;
+    justify-content:space-between;
     align-items:center;
 
-    height:60px;
+    padding:18px 0;
 
-    background:white;
-    border-radius:18px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    border-bottom:1px solid #ddd;
 
     text-decoration:none;
     color:#222;
 
     font-size:1rem;
-    font-weight:600;
+    font-weight:500;
 }
 
-.mv-btn:active{
-    background:#eee;
+.mv-link:active{
+    opacity:0.6;
+}
+
+.arrow{
+    color:#999;
 }
 </style>
 </head>
@@ -68,30 +68,35 @@ body{
 
 <div class="container">
 
-    <a href="index.html" class="back-btn">← 메인으로</a>
+    <a href="index.html" class="back-btn">←</a>
 
     <div class="title">MV</div>
 
     <div class="mv-list">
 
-        <a href="https://youtu.be/kxUA2wwYiME" target="_blank" class="mv-btn">
-            The Chase
+        <a href="https://youtu.be/kxUA2wwYiME" target="_blank" class="mv-link">
+            <span>The Chase</span>
+            <span class="arrow">→</span>
         </a>
 
-        <a href="https://youtu.be/n7kFRxFIPrI" target="_blank" class="mv-btn">
-            STYLE
+        <a href="https://youtu.be/n7kFRxFIPrI" target="_blank" class="mv-link">
+            <span>STYLE</span>
+            <span class="arrow">→</span>
         </a>
 
-        <a href="https://youtu.be/ufwB9Uja_wM" target="_blank" class="mv-btn">
-            Pretty Please
+        <a href="https://youtu.be/ufwB9Uja_wM" target="_blank" class="mv-link">
+            <span>Pretty Please</span>
+            <span class="arrow">→</span>
         </a>
 
-        <a href="https://youtu.be/Ur7aK4FvK-U" target="_blank" class="mv-btn">
-            FOCUS
+        <a href="https://youtu.be/Ur7aK4FvK-U" target="_blank" class="mv-link">
+            <span>FOCUS</span>
+            <span class="arrow">→</span>
         </a>
 
-        <a href="https://youtu.be/F7sGJVUrkjQ" target="_blank" class="mv-btn">
-            RUDE!
+        <a href="https://youtu.be/F7sGJVUrkjQ" target="_blank" class="mv-link">
+            <span>RUDE!</span>
+            <span class="arrow">→</span>
         </a>
 
     </div>
