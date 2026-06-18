@@ -1,92 +1,25 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fan Page</title>
-<style>
-body{
-    margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:#f5f6f8;
-    color:#222;
-}
-.container{
-    max-width:420px;
-    margin:0 auto;
-    padding:24px 16px 60px;
-}
-.header{
-    text-align:center;
-    margin:24px 0 32px;
-}
-.header h1{
-    margin:0;
-    font-size:2rem;
-}
-.header p{
-    color:#666;
-}
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-.card{
-    background:white;
-    border:none;
-    border-radius:18px;
-    padding:22px 12px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-    font-size:1rem;
-    font-weight:600;
-    cursor: pointer; /* 버튼 위에 마우스 올렸을 때 손가락 모양 추가 */
-}
-.card:active {
-    background: #eee; /* 버튼 눌렸을 때 피드백 추가 */
-}
-.content{
-    margin-top:24px;
-    background:white;
-    border-radius:18px;
-    padding:20px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-</style>
-</head>
-<body>
-<div class="container">
-    <div class="header">
-        <h1>FAN PAGE</h1>
-        <p>원하는 카테고리를 선택하세요.</p>
-    </div>
+H2HCHIVE *{ margin:0; padding:0; box-sizing:border-box; } body{ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; background:#f5f6f8; color:#222; } .container{ max-width:420px; margin:0 auto; padding:30px 16px; } .header{ text-align:center; margin-bottom:30px; } .header h1{ font-size:32px; margin-bottom:8px; } .header p{ color:#666; } .grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; } .card{ background:#fff; border:none; border-radius:20px; padding:24px 10px; font-size:16px; font-weight:600; box-shadow:0 4px 12px rgba(0,0,0,.08); cursor:pointer; } .content{ margin-top:24px; background:#fff; border-radius:20px; padding:20px; box-shadow:0 4px 12px rgba(0,0,0,.08); } 
 
-    <div class="grid">
-        <button class="card" onclick="showContent('stream')">🎧 스밍리스트</button>
-        <button class="card" onclick="showContent('guide')">📖 가이드</button>
-        <button class="card" onclick="showContent('cheer')">📣 응원법</button>
-        <button class="card" onclick="showContent('mv')">🎬 MV</button>
-        <button class="card" onclick="showContent('etc')">📦 ETC</button>
-    </div>
+<div class="header"> <h1>H2HCHIVE</h1> <p>Fan Archive</p> </div> <div class="grid"> <button class="card" onclick="showContent('stream')">🎧 스밍리스트</button> <button class="card" onclick="showContent('guide')">📖 가이드</button> <button class="card" onclick="showContent('cheer')">📣 응원법</button> <button class="card" onclick="showContent('mv')">🎬 MV</button> <button class="card" onclick="showContent('etc')">📦 ETC</button> </div> <div class="content" id="content"> <h2>환영합니다</h2> <p>원하는 카테고리를 선택하세요.</p> </div> 
 
-    <div class="content" id="content">
-        <h2>환영합니다</h2>
-        <p>위 카테고리를 눌러 내용을 확인하세요.</p>
-    </div>
-</div>
+const data = { stream: "🎧 스밍리스트
 
-<script>
-const data = {
-stream: "<h2>🎧 스밍리스트</h2><p>여기에 스트리밍 링크와 안내를 입력하세요.</p>",
-guide: "<h2>📖 가이드</h2><p>팬 활동 가이드를 입력하세요.</p>",
-cheer: "<h2>📣 응원법</h2><p>응원법 내용을 입력하세요.</p>",
-mv: "<h2>🎬 MV</h2><p>뮤직비디오 링크를 입력하세요.</p>",
-etc: "<h2>📦 ETC</h2><p>기타 자료를 입력하세요.</p>"
-};
+내용을 입력하세요.
 
-function showContent(key){
- document.getElementById('content').innerHTML = data[key];
-}
-</script>
-</body>
-</html>
+", guide: "📖 가이드
+
+내용을 입력하세요.
+
+", cheer: "📣 응원법
+
+내용을 입력하세요.
+
+", mv: "🎬 MV
+
+유튜브 링크를 입력하세요.
+
+", etc: "📦 ETC
+
+기타 내용을 입력하세요.
+
+" }; function showContent(key){ document.getElementById("content").innerHTML = data[key]; } 
