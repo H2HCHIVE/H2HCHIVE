@@ -52,6 +52,10 @@ body{
     background:#eee;
 }
 
+.wide{
+    grid-column:1 / -1;
+}
+
 /* SNS */
 
 .sns-section{
@@ -102,8 +106,12 @@ body{
 
     <div class="grid">
 
-        <button class="card" onclick="location.href='stream.html'">
+        <button class="card wide" onclick="location.href='stream.html'">
             스밍리스트
+        </button>
+
+        <button class="card" onclick="location.href='vote.html'">
+            투표
         </button>
 
         <button class="card" onclick="location.href='guide.html'">
@@ -118,8 +126,12 @@ body{
             MV
         </button>
 
-        <button class="card" onclick="location.href='etc.html'">
-            ETC
+        <button class="card" onclick="location.href='schedule.html'">
+            일정
+        </button>
+
+        <button class="card" onclick="location.href='archive.html'">
+            아카이브
         </button>
 
     </div>
