@@ -33,46 +33,29 @@ body{
     margin-bottom:24px;
 }
 
-.cheer-card{
-    background:white;
-    border-radius:18px;
-    padding:16px;
-    margin-bottom:20px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+.cheer-list{
+    display:flex;
+    flex-direction:column;
 }
 
-.cheer-card h2{
-    margin:0 0 12px;
-    font-size:1.1rem;
-}
-
-.cheer-card img{
-    width:100%;
-    border-radius:12px;
-    display:block;
-}
-
-.video-btn{
-    display:block;
-    text-align:center;
-    margin-top:12px;
-    padding:12px;
-    border-radius:12px;
-    background:#f0f0f0;
-    color:#222;
+.cheer-link{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 0;
+    border-bottom:1px solid #ddd;
     text-decoration:none;
-    font-weight:600;
+    color:#222;
+    font-size:1rem;
+    font-weight:500;
 }
 
-.video-btn:active{
-    background:#e3e3e3;
+.cheer-link:active{
+    opacity:0.6;
 }
 
-.no-video{
-    text-align:center;
-    margin-top:12px;
-    color:#888;
-    font-size:0.95rem;
+.arrow{
+    color:#999;
 }
 </style>
 </head>
@@ -85,44 +68,33 @@ body{
 
     <div class="title">응원법</div>
 
-    <div class="cheer-card">
-        <h2>The Chase</h2>
-        <img src="더체이스 응원법.jpg" alt="The Chase 응원법">
-        <a href="https://youtu.be/3ycS2cJvAN4" target="_blank" class="video-btn">
-            응원법 영상 보기
-        </a>
-    </div>
+    <div class="cheer-list">
 
-    <div class="cheer-card">
-        <h2>STYLE</h2>
-        <img src="스타일 응원법.jpg" alt="STYLE 응원법">
-        <a href="https://youtu.be/FDOec4bINIQ" target="_blank" class="video-btn">
-            응원법 영상 보기
+        <a href="thechase-cheer.html" class="cheer-link">
+            <span>The Chase</span>
+            <span class="arrow">→</span>
         </a>
-    </div>
 
-    <div class="cheer-card">
-        <h2>FOCUS</h2>
-        <img src="포커스 응원법.jpg" alt="FOCUS 응원법">
-        <a href="https://youtu.be/0pmDQ1iovVo" target="_blank" class="video-btn">
-            응원법 영상 보기
+        <a href="style-cheer.html" class="cheer-link">
+            <span>STYLE</span>
+            <span class="arrow">→</span>
         </a>
-    </div>
 
-    <div class="cheer-card">
-        <h2>Pretty Please</h2>
-        <img src="프플 응원법.jpg" alt="Pretty Please 응원법">
-        <div class="no-video">
-            응원법 영상 없음
-        </div>
-    </div>
-
-    <div class="cheer-card">
-        <h2>RUDE!</h2>
-        <img src="루드 응원법.jpg" alt="RUDE! 응원법">
-        <a href="https://youtu.be/AjK78uAd6pA" target="_blank" class="video-btn">
-            응원법 영상 보기
+        <a href="focus-cheer.html" class="cheer-link">
+            <span>FOCUS</span>
+            <span class="arrow">→</span>
         </a>
+
+        <a href="prettyplease-cheer.html" class="cheer-link">
+            <span>Pretty Please</span>
+            <span class="arrow">→</span>
+        </a>
+
+        <a href="rude-cheer.html" class="cheer-link">
+            <span>RUDE!</span>
+            <span class="arrow">→</span>
+        </a>
+
     </div>
 
 </div>
