@@ -165,7 +165,7 @@ body{
     opacity:0.25;
 }
 
-/* ✅ 추가: 전체 일정 + 하이라이트 카드 스타일 */
+/* 리스트 / 하이라이트 카드 */
 .list{
     background:white;
     border-radius:12px;
@@ -189,7 +189,6 @@ body{
         <div class="tab" onclick="setTab('highlight', this)">🔥 하이라이트</div>
     </div>
 
-    <!-- 캘린더 -->
     <div id="calendarView">
 
         <div class="header">
@@ -228,10 +227,7 @@ body{
 
     </div>
 
-    <!-- 리스트 -->
     <div id="listView" style="display:none;"></div>
-
-    <!-- 하이라이트 -->
     <div id="highlightView" style="display:none;"></div>
 
 </div>
@@ -270,12 +266,10 @@ function setFilter(f, btn){
 }
 
 function render(){
-
     const y = date.getFullYear();
     const m = date.getMonth();
 
-    document.getElementById('month').innerText =
-        `${y}년 ${m+1}월`;
+    document.getElementById('month').innerText = `${y}년 ${m+1}월`;
 
     const cal = document.getElementById('calendar');
     cal.innerHTML = '';
@@ -290,7 +284,6 @@ function render(){
     for(let i=0;i<first;i++) cal.innerHTML += `<div></div>`;
 
     for(let d=1; d<=last; d++){
-
         const key =
             `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
@@ -318,7 +311,6 @@ function render(){
 }
 
 function show(key){
-
     const text = data[key] || "일정 없음";
     const lines = text.split('\n');
 
@@ -349,18 +341,27 @@ function renderList(){
     el.innerHTML = html;
 }
 
+/* 🔥 핵심 수정 부분 */
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
     let html = '';
 
     Object.keys(data).forEach(k=>{
-        if(
-            data[k].includes('🔥') ||
-            data[k].includes('💿') ||
-            data[k].includes('🎉')
-        ){
-            html += `<div class="list">🔥 <b>${k}</b><br>${data[k]}</div>`;
+
+        const lines = data[k].split('\n');
+
+        const filtered = lines.filter(line =>
+            line.includes('💿') || line.includes('🎉')
+        );
+
+        if(filtered.length > 0){
+            html += `
+                <div class="list">
+                    <b>${k}</b><br>
+                    ${filtered.join('\n')}
+                </div>
+            `;
         }
     });
 
