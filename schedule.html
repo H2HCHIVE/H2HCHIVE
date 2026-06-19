@@ -116,6 +116,7 @@ body{
     background:red;
 }
 
+/* 일정 박스 */
 .event-box{
     margin-top:12px;
     background:white;
@@ -124,6 +125,21 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
     min-height:50px;
     white-space:pre-line;
+}
+
+/* 줄 스타일 */
+.line{
+    display:block;
+    margin-bottom:6px;
+}
+
+.highlight{
+    font-weight:800;
+    color:#000;
+}
+
+.dim-line{
+    opacity:0.35;
 }
 </style>
 </head>
@@ -141,14 +157,13 @@ body{
     <!-- 필터 -->
     <div class="filters">
         <button onclick="setFilter('all', this)" class="active">전체</button>
-
         <button onclick="setFilter('📺', this)">📺 방송</button>
         <button onclick="setFilter('📻', this)">📻 라디오</button>
+        <button onclick="setFilter('✒️', this)">✒️ 팬사인회</button>
         <button onclick="setFilter('🎤', this)">🎤 공연</button>
         <button onclick="setFilter('💿', this)">💿 컴백</button>
         <button onclick="setFilter('▶️', this)">▶️ 자컨</button>
-        <button onclick="setFilter('✒️', this)">✒️ 팬싸</button>
-        <button onclick="setFilter('🗓', this)">🗓 영통</button>
+        <button onclick="setFilter('🗓', this)">🗓 영상통화</button>
 
         <button onclick="setFilter('🍓', this)">🍓</button>
         <button onclick="setFilter('🌴', this)">🌴</button>
@@ -184,7 +199,7 @@ let data = {};
 let filter = 'all';
 
 /* JSON */
-fetch('schedule.json?v=3')
+fetch('schedule.json?v=4')
 .then(res => res.json())
 .then(json => {
     data = json;
@@ -201,6 +216,10 @@ function setFilter(f, btn){
     btn.classList.add('active');
 
     render();
+
+    // 선택된 날짜 다시 렌더
+    const selected = document.querySelector('.selectedKey');
+    if(selected) show(selected.dataset.key);
 }
 
 /* 렌더 */
@@ -241,7 +260,7 @@ function render(){
             <div class="day 
                 ${isToday ? 'today' : ''} 
                 ${filter !== 'all' && !match ? 'dim' : ''}"
-                onclick="show('${key}')">
+                onclick="show('${key}', this)">
 
                 ${d}
 
@@ -255,10 +274,33 @@ function render(){
     }
 }
 
-/* 일정 표시 */
-function show(key){
-    document.getElementById('eventBox').innerText =
-        data[key] || "일정 없음";
+/* 일정 표시 (줄 단위 강조) */
+function show(key, el){
+
+    document.querySelectorAll('.day')
+        .forEach(d => d.classList.remove('selectedKey'));
+
+    el.classList.add('selectedKey');
+    el.dataset.key = key;
+
+    const text = data[key] || "일정 없음";
+
+    const lines = text.split('\n');
+
+    const html = lines.map(line => {
+
+        if(filter === 'all'){
+            return `<span class="line">${line}</span>`;
+        }
+
+        if(line.includes(filter)){
+            return `<span class="line highlight">${line}</span>`;
+        }
+
+        return `<span class="line dim-line">${line}</span>`;
+    }).join('');
+
+    document.getElementById('eventBox').innerHTML = html;
 }
 
 /* 이전/다음 */
