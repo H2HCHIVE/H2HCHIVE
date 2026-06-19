@@ -31,7 +31,7 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* ===== DDAY ===== */
+/* DDAY */
 #dday-container{
     display:flex;
     align-items:center;
@@ -65,9 +65,7 @@ body{
     color:#222;
 }
 
-.dday-btn:active{
-    opacity:0.5;
-}
+.dday-btn:active{ opacity:0.5; }
 
 /* grid */
 .grid{
@@ -89,7 +87,7 @@ body{
 
 .wide{ grid-column:1 / -1; }
 
-/* todo */
+/* mission */
 .todo-section{ margin:32px 0 40px; }
 
 .todo-box{
@@ -177,14 +175,14 @@ body{
 
 <script>
 
-/* ===== MISSIONS ===== */
+/* =========================
+   MISSIONS
+========================= */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
 
 const mission = document.getElementById("mission-list");
-const now = new Date();
-
 const schedules = [
 {
     start:"2026-06-19",
@@ -195,6 +193,8 @@ const schedules = [
     ]
 }
 ];
+
+const now = new Date();
 
 let currentMission = [];
 
@@ -223,7 +223,9 @@ mission.innerHTML = currentMission.length
 : "진행 중인 미션이 없습니다.";
 
 
-/* ===== D-DAY SLIDER ===== */
+/* =========================
+   DDAY SLIDER (FINAL)
+========================= */
 
 const ddayList = [
     { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00" },
@@ -239,10 +241,9 @@ const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
 
 function updateDday(){
-
-    const now = new Date();
     const item = ddayList[ddayIndex];
     const target = new Date(item.date);
+    const now = new Date();
 
     const diff = target - now;
     const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
@@ -262,7 +263,6 @@ function moveDday(dir){
     if(ddayIndex < 0){
         ddayIndex = ddayList.length - 1;
     }
-
     if(ddayIndex >= ddayList.length){
         ddayIndex = 0;
     }
@@ -270,21 +270,22 @@ function moveDday(dir){
     updateDday();
 }
 
-/* 터치 스와이프 (모바일) */
+/* swipe (mobile) */
 let startX = 0;
+const box = document.getElementById("dday-box");
 
-document.getElementById("dday-box").addEventListener("touchstart", e=>{
+box.addEventListener("touchstart", e=>{
     startX = e.touches[0].clientX;
 });
 
-document.getElementById("dday-box").addEventListener("touchend", e=>{
-    let endX = e.changedTouches[0].clientX;
+box.addEventListener("touchend", e=>{
+    const endX = e.changedTouches[0].clientX;
 
     if(startX - endX > 30) moveDday(1);
     if(endX - startX > 30) moveDday(-1);
 });
 
-/* 초기 실행 */
+/* init */
 updateDday();
 
 </script>
