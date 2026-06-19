@@ -308,6 +308,17 @@ function render(){
 
     renderList();
     renderHighlight();
+    const today = new Date();
+
+if(
+    today.getFullYear() === y &&
+    today.getMonth() === m
+){
+    const todayKey =
+        `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
+    show(todayKey);
+}
 }
 
 function show(key){
