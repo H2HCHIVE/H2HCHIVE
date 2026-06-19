@@ -21,6 +21,7 @@ body{
     padding:14px 12px 30px;
 }
 
+/* 탭 */
 .tabs{
     display:flex;
     gap:6px;
@@ -43,6 +44,7 @@ body{
     color:white;
 }
 
+/* 헤더 */
 .header{
     display:flex;
     justify-content:space-between;
@@ -62,6 +64,7 @@ body{
     cursor:pointer;
 }
 
+/* 필터 */
 .filters{
     display:flex;
     gap:6px;
@@ -84,6 +87,7 @@ body{
     color:white;
 }
 
+/* 요일 */
 .weekdays{
     display:grid;
     grid-template-columns:repeat(7,1fr);
@@ -96,6 +100,7 @@ body{
 .weekdays div:nth-child(1){ color:red; }
 .weekdays div:nth-child(7){ color:blue; }
 
+/* 캘린더 */
 .calendar{
     display:grid;
     grid-template-columns:repeat(7,1fr);
@@ -110,6 +115,10 @@ body{
     font-size:0.95rem;
     cursor:pointer;
     position:relative;
+}
+
+.dim{
+    opacity:0.25;
 }
 
 .today{
@@ -129,6 +138,7 @@ body{
     background:red;
 }
 
+/* 일정 박스 */
 .event-box{
     margin-top:12px;
     background:white;
@@ -138,6 +148,7 @@ body{
     min-height:50px;
 }
 
+/* 줄 강조 */
 .line{
     display:block;
     margin-bottom:6px;
@@ -153,15 +164,6 @@ body{
 .dim-line{
     opacity:0.25;
 }
-
-/* 리스트 스타일 추가 */
-.list{
-    background:white;
-    padding:10px;
-    margin-bottom:10px;
-    border-radius:10px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.08);
-}
 </style>
 </head>
 
@@ -169,12 +171,14 @@ body{
 
 <div class="container">
 
+    <!-- 탭 -->
     <div class="tabs">
-        <div class="tab active">📅 캘린더</div>
-        <div class="tab">📋 리스트</div>
-        <div class="tab">🔥 하이라이트</div>
+        <div class="tab active" onclick="setTab('calendar', this)">📅 캘린더</div>
+        <div class="tab" onclick="setTab('list', this)">📋 리스트</div>
+        <div class="tab" onclick="setTab('highlight', this)">🔥 하이라이트</div>
     </div>
 
+    <!-- 캘린더 -->
     <div id="calendarView">
 
         <div class="header">
@@ -192,6 +196,15 @@ body{
             <button onclick="setFilter('💿', this)">💿</button>
             <button onclick="setFilter('▶️', this)">▶️</button>
             <button onclick="setFilter('🗓', this)">🗓</button>
+
+            <button onclick="setFilter('🍓', this)">🍓</button>
+            <button onclick="setFilter('🌴', this)">🌴</button>
+            <button onclick="setFilter('🎀', this)">🎀</button>
+            <button onclick="setFilter('🧁', this)">🧁</button>
+            <button onclick="setFilter('👾', this)">👾</button>
+            <button onclick="setFilter('🌻', this)">🌻</button>
+            <button onclick="setFilter('🫛', this)">🫛</button>
+            <button onclick="setFilter('😊', this)">😊</button>
         </div>
 
         <div class="weekdays">
@@ -204,25 +217,50 @@ body{
 
     </div>
 
+    <!-- 리스트 -->
     <div id="listView" style="display:none;"></div>
+
+    <!-- 하이라이트 -->
     <div id="highlightView" style="display:none;"></div>
 
 </div>
 
 <script>
-
 let date = new Date();
 let data = {};
 let filter = 'all';
 
 fetch('schedule.json')
-.then(r=>r.json())
-.then(j=>{
-    data = j;
+.then(res => res.json())
+.then(json => {
+    data = json;
     render();
 });
 
-/* 캘린더 (변경 없음) */
+/* 탭 */
+function setTab(t, el){
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+    el.classList.add('active');
+
+    document.getElementById('calendarView').style.display = (t==='calendar')?'block':'none';
+    document.getElementById('listView').style.display = (t==='list')?'block':'none';
+    document.getElementById('highlightView').style.display = (t==='highlight')?'block':'none';
+
+    render();
+}
+
+/* 필터 */
+function setFilter(f, btn){
+    filter = f;
+
+    document.querySelectorAll('.filters button')
+        .forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+
+    render();
+}
+
+/* 캘린더 */
 function render(){
 
     const y = date.getFullYear();
@@ -252,12 +290,17 @@ function render(){
         const has = text.length > 0;
 
         const isToday = key === todayKey;
+        const match = filter === 'all' || text.includes(filter);
 
         cal.innerHTML += `
-            <div class="day ${isToday?'today':''}"
-                onclick="show('${key}')">
+            <div class="day ${isToday?'today':''} ${filter!=='all'&&!match?'dim':''}"
+            onclick="show('${key}')">
                 ${d}
-                ${isToday ? '<div class="dot today-dot"></div>' : (has ? '<div class="dot"></div>' : '')}
+                ${
+                    isToday
+                    ? '<div class="dot today-dot"></div>'
+                    : (has ? '<div class="dot"></div>' : '')
+                }
             </div>
         `;
     }
@@ -266,45 +309,41 @@ function render(){
     renderHighlight();
 }
 
-/* 일정 표시 (변경 없음) */
+/* 일정 표시 */
 function show(key){
 
     const text = data[key] || "일정 없음";
     const lines = text.split('\n');
 
-    document.getElementById('eventBox').innerHTML =
-        lines.map(line=>{
+    const html = lines.map(line => {
 
-            if(filter==='all')
-                return `<div class="line">${line}</div>`;
+        if(filter === 'all'){
+            return `<div class="line">${line}</div>`;
+        }
 
-            if(line.includes(filter))
-                return `<div class="line highlight">${line}</div>`;
+        if(line.includes(filter)){
+            return `<div class="line highlight">${line}</div>`;
+        }
 
-            return `<div class="line dim-line">${line}</div>`;
+        return `<div class="line dim-line">${line}</div>`;
+    }).join('');
 
-        }).join('');
+    document.getElementById('eventBox').innerHTML = html;
 }
 
-/* ✔ 리스트 (줄바꿈만 수정) */
+/* 리스트 */
 function renderList(){
     const el = document.getElementById('listView');
 
     let html = '';
-
     Object.keys(data).forEach(k=>{
-        html += `
-            <div class="list">
-                <b>${k}</b><br>
-                ${data[k].replaceAll('\n','<br>')}
-            </div>
-        `;
+        html += `<div class="list"><b>${k}</b><br>${data[k]}</div>`;
     });
 
     el.innerHTML = html;
 }
 
-/* ✔ 하이라이트 (줄바꿈만 수정) */
+/* 🔥 하이라이트 (수정 핵심) */
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
@@ -312,15 +351,11 @@ function renderHighlight(){
 
     Object.keys(data).forEach(k=>{
         if(
+            data[k].includes('🔥') ||
             data[k].includes('💿') ||
             data[k].includes('🎉')
         ){
-            html += `
-                <div class="list">
-                    <b>${k}</b><br>
-                    ${data[k].replaceAll('\n','<br>')}
-                </div>
-            `;
+            html += `<div class="list">🔥 <b>${k}</b><br>${data[k]}</div>`;
         }
     });
 
