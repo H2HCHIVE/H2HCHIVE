@@ -117,10 +117,6 @@ body{
     position:relative;
 }
 
-.dim{
-    opacity:0.25;
-}
-
 .today{
     border:2px solid red;
     font-weight:700;
@@ -148,7 +144,7 @@ body{
     min-height:50px;
 }
 
-/* 줄 강조 */
+/* 줄 스타일 */
 .line{
     display:block;
     margin-bottom:6px;
@@ -163,6 +159,15 @@ body{
 
 .dim-line{
     opacity:0.25;
+}
+
+/* 리스트 */
+.list{
+    background:white;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
 }
 </style>
 </head>
@@ -196,15 +201,6 @@ body{
             <button onclick="setFilter('💿', this)">💿</button>
             <button onclick="setFilter('▶️', this)">▶️</button>
             <button onclick="setFilter('🗓', this)">🗓</button>
-
-            <button onclick="setFilter('🍓', this)">🍓</button>
-            <button onclick="setFilter('🌴', this)">🌴</button>
-            <button onclick="setFilter('🎀', this)">🎀</button>
-            <button onclick="setFilter('🧁', this)">🧁</button>
-            <button onclick="setFilter('👾', this)">👾</button>
-            <button onclick="setFilter('🌻', this)">🌻</button>
-            <button onclick="setFilter('🫛', this)">🫛</button>
-            <button onclick="setFilter('😊', this)">😊</button>
         </div>
 
         <div class="weekdays">
@@ -226,14 +222,15 @@ body{
 </div>
 
 <script>
+
 let date = new Date();
 let data = {};
 let filter = 'all';
 
 fetch('schedule.json')
-.then(res => res.json())
-.then(json => {
-    data = json;
+.then(r=>r.json())
+.then(j=>{
+    data = j;
     render();
 });
 
@@ -250,12 +247,12 @@ function setTab(t, el){
 }
 
 /* 필터 */
-function setFilter(f, btn){
+function setFilter(f, el){
     filter = f;
 
     document.querySelectorAll('.filters button')
         .forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
+    el.classList.add('active');
 
     render();
 }
@@ -290,17 +287,12 @@ function render(){
         const has = text.length > 0;
 
         const isToday = key === todayKey;
-        const match = filter === 'all' || text.includes(filter);
 
         cal.innerHTML += `
-            <div class="day ${isToday?'today':''} ${filter!=='all'&&!match?'dim':''}"
-            onclick="show('${key}')">
+            <div class="day ${isToday?'today':''}"
+                onclick="show('${key}')">
                 ${d}
-                ${
-                    isToday
-                    ? '<div class="dot today-dot"></div>'
-                    : (has ? '<div class="dot"></div>' : '')
-                }
+                ${isToday ? '<div class="dot today-dot"></div>' : (has ? '<div class="dot"></div>' : '')}
             </div>
         `;
     }
@@ -315,20 +307,18 @@ function show(key){
     const text = data[key] || "일정 없음";
     const lines = text.split('\n');
 
-    const html = lines.map(line => {
+    document.getElementById('eventBox').innerHTML =
+        lines.map(line=>{
 
-        if(filter === 'all'){
-            return `<div class="line">${line}</div>`;
-        }
+            if(filter==='all')
+                return `<div class="line">${line}</div>`;
 
-        if(line.includes(filter)){
-            return `<div class="line highlight">${line}</div>`;
-        }
+            if(line.includes(filter))
+                return `<div class="line highlight">${line}</div>`;
 
-        return `<div class="line dim-line">${line}</div>`;
-    }).join('');
+            return `<div class="line dim-line">${line}</div>`;
 
-    document.getElementById('eventBox').innerHTML = html;
+        }).join('');
 }
 
 /* 리스트 */
@@ -336,14 +326,20 @@ function renderList(){
     const el = document.getElementById('listView');
 
     let html = '';
+
     Object.keys(data).forEach(k=>{
-        html += `<div class="list"><b>${k}</b><br>${data[k]}</div>`;
+        html += `
+            <div class="list">
+                <b>${k}</b><br>
+                ${data[k].replaceAll('\n','<br>')}
+            </div>
+        `;
     });
 
     el.innerHTML = html;
 }
 
-/* 🔥 하이라이트 (수정 핵심) */
+/* 하이라이트 */
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
@@ -351,11 +347,15 @@ function renderHighlight(){
 
     Object.keys(data).forEach(k=>{
         if(
-            data[k].includes('🔥') ||
             data[k].includes('💿') ||
             data[k].includes('🎉')
         ){
-            html += `<div class="list">🔥 <b>${k}</b><br>${data[k]}</div>`;
+            html += `
+                <div class="list">
+                    <b>${k}</b><br>
+                    ${data[k].replaceAll('\n','<br>')}
+                </div>
+            `;
         }
     });
 
