@@ -19,6 +19,7 @@ body{
     padding:24px 16px 60px;
 }
 
+/* HEADER */
 .header{
     margin:0 0 24px;
 }
@@ -31,7 +32,7 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* DDAY */
+/* ===== DDAY ===== */
 #dday-container{
     display:flex;
     align-items:center;
@@ -55,6 +56,13 @@ body{
     font-weight:900;
 }
 
+#dday-debut{
+    font-size:0.9rem;
+    font-weight:700;
+    margin-top:4px;
+    color:#555;
+}
+
 .dday-btn{
     background:none;
     border:none;
@@ -67,7 +75,7 @@ body{
 
 .dday-btn:active{ opacity:0.5; }
 
-/* grid */
+/* GRID */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -87,7 +95,7 @@ body{
 
 .wide{ grid-column:1 / -1; }
 
-/* mission */
+/* MISSION */
 .todo-section{ margin:32px 0 40px; }
 
 .todo-box{
@@ -121,6 +129,31 @@ body{
     font-size:.8rem;
     font-weight:600;
 }
+
+/* SNS */
+.sns-section{
+    margin-top:40px;
+    text-align:center;
+}
+
+.sns-title{
+    font-size:0.85rem;
+    font-weight:700;
+    color:#888;
+    letter-spacing:1px;
+    margin-bottom:12px;
+}
+
+.sns-grid{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+}
+
+.sns-grid img{
+    width:32px;
+    height:32px;
+}
 </style>
 </head>
 
@@ -132,21 +165,19 @@ body{
 <div class="header">
 
 <div id="dday-container">
-
     <button class="dday-btn" onclick="moveDday(-1)">‹</button>
 
     <div id="dday-box">
         <div id="dday-text"></div>
         <div id="dday-label"></div>
+        <div id="dday-debut"></div>
     </div>
 
     <button class="dday-btn" onclick="moveDday(1)">›</button>
-
 </div>
 
 <iframe
     src="https://www.youtube.com/embed/F7sGJVUrkjQ"
-    title="RUDE!"
     allowfullscreen>
 </iframe>
 
@@ -170,46 +201,38 @@ body{
         <div id="mission-list"></div>
     </div>
 </div>
-<!-- OFFICIAL ACCOUNTS -->
+
+<!-- SNS -->
 <div class="sns-section">
+    <div class="sns-title">OFFICIAL ACCOUNTS</div>
 
-    <div class="todo-header" style="text-align:center; margin-top:40px;">
-        OFFICIAL ACCOUNTS
-    </div>
-
-    <div style="display:flex; justify-content:center; gap:20px; margin-top:16px;">
-
+    <div class="sns-grid">
         <a href="https://www.instagram.com/hearts2hearts" target="_blank">
-            <img src="인스타그램 아이콘.svg" style="width:32px; height:32px;">
+            <img src="인스타그램 아이콘.svg">
         </a>
-
         <a href="https://x.com/Hearts2Hearts" target="_blank">
-            <img src="X 로고.svg" style="width:32px; height:32px;">
+            <img src="X 로고.svg">
         </a>
-
         <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
-            <img src="유튜브 아이콘.svg" style="width:32px; height:32px;">
+            <img src="유튜브 아이콘.svg">
         </a>
-
         <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
-            <img src="위버스 아이콘.svg" style="width:32px; height:32px;">
+            <img src="위버스 아이콘.svg">
         </a>
-
     </div>
-
 </div>
+
 </div>
 
 <script>
 
-/* =========================
-   MISSIONS
-========================= */
+/* ===== MISSIONS ===== */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
 
 const mission = document.getElementById("mission-list");
+
 const schedules = [
 {
     start:"2026-06-19",
@@ -222,7 +245,6 @@ const schedules = [
 ];
 
 const now = new Date();
-
 let currentMission = [];
 
 for(const s of schedules){
@@ -250,9 +272,7 @@ mission.innerHTML = currentMission.length
 : "진행 중인 미션이 없습니다.";
 
 
-/* =========================
-   DDAY SLIDER (FINAL)
-========================= */
+/* ===== DDAY + DEBUT ===== */
 
 const ddayList = [
     { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00" },
@@ -266,7 +286,20 @@ let ddayIndex = 0;
 
 const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
+const debutLabel = document.getElementById("dday-debut");
 
+const debutDate = new Date("2025-02-24T00:00:00+09:00");
+
+/* D+ */
+function updateDebut(){
+    const now = new Date();
+    const diff = now - debutDate;
+    const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+
+    debutLabel.textContent = `D+${day} (데뷔)`;
+}
+
+/* D- */
 function updateDday(){
     const item = ddayList[ddayIndex];
     const target = new Date(item.date);
@@ -284,20 +317,17 @@ function updateDday(){
     }
 }
 
+/* MOVE */
 function moveDday(dir){
     ddayIndex += dir;
 
-    if(ddayIndex < 0){
-        ddayIndex = ddayList.length - 1;
-    }
-    if(ddayIndex >= ddayList.length){
-        ddayIndex = 0;
-    }
+    if(ddayIndex < 0) ddayIndex = ddayList.length - 1;
+    if(ddayIndex >= ddayList.length) ddayIndex = 0;
 
     updateDday();
 }
 
-/* swipe (mobile) */
+/* SWIPE */
 let startX = 0;
 const box = document.getElementById("dday-box");
 
@@ -312,8 +342,14 @@ box.addEventListener("touchend", e=>{
     if(endX - startX > 30) moveDday(-1);
 });
 
-/* init */
+/* INIT */
 updateDday();
+updateDebut();
+
+setInterval(()=>{
+    updateDday();
+    updateDebut();
+}, 60000);
 
 </script>
 
