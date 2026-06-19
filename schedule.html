@@ -333,8 +333,15 @@ function show(key){
 function renderList(){
     const el = document.getElementById('listView');
 
+    const currentMonth =
+        `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
+
     let html = '';
+
     Object.keys(data).forEach(k=>{
+
+        if(!k.startsWith(currentMonth)) return;
+
         html += `<div class="list"><b>${k}</b><br>${data[k]}</div>`;
     });
 
@@ -345,9 +352,14 @@ function renderList(){
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
+    const currentMonth =
+        `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}`;
+
     let html = '';
 
     Object.keys(data).forEach(k=>{
+
+        if(!k.startsWith(currentMonth)) return;
 
         const lines = data[k].split('\n');
 
