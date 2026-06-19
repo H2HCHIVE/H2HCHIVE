@@ -11,58 +11,66 @@ body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:#f5f6f8;
     color:#222;
+    display:flex;
+    justify-content:center;
 }
 
+/* 전체 컨테이너 */
 .container{
+    width:100%;
     max-width:420px;
-    margin:0 auto;
-    padding:24px 16px 60px;
+    padding:16px 12px 30px;
 }
 
+/* 상단 */
 .header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:16px;
+    margin-bottom:14px;
 }
 
 .month{
-    font-size:1.2rem;
+    font-size:1.3rem;
     font-weight:700;
 }
 
 .btn{
-    font-size:1.5rem;
+    font-size:1.6rem;
     border:none;
     background:none;
     cursor:pointer;
 }
 
+/* 달력 */
 .calendar{
     display:grid;
     grid-template-columns:repeat(7,1fr);
-    gap:6px;
+    gap:8px;
 }
 
 .day{
     background:white;
-    border-radius:10px;
-    padding:10px 0;
+    border-radius:12px;
+    padding:14px 0;
     text-align:center;
+    font-size:0.95rem;
     cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
 }
 
 .day:hover{
     background:#eee;
 }
 
+/* 일정 박스 */
 .event-box{
-    margin-top:20px;
+    margin-top:14px;
     background:white;
     border-radius:14px;
-    padding:16px;
+    padding:14px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
-    min-height:60px;
+    min-height:50px;
 }
 </style>
 </head>
@@ -71,14 +79,17 @@ body{
 
 <div class="container">
 
+    <!-- 상단 -->
     <div class="header">
         <button class="btn" onclick="prev()">←</button>
         <div class="month" id="month"></div>
         <button class="btn" onclick="next()">→</button>
     </div>
 
+    <!-- 달력 -->
     <div class="calendar" id="calendar"></div>
 
+    <!-- 일정 표시 -->
     <div class="event-box" id="eventBox">
         날짜를 클릭하세요
     </div>
@@ -89,6 +100,7 @@ body{
 let date = new Date();
 let data = {};
 
+/* JSON 불러오기 */
 fetch('schedule.json')
 .then(res => res.json())
 .then(json => {
@@ -96,6 +108,7 @@ fetch('schedule.json')
     render();
 });
 
+/* 달력 생성 */
 function render(){
     const y = date.getFullYear();
     const m = date.getMonth();
@@ -126,16 +139,19 @@ function render(){
     }
 }
 
+/* 일정 표시 */
 function show(key){
     document.getElementById('eventBox').innerText =
         data[key] || "일정 없음";
 }
 
+/* 이전 달 */
 function prev(){
     date.setMonth(date.getMonth()-1);
     render();
 }
 
+/* 다음 달 */
 function next(){
     date.setMonth(date.getMonth()+1);
     render();
