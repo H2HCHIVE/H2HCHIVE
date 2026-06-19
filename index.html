@@ -56,6 +56,29 @@ body{
     grid-column:1 / -1;
 }
 
+/* 오늘의 할일 */
+
+.todo-section{
+    margin:32px 0 40px;
+}
+
+.todo-box{
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    line-height:2;
+    font-size:0.95rem;
+}
+
+.todo-header{
+    font-size:1rem;
+    font-weight:700;
+    margin-bottom:10px;
+    padding-bottom:10px;
+    border-bottom:1px solid #eee;
+}
+
 /* SNS */
 
 .sns-section{
@@ -133,6 +156,22 @@ body{
         <button class="card" onclick="location.href='archive.html'">
             아카이브
         </button>
+
+    </div>
+
+    <div class="todo-section">
+
+        <div class="todo-box">
+
+            <div class="todo-header">
+                📍 오늘의 할일
+            </div>
+
+            ✅ 멜론 스밍 3회 이상<br>
+            ✅ 뮤직비디오 1회 시청<br>
+            ✅ 투표 참여하기
+
+        </div>
 
     </div>
 
