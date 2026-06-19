@@ -51,8 +51,13 @@ body{
     margin-bottom:6px;
 }
 
-.weekdays div:nth-child(1){ color:red; }
-.weekdays div:nth-child(7){ color:blue; }
+.weekdays div:nth-child(1){
+    color:red;
+}
+
+.weekdays div:nth-child(7){
+    color:blue;
+}
 
 /* 달력 */
 .calendar{
@@ -61,52 +66,34 @@ body{
     gap:8px;
 }
 
-/* 날짜 */
 .day{
     background:white;
     border-radius:12px;
-    padding:10px 6px;
+    padding:12px 0;
     text-align:center;
     font-size:0.95rem;
-    min-height:52px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    cursor:pointer;
     position:relative;
 }
 
-/* 오늘 */
+/* 점 기본 (회색) */
+.dot{
+    width:6px;
+    height:6px;
+    background:#999;
+    border-radius:50%;
+    margin:4px auto 0;
+}
+
+/* 오늘 날짜 */
 .today{
     border:2px solid red;
     font-weight:700;
 }
 
-/* 일정 카드 */
-.event{
-    margin-top:4px;
-    font-size:0.65rem;
-    padding:3px 4px;
-    border-radius:6px;
-    color:#fff;
-    line-height:1.2;
-}
-
-/* 색상 타입 */
-.comeback{
-    background:#e74c3c; /* 빨강 */
-}
-
-.music{
-    background:#3498db; /* 파랑 */
-}
-
-.vote{
-    background:#f1c40f; /* 노랑 */
-    color:#333;
-}
-
-.etc{
-    background:#7f8c8d; /* 회색 */
+/* 오늘 점 (빨간색으로 덮어씀) */
+.today-dot{
+    background:red !important;
 }
 </style>
 </head>
@@ -115,17 +102,25 @@ body{
 
 <div class="container">
 
+    <!-- 상단 -->
     <div class="header">
         <button class="btn" onclick="prev()">←</button>
         <div class="month" id="month"></div>
         <button class="btn" onclick="next()">→</button>
     </div>
 
+    <!-- 요일 -->
     <div class="weekdays">
-        <div>일</div><div>월</div><div>화</div>
-        <div>수</div><div>목</div><div>금</div><div>토</div>
+        <div>일</div>
+        <div>월</div>
+        <div>화</div>
+        <div>수</div>
+        <div>목</div>
+        <div>금</div>
+        <div>토</div>
     </div>
 
+    <!-- 달력 -->
     <div class="calendar" id="calendar"></div>
 
 </div>
@@ -140,13 +135,6 @@ fetch('schedule.json')
     data = json;
     render();
 });
-
-function getType(text){
-    if(text.includes("컴백")) return "comeback";
-    if(text.includes("투표")) return "vote";
-    if(text.includes("스밍") || text.includes("음원")) return "music";
-    return "etc";
-}
 
 function render(){
     const y = date.getFullYear();
@@ -174,18 +162,29 @@ function render(){
         const key =
             `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
-        const event = data[key];
+        const hasEvent = data[key];
         const isToday = key === todayKey;
-
-        const type = event ? getType(event) : "";
 
         cal.innerHTML += `
             <div class="day ${isToday ? 'today' : ''}">
-                <div>${d}</div>
-                ${event ? `<div class="event ${type}">${event}</div>` : ''}
+                ${d}
+
+                ${hasEvent ? '<div class="dot"></div>' : ''}
+
+                ${isToday ? '<div class="dot today-dot"></div>' : ''}
             </div>
         `;
     }
+}
+
+function prev(){
+    date.setMonth(date.getMonth()-1);
+    render();
+}
+
+function next(){
+    date.setMonth(date.getMonth()+1);
+    render();
 }
 </script>
 
