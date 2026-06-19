@@ -164,6 +164,11 @@ body{
 .dim-line{
     opacity:0.25;
 }
+
+/* ✅ 추가된 핵심 (줄바꿈 적용) */
+.list{
+    white-space: pre-line;
+}
 </style>
 </head>
 
@@ -343,7 +348,7 @@ function renderList(){
     el.innerHTML = html;
 }
 
-/* 🔥 하이라이트 (수정 핵심) */
+/* 🔥 하이라이트 */
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
