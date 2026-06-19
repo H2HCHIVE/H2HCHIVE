@@ -112,6 +112,24 @@ body{
     height:32px;
     object-fit:contain;
 }
+.mission-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:10px;
+    margin:8px 0;
+}
+
+.mission-btn{
+    background:#222;
+    color:#fff;
+    text-decoration:none;
+    padding:5px 12px;
+    border-radius:999px;
+    font-size:.8rem;
+    font-weight:600;
+    white-space:nowrap;
+}
 </style>
 </head>
 
@@ -209,15 +227,12 @@ const mission = document.getElementById("mission-list");
 const schedules = [
 {
     start:"2026-06-19",
-    end:"2026-06-21",
+    end:"2026-06-19",
     items:[
-        "RUDE! 스밍하기"
-    ]
-},
-{
-    start:"2026-06-22",
-    end:"2026-07-31",
-    items:[
+        {
+            text:"인가 사전투표하기",
+            link:"https://app.linc.fan/31TL/01KTXG9P7T6YZNFJCHJZMWQ6NX"
+        },
         "Lemon Tang 스밍하기"
     ]
 }
@@ -238,7 +253,20 @@ for(const schedule of schedules){
 }
 
 mission.innerHTML = currentMission.length
-    ? currentMission.map(item => `✅ ${item}`).join("<br>")
+    ? currentMission.map(item => {
+
+        if(typeof item === "string"){
+            return `✅ ${item}`;
+        }
+
+        return `
+        <div class="mission-row">
+            <span>✅ ${item.text}</span>
+            <a href="${item.link}" target="_blank" class="mission-btn">
+                바로가기
+            </a>
+        </div>`;
+    }).join("<br>")
     : "진행 중인 미션이 없습니다.";
 </script>
 </body>
