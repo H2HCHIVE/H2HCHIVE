@@ -51,13 +51,8 @@ body{
     margin-bottom:6px;
 }
 
-.weekdays div:nth-child(1){
-    color:red;
-}
-
-.weekdays div:nth-child(7){
-    color:blue;
-}
+.weekdays div:nth-child(1){ color:red; }
+.weekdays div:nth-child(7){ color:blue; }
 
 /* 달력 */
 .calendar{
@@ -76,22 +71,27 @@ body{
     position:relative;
 }
 
-/* 일정 점 */
+/* 기본 점 = 회색 */
 .dot{
     width:6px;
     height:6px;
-    background:red;
+    background:#999;
     border-radius:50%;
     margin:4px auto 0;
 }
 
-/* 오늘 날짜 강조 */
+/* 오늘 점 = 빨간색 */
+.today-dot{
+    background:red;
+}
+
+/* 오늘 날짜 테두리 */
 .today{
     border:2px solid red;
     font-weight:700;
 }
 
-/* 일정 박스 */
+/* 이벤트 박스 */
 .event-box{
     margin-top:12px;
     background:white;
@@ -128,7 +128,7 @@ body{
     <!-- 달력 -->
     <div class="calendar" id="calendar"></div>
 
-    <!-- 일정 -->
+    <!-- 일정 표시 -->
     <div class="event-box" id="eventBox">
         날짜를 클릭하세요
     </div>
@@ -147,7 +147,7 @@ fetch('schedule.json')
     render();
 });
 
-/* 달력 생성 */
+/* 달력 렌더 */
 function render(){
     const y = date.getFullYear();
     const m = date.getMonth();
@@ -175,14 +175,17 @@ function render(){
             `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
         const hasEvent = data[key];
-
         const isToday = key === todayKey;
 
         cal.innerHTML += `
             <div class="day ${isToday ? 'today' : ''}" onclick="show('${key}')">
                 ${d}
-                ${hasEvent ? '<div class="dot"></div>' : ''}
-                ${isToday && !hasEvent ? '<div class="dot"></div>' : ''}
+
+                ${
+                    isToday
+                    ? '<div class="dot today-dot"></div>'
+                    : (hasEvent ? '<div class="dot"></div>' : '')
+                }
             </div>
         `;
     }
