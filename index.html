@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -19,10 +20,7 @@ body{
     padding:24px 16px 60px;
 }
 
-/* HEADER */
-.header{
-    margin:0 0 24px;
-}
+.header{ margin-bottom:24px; }
 
 .header iframe{
     width:100%;
@@ -32,7 +30,7 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* ===== DDAY ===== */
+/* ===== DDAY + DEBUT ===== */
 #dday-container{
     display:flex;
     align-items:center;
@@ -56,13 +54,6 @@ body{
     font-weight:900;
 }
 
-#dday-debut{
-    font-size:0.9rem;
-    font-weight:700;
-    margin-top:4px;
-    color:#555;
-}
-
 .dday-btn{
     background:none;
     border:none;
@@ -75,7 +66,7 @@ body{
 
 .dday-btn:active{ opacity:0.5; }
 
-/* GRID */
+/* grid */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -95,7 +86,7 @@ body{
 
 .wide{ grid-column:1 / -1; }
 
-/* MISSION */
+/* mission */
 .todo-section{ margin:32px 0 40px; }
 
 .todo-box{
@@ -129,31 +120,6 @@ body{
     font-size:.8rem;
     font-weight:600;
 }
-
-/* SNS */
-.sns-section{
-    margin-top:40px;
-    text-align:center;
-}
-
-.sns-title{
-    font-size:0.85rem;
-    font-weight:700;
-    color:#888;
-    letter-spacing:1px;
-    margin-bottom:12px;
-}
-
-.sns-grid{
-    display:flex;
-    justify-content:center;
-    gap:18px;
-}
-
-.sns-grid img{
-    width:32px;
-    height:32px;
-}
 </style>
 </head>
 
@@ -170,7 +136,6 @@ body{
     <div id="dday-box">
         <div id="dday-text"></div>
         <div id="dday-label"></div>
-        <div id="dday-debut"></div>
     </div>
 
     <button class="dday-btn" onclick="moveDday(1)">›</button>
@@ -185,13 +150,13 @@ body{
 
 <!-- GRID -->
 <div class="grid">
-    <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
-    <button class="card" onclick="location.href='guide.html'">가이드</button>
-    <button class="card" onclick="location.href='vote.html'">투표</button>
-    <button class="card" onclick="location.href='mv.html'">MV</button>
-    <button class="card" onclick="location.href='cheer.html'">응원법</button>
-    <button class="card" onclick="location.href='schedule.html'">일정</button>
-    <button class="card" onclick="location.href='archive.html'">아카이브</button>
+    <button class="card wide">스밍리스트</button>
+    <button class="card">가이드</button>
+    <button class="card">투표</button>
+    <button class="card">MV</button>
+    <button class="card">응원법</button>
+    <button class="card">일정</button>
+    <button class="card">아카이브</button>
 </div>
 
 <!-- MISSION -->
@@ -202,35 +167,20 @@ body{
     </div>
 </div>
 
-<!-- SNS -->
-<div class="sns-section">
-    <div class="sns-title">OFFICIAL ACCOUNTS</div>
-
-    <div class="sns-grid">
-        <a href="https://www.instagram.com/hearts2hearts" target="_blank">
-            <img src="인스타그램 아이콘.svg">
-        </a>
-        <a href="https://x.com/Hearts2Hearts" target="_blank">
-            <img src="X 로고.svg">
-        </a>
-        <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
-            <img src="유튜브 아이콘.svg">
-        </a>
-        <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
-            <img src="위버스 아이콘.svg">
-        </a>
-    </div>
-</div>
-
 </div>
 
 <script>
 
-/* ===== MISSIONS ===== */
+/* =========================
+   UTIL
+========================= */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
 
+/* =========================
+   MISSIONS (그대로 유지)
+========================= */
 const mission = document.getElementById("mission-list");
 
 const schedules = [
@@ -245,6 +195,7 @@ const schedules = [
 ];
 
 const now = new Date();
+
 let currentMission = [];
 
 for(const s of schedules){
@@ -263,93 +214,87 @@ mission.innerHTML = currentMission.length
     if(typeof item === "string"){
         return `<div>✅ ${item}</div>`;
     }
-    return `
-    <div class="mission-row">
+    return `<div class="mission-row">
         <span>✅ ${item.text}</span>
         <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
     </div>`;
 }).join("")
 : "진행 중인 미션이 없습니다.";
 
-
-/* ===== DDAY + DEBUT ===== */
+/* =========================
+   DDAY + DEBUT SLIDER
+========================= */
 
 const ddayList = [
-    { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00" },
-    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00" },
-    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00" },
-    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00" },
-    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00" }
+    { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00", type:"dday" },
+    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00", type:"dday" },
+    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00", type:"dday" },
+    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
+    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" },
+
+    /* ===== 데뷔 D+ ===== */
+    { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00", type:"debut" }
 ];
 
 let ddayIndex = 0;
 
 const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
-const debutLabel = document.getElementById("dday-debut");
 
-const debutDate = new Date("2025-02-24T00:00:00+09:00");
-
-/* D+ */
-function updateDebut(){
-    const now = new Date();
-    const diff = now - debutDate;
-    const day = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    debutLabel.textContent = `D+${day} (데뷔)`;
-}
-
-/* D- */
+/* =========================
+   UPDATE
+========================= */
 function updateDday(){
+
     const item = ddayList[ddayIndex];
-    const target = new Date(item.date);
     const now = new Date();
+    const target = new Date(item.date);
 
     const diff = target - now;
     const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
     ddayText.textContent = item.name;
 
-    if(diff > 0){
-        ddayLabel.textContent = `D-${day}`;
+    if(item.type === "debut"){
+        /* ===== D+ 계산 (핵심) ===== */
+        const debut = new Date(item.date);
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const debutDate = new Date(debut.getFullYear(), debut.getMonth(), debut.getDate());
+
+        const diffDays = Math.floor((today - debutDate) / (1000*60*60*24)) + 1;
+
+        if(diffDays > 0){
+            ddayLabel.textContent = `D+${diffDays}`;
+        } else {
+            ddayLabel.textContent = "데뷔 전";
+        }
     } else {
-        ddayLabel.textContent = "D-DAY";
+        if(diff > 0){
+            ddayLabel.textContent = `D-${day}`;
+        } else {
+            ddayLabel.textContent = "D-DAY";
+        }
     }
 }
 
-/* MOVE */
+/* =========================
+   SLIDE
+========================= */
 function moveDday(dir){
     ddayIndex += dir;
 
-    if(ddayIndex < 0) ddayIndex = ddayList.length - 1;
-    if(ddayIndex >= ddayList.length) ddayIndex = 0;
+    if(ddayIndex < 0){
+        ddayIndex = ddayList.length - 1;
+    }
+    if(ddayIndex >= ddayList.length){
+        ddayIndex = 0;
+    }
 
     updateDday();
 }
 
-/* SWIPE */
-let startX = 0;
-const box = document.getElementById("dday-box");
-
-box.addEventListener("touchstart", e=>{
-    startX = e.touches[0].clientX;
-});
-
-box.addEventListener("touchend", e=>{
-    const endX = e.changedTouches[0].clientX;
-
-    if(startX - endX > 30) moveDday(1);
-    if(endX - startX > 30) moveDday(-1);
-});
-
-/* INIT */
+/* init */
 updateDday();
-updateDebut();
-
-setInterval(()=>{
-    updateDday();
-    updateDebut();
-}, 60000);
 
 </script>
 
