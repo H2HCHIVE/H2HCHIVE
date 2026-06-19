@@ -126,6 +126,13 @@ body{
     font-weight:700;
 }
 
+/* 🔥 필터 강조 핵심 */
+.active-day{
+    border:2px solid #222;
+    background:#fff7cc;
+}
+
+/* 점 */
 .dot{
     width:6px;
     height:6px;
@@ -165,7 +172,7 @@ body{
     opacity:0.25;
 }
 
-/* 리스트 카드 */
+/* 리스트 */
 .list{
     background:white;
     margin-bottom:10px;
@@ -301,12 +308,19 @@ function render(){
         const has = text.length > 0;
 
         const isToday = key === todayKey;
-        const match = filter === 'all' || text.includes(filter);
+
+        const isMatch =
+            filter === 'all' || text.includes(filter);
 
         cal.innerHTML += `
-            <div class="day ${isToday?'today':''} ${filter!=='all'&&!match?'dim':''}"
-            onclick="show('${key}')">
+            <div class="day
+                ${isToday?'today':''}
+                ${filter!=='all'&&!isMatch?'dim':''}
+                ${filter!=='all'&&isMatch?'active-day':''}"
+                onclick="show('${key}')">
+
                 ${d}
+
                 ${
                     isToday
                     ? '<div class="dot today-dot"></div>'
@@ -320,24 +334,27 @@ function render(){
     renderHighlight();
 }
 
-/* 일정 표시 (🔥 핵심 수정: \n → <br>) */
+/* 일정 표시 */
 function show(key){
 
     const text = data[key] || "일정 없음";
-    const html = text.replaceAll('\n', '<br>');
-
-    document.getElementById('eventBox').innerHTML = html;
+    document.getElementById('eventBox').innerHTML =
+        text.replaceAll('\n','<br>');
 }
 
-/* 리스트 (줄바꿈 수정) */
+/* 리스트 */
 function renderList(){
     const el = document.getElementById('listView');
 
     let html = '';
 
     Object.keys(data).forEach(k=>{
-        const text = data[k].replaceAll('\n','<br>');
-        html += `<div class="list"><b>${k}</b><br>${text}</div>`;
+        html += `
+            <div class="list">
+                <b>${k}</b><br>
+                ${data[k].replaceAll('\n','<br>')}
+            </div>
+        `;
     });
 
     el.innerHTML = html;
@@ -351,14 +368,17 @@ function renderHighlight(){
 
     Object.keys(data).forEach(k=>{
 
-        const text = data[k].replaceAll('\n','<br>');
-
         if(
             data[k].includes('🔥') ||
             data[k].includes('💿') ||
             data[k].includes('🎉')
         ){
-            html += `<div class="list">🔥 <b>${k}</b><br>${text}</div>`;
+            html += `
+                <div class="list">
+                    🔥 <b>${k}</b><br>
+                    ${data[k].replaceAll('\n','<br>')}
+                </div>
+            `;
         }
     });
 
