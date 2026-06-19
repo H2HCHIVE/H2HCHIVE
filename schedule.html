@@ -19,12 +19,11 @@ body{
     padding:24px 16px 60px;
 }
 
-/* 상단 */
 .header{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:20px;
+    margin-bottom:16px;
 }
 
 .month{
@@ -39,21 +38,24 @@ body{
     cursor:pointer;
 }
 
-/* 달력 영역 (아직 기능 없음) */
 .calendar{
     display:grid;
     grid-template-columns:repeat(7,1fr);
     gap:6px;
-    margin-top:10px;
 }
 
 .day{
     background:white;
     border-radius:10px;
-    height:40px;
+    padding:10px 0;
+    text-align:center;
+    cursor:pointer;
 }
 
-/* 일정 박스 */
+.day:hover{
+    background:#eee;
+}
+
 .event-box{
     margin-top:20px;
     background:white;
@@ -69,40 +71,76 @@ body{
 
 <div class="container">
 
-    <!-- 상단 -->
     <div class="header">
-        <button class="btn">←</button>
-        <div class="month">2026년 6월</div>
-        <button class="btn">→</button>
+        <button class="btn" onclick="prev()">←</button>
+        <div class="month" id="month"></div>
+        <button class="btn" onclick="next()">→</button>
     </div>
 
-    <!-- 달력 (자리만 있음) -->
-    <div class="calendar">
+    <div class="calendar" id="calendar"></div>
 
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-        <div class="day"></div>
-
-    </div>
-
-    <!-- 일정 표시 -->
-    <div class="event-box">
-        날짜를 클릭하면 일정이 표시됩니다
+    <div class="event-box" id="eventBox">
+        날짜를 클릭하세요
     </div>
 
 </div>
+
+<script>
+let date = new Date();
+let data = {};
+
+fetch('schedule.json')
+.then(res => res.json())
+.then(json => {
+    data = json;
+    render();
+});
+
+function render(){
+    const y = date.getFullYear();
+    const m = date.getMonth();
+
+    document.getElementById('month').innerText =
+        `${y}년 ${m+1}월`;
+
+    const first = new Date(y, m, 1).getDay();
+    const last = new Date(y, m+1, 0).getDate();
+
+    const cal = document.getElementById('calendar');
+    cal.innerHTML = '';
+
+    for(let i=0;i<first;i++){
+        cal.innerHTML += `<div></div>`;
+    }
+
+    for(let d=1; d<=last; d++){
+
+        const key =
+            `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+        cal.innerHTML += `
+            <div class="day" onclick="show('${key}')">
+                ${d}
+            </div>
+        `;
+    }
+}
+
+function show(key){
+    document.getElementById('eventBox').innerText =
+        data[key] || "일정 없음";
+}
+
+function prev(){
+    date.setMonth(date.getMonth()-1);
+    render();
+}
+
+function next(){
+    date.setMonth(date.getMonth()+1);
+    render();
+}
+</script>
 
 </body>
 </html>
