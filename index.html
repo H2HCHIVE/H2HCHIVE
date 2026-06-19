@@ -163,15 +163,13 @@ body{
 
         <div class="todo-box">
 
-            <div class="todo-header">
-                📍 오늘의 미션
-            </div>
+    <div class="todo-header">
+        📍 오늘의 미션
+    </div>
 
-            ✅ 멜론 스밍 3회 이상<br>
-            ✅ 뮤직비디오 1회 시청<br>
-            ✅ 투표 참여하기
+    <div id="mission-list"></div>
 
-        </div>
+</div>
 
     </div>
 
@@ -204,6 +202,32 @@ body{
     </div>
 
 </div>
+<script>
+const today = new Date();
 
+const mission = document.getElementById("mission-list");
+
+const voteStart = new Date("2026-06-22");
+const voteEnd = new Date("2026-06-26");
+voteEnd.setHours(23,59,59,999);
+
+if(today >= voteStart && today <= voteEnd){
+
+    mission.innerHTML = `
+        ✅ 음방 투표 참여하기<br>
+        ✅ 멜론 스밍 5회 이상<br>
+        ✅ 뮤직비디오 3회 시청
+    `;
+
+}else{
+
+    mission.innerHTML = `
+        ✅ 멜론 스밍 3회 이상<br>
+        ✅ 뮤직비디오 1회 시청<br>
+        ✅ 팬덤 홍보하기
+    `;
+
+}
+</script>
 </body>
 </html>
