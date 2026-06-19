@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -41,7 +42,7 @@ body{
     cursor:pointer;
 }
 
-/* 필터 버튼 */
+/* 필터 */
 .filters{
     display:flex;
     gap:6px;
@@ -95,18 +96,15 @@ body{
     transition:0.2s;
 }
 
-/* 흐림 처리 */
 .dim{
     opacity:0.25;
 }
 
-/* 오늘 */
 .today{
     border:2px solid red;
     font-weight:700;
 }
 
-/* 점 */
 .dot{
     width:6px;
     height:6px;
@@ -115,12 +113,10 @@ body{
     margin:4px auto 0;
 }
 
-/* 오늘 점 */
 .today-dot{
     background:red;
 }
 
-/* 이벤트 박스 */
 .event-box{
     margin-top:12px;
     background:white;
@@ -137,7 +133,6 @@ body{
 
 <div class="container">
 
-    <!-- 상단 -->
     <div class="header">
         <button class="btn" onclick="prev()">←</button>
         <div class="month" id="month"></div>
@@ -146,15 +141,16 @@ body{
 
     <!-- 필터 -->
     <div class="filters">
-        <button onclick="setFilter('all')" class="active">전체</button>
-        <button onclick="setFilter('📺')">📺 방송</button>
-        <button onclick="setFilter('📻')">📻 라디오</button>
-        <button onclick="setFilter('✒️')">✒️ 팬사인회</button>
-        <button onclick="setFilter('🎤')">🎤 공연</button>
-        <button onclick="setFilter('💿')">💿 컴백</button>
+        <button onclick="setFilter('all', this)" class="active">전체</button>
+        <button onclick="setFilter('📺', this)">📺 방송</button>
+        <button onclick="setFilter('📻', this)">📻 라디오</button>
+        <button onclick="setFilter('✒️', this)">✒️ 팬사인회</button>
+        <button onclick="setFilter('🎤', this)">🎤 공연</button>
+        <button onclick="setFilter('💿', this)">💿 컴백</button>
+        <button onclick="setFilter('▶️', this)">▶️ 자컨</button>
+        <button onclick="setFilter('🗓', this)">🗓 영상통화</button>
     </div>
 
-    <!-- 요일 -->
     <div class="weekdays">
         <div>일</div>
         <div>월</div>
@@ -165,10 +161,8 @@ body{
         <div>토</div>
     </div>
 
-    <!-- 달력 -->
     <div class="calendar" id="calendar"></div>
 
-    <!-- 일정 -->
     <div class="event-box" id="eventBox">
         날짜를 클릭하세요
     </div>
@@ -179,9 +173,10 @@ body{
 let date = new Date();
 let data = {};
 let filter = 'all';
+let activeBtn = null;
 
 /* JSON */
-fetch('schedule.json?v=1')
+fetch('schedule.json?v=2')
 .then(res => res.json())
 .then(json => {
     data = json;
@@ -189,13 +184,13 @@ fetch('schedule.json?v=1')
 });
 
 /* 필터 */
-function setFilter(f){
+function setFilter(f, btn){
     filter = f;
 
     document.querySelectorAll('.filters button')
         .forEach(b => b.classList.remove('active'));
 
-    event.target.classList.add('active');
+    btn.classList.add('active');
 
     render();
 }
