@@ -114,7 +114,7 @@ body{
 }
 .mission-row{
     display:flex;
-    justify-content:space-between;
+    justify-content:flex-start;
     align-items:center;
     gap:10px;
     margin:8px 0;
@@ -221,7 +221,10 @@ body{
 
 </div>
 <script>
-const today = new Date();
+function toKSTDate(str){
+    return new Date(str + "T00:00:00+09:00");
+}
+const today = new Date(Date.now() + 9 * 60 * 60 * 1000);
 const mission = document.getElementById("mission-list");
 
 const schedules = [
@@ -242,9 +245,9 @@ let currentMission = [];
 
 for(const schedule of schedules){
 
-    const start = new Date(schedule.start);
-    const end = new Date(schedule.end);
-    end.setHours(23,59,59,999);
+        const start = toKSTDate(schedule.start);
+        const end = toKSTDate(schedule.end);
+        end.setHours(23,59,59,999);
 
     if(today >= start && today <= end){
         currentMission = schedule.items;
@@ -256,17 +259,17 @@ mission.innerHTML = currentMission.length
     ? currentMission.map(item => {
 
         if(typeof item === "string"){
-            return `✅ ${item}`;
+            return `<div class="mission-item">✅️ ${item}</div>`;
         }
 
         return `
         <div class="mission-row">
-            <span>✅ ${item.text}</span>
+            <span>✅️ ${item.text}</span>
             <a href="${item.link}" target="_blank" class="mission-btn">
                 바로가기
             </a>
         </div>`;
-    }).join("<br>")
+    }).join("")
     : "진행 중인 미션이 없습니다.";
 </script>
 </body>
