@@ -148,7 +148,7 @@ body{
     min-height:50px;
 }
 
-/* 줄 단위 강조 */
+/* 줄 강조 */
 .line{
     display:block;
     margin-bottom:6px;
@@ -174,11 +174,11 @@ body{
     <!-- 탭 -->
     <div class="tabs">
         <div class="tab active" onclick="setTab('calendar', this)">📅 캘린더</div>
-        <div class="tab" onclick="setTab('list', this)">📋 리스트</div>
+        <div class="tab" onclick="setTab('list', this)">📋 전체 일정</div>
         <div class="tab" onclick="setTab('highlight', this)">🔥 하이라이트</div>
     </div>
 
-    <!-- 캘린더 영역 -->
+    <!-- 캘린더 -->
     <div id="calendarView">
 
         <div class="header">
@@ -189,7 +189,6 @@ body{
 
         <div class="filters">
             <button onclick="setFilter('all', this)" class="active">전체</button>
-
             <button onclick="setFilter('📺', this)">📺</button>
             <button onclick="setFilter('📻', this)">📻</button>
             <button onclick="setFilter('✒️', this)">✒️</button>
@@ -214,9 +213,7 @@ body{
 
         <div class="calendar" id="calendar"></div>
 
-        <div class="event-box" id="eventBox">
-            날짜를 클릭하세요
-        </div>
+        <div class="event-box" id="eventBox">날짜를 클릭하세요</div>
 
     </div>
 
@@ -232,7 +229,6 @@ body{
 let date = new Date();
 let data = {};
 let filter = 'all';
-let tab = 'calendar';
 
 fetch('schedule.json')
 .then(res => res.json())
@@ -243,20 +239,12 @@ fetch('schedule.json')
 
 /* 탭 */
 function setTab(t, el){
-    tab = t;
-
-    document.querySelectorAll('.tab')
-        .forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
     el.classList.add('active');
 
-    document.getElementById('calendarView').style.display =
-        t === 'calendar' ? 'block' : 'none';
-
-    document.getElementById('listView').style.display =
-        t === 'list' ? 'block' : 'none';
-
-    document.getElementById('highlightView').style.display =
-        t === 'highlight' ? 'block' : 'none';
+    document.getElementById('calendarView').style.display = (t==='calendar')?'block':'none';
+    document.getElementById('listView').style.display = (t==='list')?'block':'none';
+    document.getElementById('highlightView').style.display = (t==='highlight')?'block':'none';
 
     render();
 }
@@ -266,13 +254,13 @@ function setFilter(f, btn){
     filter = f;
 
     document.querySelectorAll('.filters button')
-        .forEach(b => b.classList.remove('active'));
+        .forEach(b=>b.classList.remove('active'));
     btn.classList.add('active');
 
     render();
 }
 
-/* 렌더 */
+/* 캘린더 */
 function render(){
 
     const y = date.getFullYear();
@@ -291,9 +279,7 @@ function render(){
     const todayKey =
         `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
 
-    for(let i=0;i<first;i++){
-        cal.innerHTML += `<div></div>`;
-    }
+    for(let i=0;i<first;i++) cal.innerHTML += `<div></div>`;
 
     for(let d=1; d<=last; d++){
 
@@ -309,15 +295,12 @@ function render(){
         cal.innerHTML += `
             <div class="day ${isToday?'today':''} ${filter!=='all'&&!match?'dim':''}"
             onclick="show('${key}')">
-
                 ${d}
-
                 ${
                     isToday
                     ? '<div class="dot today-dot"></div>'
                     : (has ? '<div class="dot"></div>' : '')
                 }
-
             </div>
         `;
     }
@@ -326,7 +309,7 @@ function render(){
     renderHighlight();
 }
 
-/* 일정 표시 (줄 단위 강조) */
+/* 일정 표시 */
 function show(key){
 
     const text = data[key] || "일정 없음";
@@ -353,21 +336,25 @@ function renderList(){
     const el = document.getElementById('listView');
 
     let html = '';
-    Object.keys(data).forEach(k => {
+    Object.keys(data).forEach(k=>{
         html += `<div class="list"><b>${k}</b><br>${data[k]}</div>`;
     });
 
     el.innerHTML = html;
 }
 
-/* 하이라이트 */
+/* 🔥 하이라이트 (수정 핵심) */
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
     let html = '';
 
-    Object.keys(data).forEach(k => {
-        if(data[k].includes('💿') || data[k].includes('🎤') || data[k].includes('🔥')){
+    Object.keys(data).forEach(k=>{
+        if(
+            data[k].includes('🔥') ||
+            data[k].includes('💿') ||
+            data[k].includes('🎉')
+        ){
             html += `<div class="list">🔥 <b>${k}</b><br>${data[k]}</div>`;
         }
     });
