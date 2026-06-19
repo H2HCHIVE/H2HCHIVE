@@ -195,7 +195,7 @@ mission.innerHTML = currentMission.length
 : "진행 중인 미션이 없습니다.";
 
 /* ===== D-DAY ===== */
-const eventName = "🍋Lemon Tang 컴백";
+const eventName = "🍋 Lemon Tang 컴백";
 const targetDate = new Date("2026-06-22T18:00:00+09:00");
 
 const ddayText = document.getElementById("dday-text");
@@ -204,25 +204,22 @@ const ddayLabel = document.getElementById("dday-label");
 function updateDday(){
 
     const now = new Date();
+
     const diff = targetDate - now;
 
-    const totalMin = Math.floor(diff / 1000 / 60);
-    const day = Math.floor(totalMin / 60 / 24);
-    const hour = Math.floor((totalMin / 60) % 24);
-    const min = totalMin % 60;
+    const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
     ddayText.textContent = eventName;
 
     if(diff > 0){
-        ddayLabel.textContent = `D-${day} (${hour}h ${min}m 남음)`;
+        ddayLabel.textContent = `D-${day}`;
     } else {
         ddayLabel.textContent = "D-DAY";
     }
 }
 
 updateDday();
-setInterval(updateDday, 60000);
+setInterval(updateDday, 60 * 60 * 1000);
 </script>
-
 </body>
 </html>
