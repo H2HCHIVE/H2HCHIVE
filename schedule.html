@@ -61,37 +61,52 @@ body{
     gap:8px;
 }
 
-/* 날짜 박스 */
+/* 날짜 */
 .day{
     background:white;
     border-radius:12px;
     padding:10px 6px;
-    min-height:52px;
     text-align:center;
-    font-size:0.9rem;
-    cursor:pointer;
+    font-size:0.95rem;
+    min-height:52px;
     display:flex;
     flex-direction:column;
     justify-content:center;
+    position:relative;
 }
 
-/* 일정 있는 날 배경 */
-.has-event{
-    background:#f0f0f0;
-}
-
-/* 일정 텍스트 */
-.event-text{
-    font-size:0.65rem;
-    margin-top:4px;
-    color:#444;
-    line-height:1.2;
-}
-
-/* 오늘 강조 */
+/* 오늘 */
 .today{
     border:2px solid red;
     font-weight:700;
+}
+
+/* 일정 카드 */
+.event{
+    margin-top:4px;
+    font-size:0.65rem;
+    padding:3px 4px;
+    border-radius:6px;
+    color:#fff;
+    line-height:1.2;
+}
+
+/* 색상 타입 */
+.comeback{
+    background:#e74c3c; /* 빨강 */
+}
+
+.music{
+    background:#3498db; /* 파랑 */
+}
+
+.vote{
+    background:#f1c40f; /* 노랑 */
+    color:#333;
+}
+
+.etc{
+    background:#7f8c8d; /* 회색 */
 }
 </style>
 </head>
@@ -107,13 +122,8 @@ body{
     </div>
 
     <div class="weekdays">
-        <div>일</div>
-        <div>월</div>
-        <div>화</div>
-        <div>수</div>
-        <div>목</div>
-        <div>금</div>
-        <div>토</div>
+        <div>일</div><div>월</div><div>화</div>
+        <div>수</div><div>목</div><div>금</div><div>토</div>
     </div>
 
     <div class="calendar" id="calendar"></div>
@@ -130,6 +140,13 @@ fetch('schedule.json')
     data = json;
     render();
 });
+
+function getType(text){
+    if(text.includes("컴백")) return "comeback";
+    if(text.includes("투표")) return "vote";
+    if(text.includes("스밍") || text.includes("음원")) return "music";
+    return "etc";
+}
 
 function render(){
     const y = date.getFullYear();
@@ -160,23 +177,15 @@ function render(){
         const event = data[key];
         const isToday = key === todayKey;
 
+        const type = event ? getType(event) : "";
+
         cal.innerHTML += `
-            <div class="day ${event ? 'has-event' : ''} ${isToday ? 'today' : ''}">
+            <div class="day ${isToday ? 'today' : ''}">
                 <div>${d}</div>
-                ${event ? `<div class="event-text">${event}</div>` : ''}
+                ${event ? `<div class="event ${type}">${event}</div>` : ''}
             </div>
         `;
     }
-}
-
-function prev(){
-    date.setMonth(date.getMonth()-1);
-    render();
-}
-
-function next(){
-    date.setMonth(date.getMonth()+1);
-    render();
 }
 </script>
 
