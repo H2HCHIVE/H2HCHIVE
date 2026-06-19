@@ -25,7 +25,7 @@ body{
 
 .header iframe{
     width:100%;
-    aspect-ratio:16/9;
+    height:220px;
     border:none;
     border-radius:18px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
@@ -130,19 +130,28 @@ body{
     font-weight:600;
     white-space:nowrap;
 }
+#dday-box{
+    text-align:left;
+    font-size:0.9rem;
+    font-weight:700;
+    margin-bottom:8px;
+    padding-left:2px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
     <div class="header">
-        <iframe
-            src="https://www.youtube.com/embed/F7sGJVUrkjQ"
-            title="RUDE!"
-            allowfullscreen>
-        </iframe>
+     <div id="dday-box"></div>
+
+      <iframe
+        src="https://www.youtube.com/embed/F7sGJVUrkjQ"
+        title="RUDE!"
+        allowfullscreen>
+      </iframe>
     </div>
 
     <div class="grid">
@@ -271,6 +280,28 @@ mission.innerHTML = currentMission.length
         </div>`;
     }).join("")
     : "진행 중인 미션이 없습니다.";
+const ddayBox = document.getElementById("dday-box");
+
+// 기준 날짜 (예: 6월 22일)
+const targetDate = new Date("2026-06-22T00:00:00+09:00");
+
+function updateDday(){
+    const now = new Date(Date.now() + 9 * 60 * 60 * 1000);
+
+    const diff = targetDate - now;
+
+    const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hour = Math.floor((diff / (1000 * 60 * 60)) % 24);
+
+    if(diff > 0){
+        ddayBox.textContent = `D-${day} (${hour}h 남음)`;
+    } else {
+        ddayBox.textContent = `D-DAY`;
+    }
+}
+
+updateDday();
+setInterval(updateDday, 60000);
 </script>
 </body>
 </html>
