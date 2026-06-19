@@ -51,13 +51,8 @@ body{
     margin-bottom:6px;
 }
 
-.weekdays div:nth-child(1){
-    color:red;
-}
-
-.weekdays div:nth-child(7){
-    color:blue;
-}
+.weekdays div:nth-child(1){ color:red; }
+.weekdays div:nth-child(7){ color:blue; }
 
 /* 달력 */
 .calendar{
@@ -66,39 +61,37 @@ body{
     gap:8px;
 }
 
+/* 날짜 박스 */
 .day{
     background:white;
     border-radius:12px;
-    padding:12px 0;
+    padding:10px 6px;
+    min-height:52px;
     text-align:center;
-    font-size:0.95rem;
+    font-size:0.9rem;
     cursor:pointer;
-    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
 }
 
-/* 일정 점 (회색으로 변경됨) */
-.dot{
-    width:6px;
-    height:6px;
-    background:#999;
-    border-radius:50%;
-    margin:4px auto 0;
+/* 일정 있는 날 배경 */
+.has-event{
+    background:#f0f0f0;
 }
 
-/* 오늘 날짜 강조 */
+/* 일정 텍스트 */
+.event-text{
+    font-size:0.65rem;
+    margin-top:4px;
+    color:#444;
+    line-height:1.2;
+}
+
+/* 오늘 강조 */
 .today{
     border:2px solid red;
     font-weight:700;
-}
-
-/* 일정 박스 */
-.event-box{
-    margin-top:12px;
-    background:white;
-    border-radius:14px;
-    padding:14px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-    min-height:50px;
 }
 </style>
 </head>
@@ -107,14 +100,12 @@ body{
 
 <div class="container">
 
-    <!-- 상단 -->
     <div class="header">
         <button class="btn" onclick="prev()">←</button>
         <div class="month" id="month"></div>
         <button class="btn" onclick="next()">→</button>
     </div>
 
-    <!-- 요일 -->
     <div class="weekdays">
         <div>일</div>
         <div>월</div>
@@ -125,13 +116,7 @@ body{
         <div>토</div>
     </div>
 
-    <!-- 달력 -->
     <div class="calendar" id="calendar"></div>
-
-    <!-- 일정 -->
-    <div class="event-box" id="eventBox">
-        날짜를 클릭하세요
-    </div>
 
 </div>
 
@@ -172,22 +157,16 @@ function render(){
         const key =
             `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
-        const hasEvent = data[key];
+        const event = data[key];
         const isToday = key === todayKey;
 
         cal.innerHTML += `
-            <div class="day ${isToday ? 'today' : ''}" onclick="show('${key}')">
-                ${d}
-                ${hasEvent ? '<div class="dot"></div>' : ''}
-                ${isToday && !hasEvent ? '<div class="dot"></div>' : ''}
+            <div class="day ${event ? 'has-event' : ''} ${isToday ? 'today' : ''}">
+                <div>${d}</div>
+                ${event ? `<div class="event-text">${event}</div>` : ''}
             </div>
         `;
     }
-}
-
-function show(key){
-    document.getElementById('eventBox').innerText =
-        data[key] || "일정 없음";
 }
 
 function prev(){
