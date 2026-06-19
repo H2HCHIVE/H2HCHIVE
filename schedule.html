@@ -15,11 +15,10 @@ body{
     justify-content:center;
 }
 
-/* 전체 컨테이너 */
 .container{
     width:100%;
     max-width:420px;
-    padding:16px 12px 30px;
+    padding:14px 12px 30px;
 }
 
 /* 상단 */
@@ -27,7 +26,7 @@ body{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin-bottom:14px;
+    margin-bottom:10px;
 }
 
 .month{
@@ -42,6 +41,24 @@ body{
     cursor:pointer;
 }
 
+/* 요일 */
+.weekdays{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    text-align:center;
+    font-size:0.85rem;
+    font-weight:600;
+    margin-bottom:6px;
+}
+
+.weekdays div:nth-child(1){
+    color:red;
+}
+
+.weekdays div:nth-child(7){
+    color:blue;
+}
+
 /* 달력 */
 .calendar{
     display:grid;
@@ -52,20 +69,31 @@ body{
 .day{
     background:white;
     border-radius:12px;
-    padding:14px 0;
+    padding:12px 0;
     text-align:center;
     font-size:0.95rem;
     cursor:pointer;
-    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    position:relative;
 }
 
-.day:hover{
-    background:#eee;
+/* 일정 점 */
+.dot{
+    width:6px;
+    height:6px;
+    background:red;
+    border-radius:50%;
+    margin:4px auto 0;
+}
+
+/* 오늘 날짜 강조 */
+.today{
+    border:2px solid red;
+    font-weight:700;
 }
 
 /* 일정 박스 */
 .event-box{
-    margin-top:14px;
+    margin-top:12px;
     background:white;
     border-radius:14px;
     padding:14px;
@@ -86,10 +114,21 @@ body{
         <button class="btn" onclick="next()">→</button>
     </div>
 
+    <!-- 요일 -->
+    <div class="weekdays">
+        <div>일</div>
+        <div>월</div>
+        <div>화</div>
+        <div>수</div>
+        <div>목</div>
+        <div>금</div>
+        <div>토</div>
+    </div>
+
     <!-- 달력 -->
     <div class="calendar" id="calendar"></div>
 
-    <!-- 일정 표시 -->
+    <!-- 일정 -->
     <div class="event-box" id="eventBox">
         날짜를 클릭하세요
     </div>
@@ -100,7 +139,7 @@ body{
 let date = new Date();
 let data = {};
 
-/* JSON 불러오기 */
+/* JSON 로드 */
 fetch('schedule.json')
 .then(res => res.json())
 .then(json => {
@@ -122,6 +161,10 @@ function render(){
     const cal = document.getElementById('calendar');
     cal.innerHTML = '';
 
+    const today = new Date();
+    const todayKey =
+        `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+
     for(let i=0;i<first;i++){
         cal.innerHTML += `<div></div>`;
     }
@@ -131,9 +174,15 @@ function render(){
         const key =
             `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
+        const hasEvent = data[key];
+
+        const isToday = key === todayKey;
+
         cal.innerHTML += `
-            <div class="day" onclick="show('${key}')">
+            <div class="day ${isToday ? 'today' : ''}" onclick="show('${key}')">
                 ${d}
+                ${hasEvent ? '<div class="dot"></div>' : ''}
+                ${isToday && !hasEvent ? '<div class="dot"></div>' : ''}
             </div>
         `;
     }
