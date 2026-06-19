@@ -148,7 +148,7 @@ body{
     min-height:50px;
 }
 
-/* 줄 강조 */
+/* 줄 */
 .line{
     display:block;
     margin-bottom:6px;
@@ -163,6 +163,17 @@ body{
 
 .dim-line{
     opacity:0.25;
+}
+
+/* 리스트 카드 */
+.list{
+    background:white;
+    margin-bottom:10px;
+    padding:12px;
+    border-radius:12px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    font-size:0.9rem;
+    line-height:1.4;
 }
 </style>
 </head>
@@ -309,53 +320,45 @@ function render(){
     renderHighlight();
 }
 
-/* 일정 표시 */
+/* 일정 표시 (🔥 핵심 수정: \n → <br>) */
 function show(key){
 
     const text = data[key] || "일정 없음";
-    const lines = text.split('\n');
-
-    const html = lines.map(line => {
-
-        if(filter === 'all'){
-            return `<div class="line">${line}</div>`;
-        }
-
-        if(line.includes(filter)){
-            return `<div class="line highlight">${line}</div>`;
-        }
-
-        return `<div class="line dim-line">${line}</div>`;
-    }).join('');
+    const html = text.replaceAll('\n', '<br>');
 
     document.getElementById('eventBox').innerHTML = html;
 }
 
-/* 리스트 */
+/* 리스트 (줄바꿈 수정) */
 function renderList(){
     const el = document.getElementById('listView');
 
     let html = '';
+
     Object.keys(data).forEach(k=>{
-        html += `<div class="list"><b>${k}</b><br>${data[k]}</div>`;
+        const text = data[k].replaceAll('\n','<br>');
+        html += `<div class="list"><b>${k}</b><br>${text}</div>`;
     });
 
     el.innerHTML = html;
 }
 
-/* 🔥 하이라이트 (수정 핵심) */
+/* 하이라이트 */
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
     let html = '';
 
     Object.keys(data).forEach(k=>{
+
+        const text = data[k].replaceAll('\n','<br>');
+
         if(
             data[k].includes('🔥') ||
             data[k].includes('💿') ||
             data[k].includes('🎉')
         ){
-            html += `<div class="list">🔥 <b>${k}</b><br>${data[k]}</div>`;
+            html += `<div class="list">🔥 <b>${k}</b><br>${text}</div>`;
         }
     });
 
