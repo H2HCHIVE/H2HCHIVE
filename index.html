@@ -30,7 +30,7 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* ===== DDAY ===== */
+/* DDAY */
 #dday-container{
     display:flex;
     align-items:center;
@@ -63,8 +63,6 @@ body{
     padding:6px 10px;
     color:#222;
 }
-
-.dday-btn:active{ opacity:0.5; }
 
 /* GRID */
 .grid{
@@ -121,7 +119,7 @@ body{
     font-weight:600;
 }
 
-/* OFFICIAL ACCOUNTS */
+/* OFFICIAL */
 .sns-section{
     margin-top:40px;
     text-align:center;
@@ -134,7 +132,7 @@ body{
     margin-top:14px;
 }
 
-.sns-icons a img{
+.sns-icons img{
     width:34px;
     height:34px;
     object-fit:contain;
@@ -189,10 +187,10 @@ body{
 
 <!-- OFFICIAL ACCOUNTS -->
 <div class="sns-section">
-
     <div class="todo-header">OFFICIAL ACCOUNTS</div>
 
     <div class="sns-icons">
+
         <a href="https://www.instagram.com/hearts2hearts" target="_blank">
             <img src="인스타그램 아이콘.svg" alt="instagram">
         </a>
@@ -208,8 +206,8 @@ body{
         <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
             <img src="위버스 로고.svg" alt="weverse">
         </a>
-    </div>
 
+    </div>
 </div>
 
 </div>
@@ -217,15 +215,12 @@ body{
 <script>
 
 /* =========================
-   UTIL
+   MISSIONS
 ========================= */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
 
-/* =========================
-   MISSION
-========================= */
 const mission = document.getElementById("mission-list");
 
 const schedules = [
@@ -267,17 +262,18 @@ mission.innerHTML = currentMission.length
 }).join("")
 : "진행 중인 미션이 없습니다.";
 
+
 /* =========================
-   DDAY + DEBUT SLIDER
+   DDAY + D+
 ========================= */
 
 const ddayList = [
-    { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00" },
-    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00" },
-    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00" },
-    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00" },
-    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00" },
-    { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00" }
+    { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00", type:"dday" },
+    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00", type:"dday" },
+    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00", type:"dday" },
+    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
+    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" },
+    { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00", type:"debut" }
 ];
 
 let ddayIndex = 0;
@@ -286,31 +282,25 @@ const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
 
 function updateDday(){
-
     const item = ddayList[ddayIndex];
     const now = new Date();
     const target = new Date(item.date);
 
     ddayText.textContent = item.name;
 
-    const diff = target - now;
-    const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
-    if(item.name.includes("데뷔")){
-        const debutStart = new Date("2025-02-24T00:00:00+09:00");
+    if(item.type === "debut"){
+        const start = new Date(2025,1,24); // 2월 24일
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const debut = new Date(debutStart.getFullYear(), debutStart.getMonth(), debutStart.getDate());
 
-        const diffDays = Math.floor((today - debut) / (1000*60*60*24)) + 1;
+        const diffDays = Math.floor((today - start) / (1000*60*60*24)) + 1;
         ddayLabel.textContent = `D+${diffDays}`;
         return;
     }
 
-    if(diff > 0){
-        ddayLabel.textContent = `D-${day}`;
-    } else {
-        ddayLabel.textContent = "D-DAY";
-    }
+    const diff = target - now;
+    const day = Math.ceil(diff / (1000*60*60*24));
+
+    ddayLabel.textContent = diff > 0 ? `D-${day}` : "D-DAY";
 }
 
 function moveDday(dir){
