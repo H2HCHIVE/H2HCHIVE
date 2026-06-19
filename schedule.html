@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>스케줄 | H2HCHIVE</title>
+
+<style>
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f5f6f8;
+    color:#222;
+}
+
+.container{
+    max-width:420px;
+    margin:0 auto;
+    padding:24px 16px 60px;
+}
+
+/* 상단 */
+.header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.month{
+    font-size:1.2rem;
+    font-weight:700;
+}
+
+.btn{
+    font-size:1.5rem;
+    border:none;
+    background:none;
+    cursor:pointer;
+}
+
+/* 달력 영역 (아직 기능 없음) */
+.calendar{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:6px;
+    margin-top:10px;
+}
+
+.day{
+    background:white;
+    border-radius:10px;
+    height:40px;
+}
+
+/* 일정 박스 */
+.event-box{
+    margin-top:20px;
+    background:white;
+    border-radius:14px;
+    padding:16px;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    min-height:60px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- 상단 -->
+    <div class="header">
+        <button class="btn">←</button>
+        <div class="month">2026년 6월</div>
+        <button class="btn">→</button>
+    </div>
+
+    <!-- 달력 (자리만 있음) -->
+    <div class="calendar">
+
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+        <div class="day"></div>
+
+    </div>
+
+    <!-- 일정 표시 -->
+    <div class="event-box">
+        날짜를 클릭하면 일정이 표시됩니다
+    </div>
+
+</div>
+
+</body>
+</html>
