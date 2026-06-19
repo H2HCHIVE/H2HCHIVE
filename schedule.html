@@ -44,7 +44,7 @@ body{
     color:white;
 }
 
-/* 상단 */
+/* 헤더 */
 .header{
     display:flex;
     justify-content:space-between;
@@ -117,7 +117,9 @@ body{
     position:relative;
 }
 
-.dim{ opacity:0.25; }
+.dim{
+    opacity:0.25;
+}
 
 .today{
     border:2px solid red;
@@ -136,17 +138,7 @@ body{
     background:red;
 }
 
-/* 리스트 */
-.list{
-    background:white;
-    border-radius:12px;
-    padding:10px;
-    margin-bottom:10px;
-    box-shadow:0 2px 6px rgba(0,0,0,0.08);
-    white-space:pre-line;
-}
-
-/* 이벤트 박스 */
+/* 일정 박스 */
 .event-box{
     margin-top:12px;
     background:white;
@@ -154,7 +146,23 @@ body{
     padding:14px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
     min-height:50px;
-    white-space:pre-line;
+}
+
+/* 줄 단위 강조 */
+.line{
+    display:block;
+    margin-bottom:6px;
+}
+
+.highlight{
+    font-weight:800;
+    background:#fff3b0;
+    padding:2px 4px;
+    border-radius:6px;
+}
+
+.dim-line{
+    opacity:0.25;
 }
 </style>
 </head>
@@ -170,8 +178,8 @@ body{
         <div class="tab" onclick="setTab('highlight', this)">🔥 하이라이트</div>
     </div>
 
-    <!-- 캘린더용 상단 -->
-    <div id="calendarHeader">
+    <!-- 캘린더 영역 -->
+    <div id="calendarView">
 
         <div class="header">
             <button class="btn" onclick="prev()">←</button>
@@ -181,6 +189,7 @@ body{
 
         <div class="filters">
             <button onclick="setFilter('all', this)" class="active">전체</button>
+
             <button onclick="setFilter('📺', this)">📺</button>
             <button onclick="setFilter('📻', this)">📻</button>
             <button onclick="setFilter('✒️', this)">✒️</button>
@@ -188,14 +197,15 @@ body{
             <button onclick="setFilter('💿', this)">💿</button>
             <button onclick="setFilter('▶️', this)">▶️</button>
             <button onclick="setFilter('🗓', this)">🗓</button>
-           <button onclick="setFilter('🍓', this)">🍓</button>
-           <button onclick="setFilter('🌴', this)">🌴</button>
-           <button onclick="setFilter('🎀', this)">🎀</button>
-           <button onclick="setFilter('🧁', this)">🧁</button>
-           <button onclick="setFilter('👾', this)">👾</button>
-           <button onclick="setFilter('🌻', this)">🌻</button>
-           <button onclick="setFilter('🫛', this)">🫛</button>
-           <button onclick="setFilter('😊', this)">😊</button>
+
+            <button onclick="setFilter('🍓', this)">🍓</button>
+            <button onclick="setFilter('🌴', this)">🌴</button>
+            <button onclick="setFilter('🎀', this)">🎀</button>
+            <button onclick="setFilter('🧁', this)">🧁</button>
+            <button onclick="setFilter('👾', this)">👾</button>
+            <button onclick="setFilter('🌻', this)">🌻</button>
+            <button onclick="setFilter('🫛', this)">🫛</button>
+            <button onclick="setFilter('😊', this)">😊</button>
         </div>
 
         <div class="weekdays">
@@ -204,7 +214,10 @@ body{
 
         <div class="calendar" id="calendar"></div>
 
-        <div class="event-box" id="eventBox">날짜를 클릭하세요</div>
+        <div class="event-box" id="eventBox">
+            날짜를 클릭하세요
+        </div>
+
     </div>
 
     <!-- 리스트 -->
@@ -221,7 +234,7 @@ let data = {};
 let filter = 'all';
 let tab = 'calendar';
 
-fetch('schedule.json?v=5')
+fetch('schedule.json')
 .then(res => res.json())
 .then(json => {
     data = json;
@@ -236,7 +249,7 @@ function setTab(t, el){
         .forEach(b => b.classList.remove('active'));
     el.classList.add('active');
 
-    document.getElementById('calendarHeader').style.display =
+    document.getElementById('calendarView').style.display =
         t === 'calendar' ? 'block' : 'none';
 
     document.getElementById('listView').style.display =
@@ -259,7 +272,7 @@ function setFilter(f, btn){
     render();
 }
 
-/* 캘린더 */
+/* 렌더 */
 function render(){
 
     const y = date.getFullYear();
@@ -289,16 +302,22 @@ function render(){
 
         const text = data[key] || '';
         const has = text.length > 0;
-        const isToday = key === todayKey;
 
-        const match =
-            filter === 'all' || text.includes(filter);
+        const isToday = key === todayKey;
+        const match = filter === 'all' || text.includes(filter);
 
         cal.innerHTML += `
             <div class="day ${isToday?'today':''} ${filter!=='all'&&!match?'dim':''}"
             onclick="show('${key}')">
+
                 ${d}
-                ${isToday ? '<div class="dot today-dot"></div>' : (has ? '<div class="dot"></div>' : '')}
+
+                ${
+                    isToday
+                    ? '<div class="dot today-dot"></div>'
+                    : (has ? '<div class="dot"></div>' : '')
+                }
+
             </div>
         `;
     }
@@ -307,20 +326,35 @@ function render(){
     renderHighlight();
 }
 
-/* 캘린더 상세 */
+/* 일정 표시 (줄 단위 강조) */
 function show(key){
-    document.getElementById('eventBox').innerText =
-        data[key] || "일정 없음";
+
+    const text = data[key] || "일정 없음";
+    const lines = text.split('\n');
+
+    const html = lines.map(line => {
+
+        if(filter === 'all'){
+            return `<div class="line">${line}</div>`;
+        }
+
+        if(line.includes(filter)){
+            return `<div class="line highlight">${line}</div>`;
+        }
+
+        return `<div class="line dim-line">${line}</div>`;
+    }).join('');
+
+    document.getElementById('eventBox').innerHTML = html;
 }
 
-/* 리스트 탭 */
+/* 리스트 */
 function renderList(){
     const el = document.getElementById('listView');
 
     let html = '';
-
     Object.keys(data).forEach(k => {
-        html += `<div class="list"><b>${k}</b>\n${data[k]}</div>`;
+        html += `<div class="list"><b>${k}</b><br>${data[k]}</div>`;
     });
 
     el.innerHTML = html;
@@ -334,7 +368,7 @@ function renderHighlight(){
 
     Object.keys(data).forEach(k => {
         if(data[k].includes('💿') || data[k].includes('🎤') || data[k].includes('🔥')){
-            html += `<div class="list">🔥 <b>${k}</b>\n${data[k]}</div>`;
+            html += `<div class="list">🔥 <b>${k}</b><br>${data[k]}</div>`;
         }
     });
 
@@ -344,6 +378,7 @@ function renderHighlight(){
 /* 이동 */
 function prev(){ date.setMonth(date.getMonth()-1); render(); }
 function next(){ date.setMonth(date.getMonth()+1); render(); }
+
 </script>
 
 </body>
