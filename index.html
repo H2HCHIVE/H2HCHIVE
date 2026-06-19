@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,7 +19,9 @@ body{
     padding:24px 16px 60px;
 }
 
-.header{ margin-bottom:24px; }
+.header{
+    margin:0 0 24px;
+}
 
 .header iframe{
     width:100%;
@@ -30,7 +31,7 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* ===== DDAY + DEBUT ===== */
+/* ===== DDAY ===== */
 #dday-container{
     display:flex;
     align-items:center;
@@ -64,7 +65,9 @@ body{
     color:#222;
 }
 
-.dday-btn:active{ opacity:0.5; }
+.dday-btn:active{
+    opacity:0.5;
+}
 
 /* grid */
 .grid{
@@ -143,6 +146,7 @@ body{
 
 <iframe
     src="https://www.youtube.com/embed/F7sGJVUrkjQ"
+    title="RUDE!"
     allowfullscreen>
 </iframe>
 
@@ -150,13 +154,13 @@ body{
 
 <!-- GRID -->
 <div class="grid">
-    <button class="card wide">스밍리스트</button>
-    <button class="card">가이드</button>
-    <button class="card">투표</button>
-    <button class="card">MV</button>
-    <button class="card">응원법</button>
-    <button class="card">일정</button>
-    <button class="card">아카이브</button>
+    <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
+    <button class="card" onclick="location.href='guide.html'">가이드</button>
+    <button class="card" onclick="location.href='vote.html'">투표</button>
+    <button class="card" onclick="location.href='mv.html'">MV</button>
+    <button class="card" onclick="location.href='cheer.html'">응원법</button>
+    <button class="card" onclick="location.href='schedule.html'">일정</button>
+    <button class="card" onclick="location.href='archive.html'">아카이브</button>
 </div>
 
 <!-- MISSION -->
@@ -179,7 +183,7 @@ function toKSTDate(str){
 }
 
 /* =========================
-   MISSIONS (그대로 유지)
+   MISSION
 ========================= */
 const mission = document.getElementById("mission-list");
 
@@ -214,7 +218,8 @@ mission.innerHTML = currentMission.length
     if(typeof item === "string"){
         return `<div>✅ ${item}</div>`;
     }
-    return `<div class="mission-row">
+    return `
+    <div class="mission-row">
         <span>✅ ${item.text}</span>
         <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
     </div>`;
@@ -232,7 +237,7 @@ const ddayList = [
     { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
     { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" },
 
-    /* ===== 데뷔 D+ ===== */
+    /* 데뷔 D+ */
     { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00", type:"debut" }
 ];
 
@@ -241,45 +246,44 @@ let ddayIndex = 0;
 const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
 
-/* =========================
-   UPDATE
-========================= */
 function updateDday(){
 
     const item = ddayList[ddayIndex];
     const now = new Date();
     const target = new Date(item.date);
 
+    ddayText.textContent = item.name;
+
     const diff = target - now;
     const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-    ddayText.textContent = item.name;
-
     if(item.type === "debut"){
-        /* ===== D+ 계산 (핵심) ===== */
-        const debut = new Date(item.date);
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const debutDate = new Date(debut.getFullYear(), debut.getMonth(), debut.getDate());
 
-        const diffDays = Math.floor((today - debutDate) / (1000*60*60*24)) + 1;
+        const today = new Date(
+            now.getFullYear(),
+            now.getMonth(),
+            now.getDate()
+        );
 
-        if(diffDays > 0){
-            ddayLabel.textContent = `D+${diffDays}`;
-        } else {
-            ddayLabel.textContent = "데뷔 전";
-        }
+        const debut = new Date(
+            target.getFullYear(),
+            target.getMonth(),
+            target.getDate()
+        );
+
+        const diffDays = Math.floor((today - debut) / (1000*60*60*24)) + 1;
+
+        ddayLabel.textContent = `D+${diffDays}`;
+        return;
+    }
+
+    if(diff > 0){
+        ddayLabel.textContent = `D-${day}`;
     } else {
-        if(diff > 0){
-            ddayLabel.textContent = `D-${day}`;
-        } else {
-            ddayLabel.textContent = "D-DAY";
-        }
+        ddayLabel.textContent = "D-DAY";
     }
 }
 
-/* =========================
-   SLIDE
-========================= */
 function moveDday(dir){
     ddayIndex += dir;
 
@@ -292,6 +296,21 @@ function moveDday(dir){
 
     updateDday();
 }
+
+/* swipe (optional) */
+let startX = 0;
+const box = document.getElementById("dday-box");
+
+box.addEventListener("touchstart", e=>{
+    startX = e.touches[0].clientX;
+});
+
+box.addEventListener("touchend", e=>{
+    const endX = e.changedTouches[0].clientX;
+
+    if(startX - endX > 30) moveDday(1);
+    if(endX - startX > 30) moveDday(-1);
+});
 
 /* init */
 updateDday();
