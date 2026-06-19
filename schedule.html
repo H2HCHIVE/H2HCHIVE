@@ -76,11 +76,11 @@ body{
     position:relative;
 }
 
-/* 일정 점 */
+/* 일정 점 (회색으로 변경됨) */
 .dot{
     width:6px;
     height:6px;
-    background:999;
+    background:#999;
     border-radius:50%;
     margin:4px auto 0;
 }
@@ -139,7 +139,6 @@ body{
 let date = new Date();
 let data = {};
 
-/* JSON 로드 */
 fetch('schedule.json')
 .then(res => res.json())
 .then(json => {
@@ -147,7 +146,6 @@ fetch('schedule.json')
     render();
 });
 
-/* 달력 생성 */
 function render(){
     const y = date.getFullYear();
     const m = date.getMonth();
@@ -175,7 +173,6 @@ function render(){
             `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
         const hasEvent = data[key];
-
         const isToday = key === todayKey;
 
         cal.innerHTML += `
@@ -188,19 +185,16 @@ function render(){
     }
 }
 
-/* 일정 표시 */
 function show(key){
     document.getElementById('eventBox').innerText =
         data[key] || "일정 없음";
 }
 
-/* 이전 달 */
 function prev(){
     date.setMonth(date.getMonth()-1);
     render();
 }
 
-/* 다음 달 */
 function next(){
     date.setMonth(date.getMonth()+1);
     render();
