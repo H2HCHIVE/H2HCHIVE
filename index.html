@@ -31,10 +31,18 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* DDAY */
+/* ===== DDAY ===== */
+#dday-container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+}
+
 #dday-box{
-    text-align:left;
-    margin-bottom:10px;
+    flex:1;
+    text-align:center;
+    padding:6px 0;
 }
 
 #dday-text{
@@ -45,6 +53,20 @@ body{
 #dday-label{
     font-size:1.6rem;
     font-weight:900;
+}
+
+.dday-btn{
+    background:none;
+    border:none;
+    font-size:22px;
+    font-weight:900;
+    cursor:pointer;
+    padding:6px 10px;
+    color:#222;
+}
+
+.dday-btn:active{
+    opacity:0.5;
 }
 
 /* grid */
@@ -86,7 +108,6 @@ body{
     border-bottom:1px solid #eee;
 }
 
-/* mission */
 .mission-row{
     display:flex;
     gap:10px;
@@ -109,54 +130,61 @@ body{
 
 <div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
+<!-- HEADER -->
+<div class="header">
 
-        <div id="dday-box">
-            <div id="dday-text"></div>
-            <div id="dday-label"></div>
-        </div>
+<div id="dday-container">
 
-        <iframe
-            src="https://www.youtube.com/embed/F7sGJVUrkjQ"
-            title="RUDE!"
-            allowfullscreen>
-        </iframe>
+    <button class="dday-btn" onclick="moveDday(-1)">‹</button>
 
+    <div id="dday-box">
+        <div id="dday-text"></div>
+        <div id="dday-label"></div>
     </div>
 
-    <!-- GRID -->
-    <div class="grid">
-        <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
-        <button class="card" onclick="location.href='guide.html'">가이드</button>
-        <button class="card" onclick="location.href='vote.html'">투표</button>
-        <button class="card" onclick="location.href='mv.html'">MV</button>
-        <button class="card" onclick="location.href='cheer.html'">응원법</button>
-        <button class="card" onclick="location.href='schedule.html'">일정</button>
-        <button class="card" onclick="location.href='archive.html'">아카이브</button>
-    </div>
+    <button class="dday-btn" onclick="moveDday(1)">›</button>
 
-    <!-- MISSION -->
-    <div class="todo-section">
-        <div class="todo-box">
-            <div class="todo-header">📍 오늘의 미션</div>
-            <div id="mission-list"></div>
-        </div>
+</div>
+
+<iframe
+    src="https://www.youtube.com/embed/F7sGJVUrkjQ"
+    title="RUDE!"
+    allowfullscreen>
+</iframe>
+
+</div>
+
+<!-- GRID -->
+<div class="grid">
+    <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
+    <button class="card" onclick="location.href='guide.html'">가이드</button>
+    <button class="card" onclick="location.href='vote.html'">투표</button>
+    <button class="card" onclick="location.href='mv.html'">MV</button>
+    <button class="card" onclick="location.href='cheer.html'">응원법</button>
+    <button class="card" onclick="location.href='schedule.html'">일정</button>
+    <button class="card" onclick="location.href='archive.html'">아카이브</button>
+</div>
+
+<!-- MISSION -->
+<div class="todo-section">
+    <div class="todo-box">
+        <div class="todo-header">📍 오늘의 미션</div>
+        <div id="mission-list"></div>
     </div>
+</div>
 
 </div>
 
 <script>
-/* ===== KST ===== */
+
+/* ===== MISSIONS ===== */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
 
-/* ===== TODAY ===== */
-const now = new Date();
 const mission = document.getElementById("mission-list");
+const now = new Date();
 
-/* ===== MISSIONS ===== */
 const schedules = [
 {
     start:"2026-06-19",
@@ -184,19 +212,28 @@ for(const s of schedules){
 mission.innerHTML = currentMission.length
 ? currentMission.map(item => {
     if(typeof item === "string"){
-        return `<div>✅️ ${item}</div>`;
+        return `<div>✅ ${item}</div>`;
     }
     return `
     <div class="mission-row">
-        <span>✅️ ${item.text}</span>
+        <span>✅ ${item.text}</span>
         <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
     </div>`;
 }).join("")
 : "진행 중인 미션이 없습니다.";
 
-/* ===== D-DAY ===== */
-const eventName = "🍋 Lemon Tang 컴백";
-const targetDate = new Date("2026-06-22T18:00:00+09:00");
+
+/* ===== D-DAY SLIDER ===== */
+
+const ddayList = [
+    { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00" },
+    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00" },
+    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00" },
+    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00" },
+    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00" }
+];
+
+let ddayIndex = 0;
 
 const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
@@ -204,12 +241,13 @@ const ddayLabel = document.getElementById("dday-label");
 function updateDday(){
 
     const now = new Date();
+    const item = ddayList[ddayIndex];
+    const target = new Date(item.date);
 
-    const diff = targetDate - now;
-
+    const diff = target - now;
     const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-    ddayText.textContent = eventName;
+    ddayText.textContent = item.name;
 
     if(diff > 0){
         ddayLabel.textContent = `D-${day}`;
@@ -218,8 +256,38 @@ function updateDday(){
     }
 }
 
+function moveDday(dir){
+    ddayIndex += dir;
+
+    if(ddayIndex < 0){
+        ddayIndex = ddayList.length - 1;
+    }
+
+    if(ddayIndex >= ddayList.length){
+        ddayIndex = 0;
+    }
+
+    updateDday();
+}
+
+/* 터치 스와이프 (모바일) */
+let startX = 0;
+
+document.getElementById("dday-box").addEventListener("touchstart", e=>{
+    startX = e.touches[0].clientX;
+});
+
+document.getElementById("dday-box").addEventListener("touchend", e=>{
+    let endX = e.changedTouches[0].clientX;
+
+    if(startX - endX > 30) moveDday(1);
+    if(endX - startX > 30) moveDday(-1);
+});
+
+/* 초기 실행 */
 updateDday();
-setInterval(updateDday, 60 * 60 * 1000);
+
 </script>
+
 </body>
 </html>
