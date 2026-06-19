@@ -19,6 +19,7 @@ body{
     padding:24px 16px 60px;
 }
 
+/* HEADER */
 .header{ margin-bottom:24px; }
 
 .header iframe{
@@ -65,7 +66,7 @@ body{
 
 .dday-btn:active{ opacity:0.5; }
 
-/* grid */
+/* GRID */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -85,7 +86,7 @@ body{
 
 .wide{ grid-column:1 / -1; }
 
-/* mission */
+/* MISSION */
 .todo-section{ margin:32px 0 40px; }
 
 .todo-box{
@@ -120,7 +121,7 @@ body{
     font-weight:600;
 }
 
-/* ===== OFFICIAL ACCOUNTS ===== */
+/* OFFICIAL ACCOUNTS */
 .sns-section{
     margin-top:40px;
     text-align:center;
@@ -136,6 +137,7 @@ body{
 .sns-icons a img{
     width:34px;
     height:34px;
+    object-fit:contain;
 }
 </style>
 </head>
@@ -192,19 +194,19 @@ body{
 
     <div class="sns-icons">
         <a href="https://www.instagram.com/hearts2hearts" target="_blank">
-            <img src="instagram.png" alt="instagram">
+            <img src="인스타그램 아이콘.svg" alt="instagram">
         </a>
 
         <a href="https://x.com/Hearts2Hearts" target="_blank">
-            <img src="x.png" alt="x">
+            <img src="X 로고.svg" alt="x">
         </a>
 
         <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
-            <img src="youtube.png" alt="youtube">
+            <img src="유튜브 로고.svg" alt="youtube">
         </a>
 
         <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
-            <img src="weverse.png" alt="weverse">
+            <img src="위버스 로고.svg" alt="weverse">
         </a>
     </div>
 
@@ -257,7 +259,8 @@ mission.innerHTML = currentMission.length
     if(typeof item === "string"){
         return `<div>✅ ${item}</div>`;
     }
-    return `<div class="mission-row">
+    return `
+    <div class="mission-row">
         <span>✅ ${item.text}</span>
         <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
     </div>`;
@@ -269,12 +272,12 @@ mission.innerHTML = currentMission.length
 ========================= */
 
 const ddayList = [
-    { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00", type:"dday" },
-    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00", type:"dday" },
-    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00", type:"dday" },
-    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
-    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" },
-    { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00", type:"debut" }
+    { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00" },
+    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00" },
+    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00" },
+    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00" },
+    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00" },
+    { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00" }
 ];
 
 let ddayIndex = 0;
@@ -293,13 +296,12 @@ function updateDday(){
     const diff = target - now;
     const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-    if(item.type === "debut"){
-
+    if(item.name.includes("데뷔")){
+        const debutStart = new Date("2025-02-24T00:00:00+09:00");
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const debut = new Date(target.getFullYear(), target.getMonth(), target.getDate());
+        const debut = new Date(debutStart.getFullYear(), debutStart.getMonth(), debutStart.getDate());
 
         const diffDays = Math.floor((today - debut) / (1000*60*60*24)) + 1;
-
         ddayLabel.textContent = `D+${diffDays}`;
         return;
     }
@@ -314,12 +316,8 @@ function updateDday(){
 function moveDday(dir){
     ddayIndex += dir;
 
-    if(ddayIndex < 0){
-        ddayIndex = ddayList.length - 1;
-    }
-    if(ddayIndex >= ddayList.length){
-        ddayIndex = 0;
-    }
+    if(ddayIndex < 0) ddayIndex = ddayList.length - 1;
+    if(ddayIndex >= ddayList.length) ddayIndex = 0;
 
     updateDday();
 }
