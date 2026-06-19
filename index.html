@@ -31,6 +31,23 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
+/* DDAY */
+#dday-box{
+    text-align:left;
+    margin-bottom:10px;
+}
+
+#dday-text{
+    font-size:1.1rem;
+    font-weight:800;
+}
+
+#dday-label{
+    font-size:1.6rem;
+    font-weight:900;
+}
+
+/* grid */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -48,19 +65,10 @@ body{
     cursor:pointer;
 }
 
-.card:active{
-    background:#eee;
-}
+.wide{ grid-column:1 / -1; }
 
-.wide{
-    grid-column:1 / -1;
-}
-
-/* 오늘의 할일 */
-
-.todo-section{
-    margin:32px 0 40px;
-}
+/* todo */
+.todo-section{ margin:32px 0 40px; }
 
 .todo-box{
     background:white;
@@ -68,7 +76,6 @@ body{
     padding:18px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
     line-height:2;
-    font-size:0.95rem;
 }
 
 .todo-header{
@@ -79,43 +86,9 @@ body{
     border-bottom:1px solid #eee;
 }
 
-/* SNS */
-
-.sns-section{
-    margin:48px 0 24px;
-}
-
-.sns-title{
-    text-align:center;
-    font-size:0.85rem;
-    font-weight:600;
-    color:#888;
-    letter-spacing:1.5px;
-    margin-bottom:16px;
-}
-
-.sns-grid{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:20px;
-}
-
-.sns-grid a{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.sns-grid img{
-    width:32px;
-    height:32px;
-    object-fit:contain;
-}
+/* mission */
 .mission-row{
     display:flex;
-    justify-content:flex-start;
-    align-items:center;
     gap:10px;
     margin:8px 0;
 }
@@ -128,123 +101,68 @@ body{
     border-radius:999px;
     font-size:.8rem;
     font-weight:600;
-    white-space:nowrap;
-}
-#dday-box{
-    text-align:left;
-    font-size:1.2rem;
-    font-weight:800;
-    margin-bottom:10px;
-    padding-left:2px;
 }
 </style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
+    <!-- HEADER -->
     <div class="header">
-     <div id="dday-box"></div>
 
-      <iframe
-        src="https://www.youtube.com/embed/F7sGJVUrkjQ"
-        title="RUDE!"
-        allowfullscreen>
-      </iframe>
+        <div id="dday-box">
+            <div id="dday-text"></div>
+            <div id="dday-label"></div>
+        </div>
+
+        <iframe
+            src="https://www.youtube.com/embed/F7sGJVUrkjQ"
+            title="RUDE!"
+            allowfullscreen>
+        </iframe>
+
     </div>
 
+    <!-- GRID -->
     <div class="grid">
-
-        <button class="card wide" onclick="location.href='stream.html'">
-            스밍리스트
-        </button>
-
-        <button class="card" onclick="location.href='guide.html'">
-            가이드
-        </button>
-
-        <button class="card" onclick="location.href='vote.html'">
-            투표
-        </button>
-
-        <button class="card" onclick="location.href='mv.html'">
-            MV
-        </button>
-
-        <button class="card" onclick="location.href='cheer.html'">
-            응원법
-        </button>
-
-        <button class="card" onclick="location.href='schedule.html'">
-            일정
-        </button>
-
-        <button class="card" onclick="location.href='archive.html'">
-            아카이브
-        </button>
-
+        <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
+        <button class="card" onclick="location.href='guide.html'">가이드</button>
+        <button class="card" onclick="location.href='vote.html'">투표</button>
+        <button class="card" onclick="location.href='mv.html'">MV</button>
+        <button class="card" onclick="location.href='cheer.html'">응원법</button>
+        <button class="card" onclick="location.href='schedule.html'">일정</button>
+        <button class="card" onclick="location.href='archive.html'">아카이브</button>
     </div>
 
+    <!-- MISSION -->
     <div class="todo-section">
-
         <div class="todo-box">
-
-    <div class="todo-header">
-        📍 오늘의 미션
+            <div class="todo-header">📍 오늘의 미션</div>
+            <div id="mission-list"></div>
+        </div>
     </div>
-
-    <div id="mission-list"></div>
 
 </div>
 
-    </div>
-
-    <div class="sns-section">
-
-        <div class="sns-title">
-            OFFICIAL ACCOUNTS
-        </div>
-
-        <div class="sns-grid">
-
-            <a href="https://www.instagram.com/hearts2hearts" target="_blank">
-                <img src="인스타그램 아이콘.svg" alt="Instagram">
-            </a>
-
-            <a href="https://x.com/Hearts2Hearts" target="_blank">
-                <img src="X 로고.svg" alt="X">
-            </a>
-
-            <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
-                <img src="유튜브 아이콘.svg" alt="YouTube">
-            </a>
-
-            <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
-                <img src="위버스 아이콘.svg" alt="Weverse">
-            </a>
-
-        </div>
-
-    </div>
-
-</div>
 <script>
+/* ===== KST ===== */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
-const today = new Date(Date.now() + 9 * 60 * 60 * 1000);
+
+/* ===== TODAY ===== */
+const now = new Date();
 const mission = document.getElementById("mission-list");
 
+/* ===== MISSIONS ===== */
 const schedules = [
 {
     start:"2026-06-19",
     end:"2026-06-19",
     items:[
-        {
-            text:"인가 사전투표하기",
-            link:"https://app.linc.fan/31TL/01KTXG9P7T6YZNFJCHJZMWQ6NX"
-        },
+        {text:"인가 사전투표하기", link:"https://app.linc.fan/31TL/01KTXG9P7T6YZNFJCHJZMWQ6NX"},
         "Lemon Tang 스밍하기"
     ]
 }
@@ -252,56 +170,59 @@ const schedules = [
 
 let currentMission = [];
 
-for(const schedule of schedules){
+for(const s of schedules){
+    const start = toKSTDate(s.start);
+    const end = toKSTDate(s.end);
+    end.setHours(23,59,59,999);
 
-        const start = toKSTDate(schedule.start);
-        const end = toKSTDate(schedule.end);
-        end.setHours(23,59,59,999);
-
-    if(today >= start && today <= end){
-        currentMission = schedule.items;
+    if(now >= start && now <= end){
+        currentMission = s.items;
         break;
     }
 }
 
 mission.innerHTML = currentMission.length
-    ? currentMission.map(item => {
+? currentMission.map(item => {
+    if(typeof item === "string"){
+        return `<div>✅️ ${item}</div>`;
+    }
+    return `
+    <div class="mission-row">
+        <span>✅️ ${item.text}</span>
+        <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
+    </div>`;
+}).join("")
+: "진행 중인 미션이 없습니다.";
 
-        if(typeof item === "string"){
-            return `<div class="mission-item">✅️ ${item}</div>`;
-        }
+/* ===== D-DAY ===== */
+const eventName = "Lemon Tang 컴백";
+const targetDate = new Date("2026-06-22T18:00:00+09:00");
 
-        return `
-        <div class="mission-row">
-            <span>✅️ ${item.text}</span>
-            <a href="${item.link}" target="_blank" class="mission-btn">
-                바로가기
-            </a>
-        </div>`;
-    }).join("")
-    : "진행 중인 미션이 없습니다.";
-const ddayBox = document.getElementById("dday-box");
-
-// 기준 날짜 (예: 6월 22일)
-const targetDate = new Date("2026-06-22T00:00:00+09:00");
+const ddayText = document.getElementById("dday-text");
+const ddayLabel = document.getElementById("dday-label");
 
 function updateDday(){
-    const now = new Date(Date.now() + 9 * 60 * 60 * 1000);
 
+    const now = new Date();
     const diff = targetDate - now;
 
-    const day = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hour = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const totalMin = Math.floor(diff / 1000 / 60);
+    const day = Math.floor(totalMin / 60 / 24);
+    const hour = Math.floor((totalMin / 60) % 24);
+    const min = totalMin % 60;
+
+    ddayText.textContent = eventName;
 
     if(diff > 0){
-        ddayBox.textContent = `D-${day} (${hour}h 남음)`;
+        ddayLabel.textContent = `D-${day} (${hour}h ${min}m 남음)`;
     } else {
-        ddayBox.textContent = `D-DAY`;
+        ddayLabel.textContent = "D-DAY";
     }
 }
 
 updateDday();
 setInterval(updateDday, 60000);
 </script>
+
 </body>
 </html>
