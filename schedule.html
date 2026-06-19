@@ -21,6 +21,29 @@ body{
     padding:14px 12px 30px;
 }
 
+/* 탭 */
+.tabs{
+    display:flex;
+    gap:6px;
+    margin-bottom:12px;
+}
+
+.tab{
+    flex:1;
+    text-align:center;
+    padding:8px 0;
+    background:white;
+    border-radius:10px;
+    font-size:0.85rem;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+}
+
+.tab.active{
+    background:#222;
+    color:white;
+}
+
 /* 상단 */
 .header{
     display:flex;
@@ -77,7 +100,7 @@ body{
 .weekdays div:nth-child(1){ color:red; }
 .weekdays div:nth-child(7){ color:blue; }
 
-/* 달력 */
+/* 캘린더 */
 .calendar{
     display:grid;
     grid-template-columns:repeat(7,1fr);
@@ -92,12 +115,9 @@ body{
     font-size:0.95rem;
     cursor:pointer;
     position:relative;
-    transition:0.2s;
 }
 
-.dim{
-    opacity:0.25;
-}
+.dim{ opacity:0.25; }
 
 .today{
     border:2px solid red;
@@ -116,7 +136,17 @@ body{
     background:red;
 }
 
-/* 일정 박스 */
+/* 리스트 */
+.list{
+    background:white;
+    border-radius:12px;
+    padding:10px;
+    margin-bottom:10px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    white-space:pre-line;
+}
+
+/* 이벤트 박스 */
 .event-box{
     margin-top:12px;
     background:white;
@@ -126,21 +156,6 @@ body{
     min-height:50px;
     white-space:pre-line;
 }
-
-/* 줄 스타일 */
-.line{
-    display:block;
-    margin-bottom:6px;
-}
-
-.highlight{
-    font-weight:800;
-    color:#000;
-}
-
-.dim-line{
-    opacity:0.35;
-}
 </style>
 </head>
 
@@ -148,48 +163,47 @@ body{
 
 <div class="container">
 
-    <div class="header">
-        <button class="btn" onclick="prev()">←</button>
-        <div class="month" id="month"></div>
-        <button class="btn" onclick="next()">→</button>
+    <!-- 탭 -->
+    <div class="tabs">
+        <div class="tab active" onclick="setTab('calendar', this)">📅 캘린더</div>
+        <div class="tab" onclick="setTab('list', this)">📋 리스트</div>
+        <div class="tab" onclick="setTab('highlight', this)">🔥 하이라이트</div>
     </div>
 
-    <!-- 필터 -->
-    <div class="filters">
-        <button onclick="setFilter('all', this)" class="active">전체</button>
-        <button onclick="setFilter('📺', this)">📺 방송</button>
-        <button onclick="setFilter('📻', this)">📻 라디오</button>
-        <button onclick="setFilter('✒️', this)">✒️ 팬사인회</button>
-        <button onclick="setFilter('🎤', this)">🎤 공연</button>
-        <button onclick="setFilter('💿', this)">💿 컴백</button>
-        <button onclick="setFilter('▶️', this)">▶️ 자컨</button>
-        <button onclick="setFilter('🗓', this)">🗓 영상통화</button>
+    <!-- 캘린더용 상단 -->
+    <div id="calendarHeader">
 
-        <button onclick="setFilter('🍓', this)">🍓</button>
-        <button onclick="setFilter('🌴', this)">🌴</button>
-        <button onclick="setFilter('🎀', this)">🎀</button>
-        <button onclick="setFilter('🧁', this)">🧁</button>
-        <button onclick="setFilter('👾', this)">👾</button>
-        <button onclick="setFilter('🌻', this)">🌻</button>
-        <button onclick="setFilter('🫛', this)">🫛</button>
-        <button onclick="setFilter('😊', this)">😊</button>
+        <div class="header">
+            <button class="btn" onclick="prev()">←</button>
+            <div class="month" id="month"></div>
+            <button class="btn" onclick="next()">→</button>
+        </div>
+
+        <div class="filters">
+            <button onclick="setFilter('all', this)" class="active">전체</button>
+            <button onclick="setFilter('📺', this)">📺</button>
+            <button onclick="setFilter('📻', this)">📻</button>
+            <button onclick="setFilter('✒️', this)">✒️</button>
+            <button onclick="setFilter('🎤', this)">🎤</button>
+            <button onclick="setFilter('💿', this)">💿</button>
+            <button onclick="setFilter('▶️', this)">▶️</button>
+            <button onclick="setFilter('🗓', this)">🗓</button>
+        </div>
+
+        <div class="weekdays">
+            <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
+        </div>
+
+        <div class="calendar" id="calendar"></div>
+
+        <div class="event-box" id="eventBox">날짜를 클릭하세요</div>
     </div>
 
-    <div class="weekdays">
-        <div>일</div>
-        <div>월</div>
-        <div>화</div>
-        <div>수</div>
-        <div>목</div>
-        <div>금</div>
-        <div>토</div>
-    </div>
+    <!-- 리스트 -->
+    <div id="listView" style="display:none;"></div>
 
-    <div class="calendar" id="calendar"></div>
-
-    <div class="event-box" id="eventBox">
-        날짜를 클릭하세요
-    </div>
+    <!-- 하이라이트 -->
+    <div id="highlightView" style="display:none;"></div>
 
 </div>
 
@@ -197,14 +211,34 @@ body{
 let date = new Date();
 let data = {};
 let filter = 'all';
+let tab = 'calendar';
 
-/* JSON */
-fetch('schedule.json?v=4')
+fetch('schedule.json?v=5')
 .then(res => res.json())
 .then(json => {
     data = json;
     render();
 });
+
+/* 탭 */
+function setTab(t, el){
+    tab = t;
+
+    document.querySelectorAll('.tab')
+        .forEach(b => b.classList.remove('active'));
+    el.classList.add('active');
+
+    document.getElementById('calendarHeader').style.display =
+        t === 'calendar' ? 'block' : 'none';
+
+    document.getElementById('listView').style.display =
+        t === 'list' ? 'block' : 'none';
+
+    document.getElementById('highlightView').style.display =
+        t === 'highlight' ? 'block' : 'none';
+
+    render();
+}
 
 /* 필터 */
 function setFilter(f, btn){
@@ -212,29 +246,25 @@ function setFilter(f, btn){
 
     document.querySelectorAll('.filters button')
         .forEach(b => b.classList.remove('active'));
-
     btn.classList.add('active');
 
     render();
-
-    // 선택된 날짜 다시 렌더
-    const selected = document.querySelector('.selectedKey');
-    if(selected) show(selected.dataset.key);
 }
 
-/* 렌더 */
+/* 캘린더 */
 function render(){
+
     const y = date.getFullYear();
     const m = date.getMonth();
 
     document.getElementById('month').innerText =
         `${y}년 ${m+1}월`;
 
-    const first = new Date(y, m, 1).getDay();
-    const last = new Date(y, m+1, 0).getDate();
-
     const cal = document.getElementById('calendar');
     cal.innerHTML = '';
+
+    const first = new Date(y,m,1).getDay();
+    const last = new Date(y,m+1,0).getDate();
 
     const today = new Date();
     const todayKey =
@@ -250,69 +280,62 @@ function render(){
             `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 
         const text = data[key] || '';
-        const hasEvent = text.length > 0;
+        const has = text.length > 0;
         const isToday = key === todayKey;
 
         const match =
             filter === 'all' || text.includes(filter);
 
         cal.innerHTML += `
-            <div class="day 
-                ${isToday ? 'today' : ''} 
-                ${filter !== 'all' && !match ? 'dim' : ''}"
-                onclick="show('${key}', this)">
-
+            <div class="day ${isToday?'today':''} ${filter!=='all'&&!match?'dim':''}"
+            onclick="show('${key}')">
                 ${d}
-
-                ${
-                    isToday
-                    ? '<div class="dot today-dot"></div>'
-                    : (hasEvent ? '<div class="dot"></div>' : '')
-                }
+                ${isToday ? '<div class="dot today-dot"></div>' : (has ? '<div class="dot"></div>' : '')}
             </div>
         `;
     }
+
+    renderList();
+    renderHighlight();
 }
 
-/* 일정 표시 (줄 단위 강조) */
-function show(key, el){
+/* 캘린더 상세 */
+function show(key){
+    document.getElementById('eventBox').innerText =
+        data[key] || "일정 없음";
+}
 
-    document.querySelectorAll('.day')
-        .forEach(d => d.classList.remove('selectedKey'));
+/* 리스트 탭 */
+function renderList(){
+    const el = document.getElementById('listView');
 
-    el.classList.add('selectedKey');
-    el.dataset.key = key;
+    let html = '';
 
-    const text = data[key] || "일정 없음";
+    Object.keys(data).forEach(k => {
+        html += `<div class="list"><b>${k}</b>\n${data[k]}</div>`;
+    });
 
-    const lines = text.split('\n');
+    el.innerHTML = html;
+}
 
-    const html = lines.map(line => {
+/* 하이라이트 */
+function renderHighlight(){
+    const el = document.getElementById('highlightView');
 
-        if(filter === 'all'){
-            return `<span class="line">${line}</span>`;
+    let html = '';
+
+    Object.keys(data).forEach(k => {
+        if(data[k].includes('💿') || data[k].includes('🎤') || data[k].includes('🔥')){
+            html += `<div class="list">🔥 <b>${k}</b>\n${data[k]}</div>`;
         }
+    });
 
-        if(line.includes(filter)){
-            return `<span class="line highlight">${line}</span>`;
-        }
-
-        return `<span class="line dim-line">${line}</span>`;
-    }).join('');
-
-    document.getElementById('eventBox').innerHTML = html;
+    el.innerHTML = html;
 }
 
-/* 이전/다음 */
-function prev(){
-    date.setMonth(date.getMonth()-1);
-    render();
-}
-
-function next(){
-    date.setMonth(date.getMonth()+1);
-    render();
-}
+/* 이동 */
+function prev(){ date.setMonth(date.getMonth()-1); render(); }
+function next(){ date.setMonth(date.getMonth()+1); render(); }
 </script>
 
 </body>
