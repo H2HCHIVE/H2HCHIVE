@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -142,13 +141,23 @@ body{
     <!-- 필터 -->
     <div class="filters">
         <button onclick="setFilter('all', this)" class="active">전체</button>
+
         <button onclick="setFilter('📺', this)">📺 방송</button>
         <button onclick="setFilter('📻', this)">📻 라디오</button>
+        <button onclick="setFilter('✒️', this)">✒️ 팬사인회</button>
         <button onclick="setFilter('🎤', this)">🎤 공연</button>
         <button onclick="setFilter('💿', this)">💿 컴백</button>
         <button onclick="setFilter('▶️', this)">▶️ 자컨</button>
-        <button onclick="setFilter('✒️', this)">✒️ 팬싸</button>
-        <button onclick="setFilter('🗓', this)">🗓 영통</button>
+        <button onclick="setFilter('🗓', this)">🗓 영상통화</button>
+
+        <button onclick="setFilter('🍓', this)">🍓</button>
+        <button onclick="setFilter('🌴', this)">🌴</button>
+        <button onclick="setFilter('🎀', this)">🎀</button>
+        <button onclick="setFilter('🧁', this)">🧁</button>
+        <button onclick="setFilter('👾', this)">👾</button>
+        <button onclick="setFilter('🌻', this)">🌻</button>
+        <button onclick="setFilter('🫛', this)">🫛</button>
+        <button onclick="setFilter('😊', this)">😊</button>
     </div>
 
     <div class="weekdays">
@@ -173,10 +182,9 @@ body{
 let date = new Date();
 let data = {};
 let filter = 'all';
-let activeBtn = null;
 
 /* JSON */
-fetch('schedule.json?v=2')
+fetch('schedule.json?v=3')
 .then(res => res.json())
 .then(json => {
     data = json;
