@@ -21,7 +21,6 @@ body{
     padding:14px 12px 30px;
 }
 
-/* 상단 */
 .header{
     display:flex;
     justify-content:space-between;
@@ -41,7 +40,6 @@ body{
     cursor:pointer;
 }
 
-/* 요일 */
 .weekdays{
     display:grid;
     grid-template-columns:repeat(7,1fr);
@@ -51,15 +49,9 @@ body{
     margin-bottom:6px;
 }
 
-.weekdays div:nth-child(1){
-    color:red;
-}
+.weekdays div:nth-child(1){ color:red; }
+.weekdays div:nth-child(7){ color:blue; }
 
-.weekdays div:nth-child(7){
-    color:blue;
-}
-
-/* 달력 */
 .calendar{
     display:grid;
     grid-template-columns:repeat(7,1fr);
@@ -76,7 +68,6 @@ body{
     position:relative;
 }
 
-/* 점 기본 (회색) */
 .dot{
     width:6px;
     height:6px;
@@ -85,13 +76,11 @@ body{
     margin:4px auto 0;
 }
 
-/* 오늘 날짜 */
 .today{
     border:2px solid red;
     font-weight:700;
 }
 
-/* 오늘 점 (빨간색으로 덮어씀) */
 .today-dot{
     background:red !important;
 }
@@ -102,25 +91,17 @@ body{
 
 <div class="container">
 
-    <!-- 상단 -->
     <div class="header">
         <button class="btn" onclick="prev()">←</button>
         <div class="month" id="month"></div>
         <button class="btn" onclick="next()">→</button>
     </div>
 
-    <!-- 요일 -->
     <div class="weekdays">
-        <div>일</div>
-        <div>월</div>
-        <div>화</div>
-        <div>수</div>
-        <div>목</div>
-        <div>금</div>
-        <div>토</div>
+        <div>일</div><div>월</div><div>화</div>
+        <div>수</div><div>목</div><div>금</div><div>토</div>
     </div>
 
-    <!-- 달력 -->
     <div class="calendar" id="calendar"></div>
 
 </div>
@@ -166,7 +147,7 @@ function render(){
         const isToday = key === todayKey;
 
         cal.innerHTML += `
-            <div class="day ${isToday ? 'today' : ''}">
+            <div class="day ${isToday ? 'today' : ''}" onclick="show('${key}')">
                 ${d}
 
                 ${hasEvent ? '<div class="dot"></div>' : ''}
@@ -175,6 +156,10 @@ function render(){
             </div>
         `;
     }
+}
+
+function show(key){
+    alert(data[key] || "일정 없음");
 }
 
 function prev(){
