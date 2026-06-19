@@ -165,10 +165,16 @@ body{
     opacity:0.25;
 }
 
-/* ✅ 추가된 핵심 (줄바꿈 적용) */
+/* ✅ 추가: 전체 일정 + 하이라이트 카드 스타일 */
 .list{
+    background:white;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
     white-space: pre-line;
 }
+
 </style>
 </head>
 
@@ -242,7 +248,6 @@ fetch('schedule.json')
     render();
 });
 
-/* 탭 */
 function setTab(t, el){
     document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
     el.classList.add('active');
@@ -254,7 +259,6 @@ function setTab(t, el){
     render();
 }
 
-/* 필터 */
 function setFilter(f, btn){
     filter = f;
 
@@ -265,7 +269,6 @@ function setFilter(f, btn){
     render();
 }
 
-/* 캘린더 */
 function render(){
 
     const y = date.getFullYear();
@@ -314,7 +317,6 @@ function render(){
     renderHighlight();
 }
 
-/* 일정 표시 */
 function show(key){
 
     const text = data[key] || "일정 없음";
@@ -336,7 +338,6 @@ function show(key){
     document.getElementById('eventBox').innerHTML = html;
 }
 
-/* 리스트 */
 function renderList(){
     const el = document.getElementById('listView');
 
@@ -348,7 +349,6 @@ function renderList(){
     el.innerHTML = html;
 }
 
-/* 🔥 하이라이트 */
 function renderHighlight(){
     const el = document.getElementById('highlightView');
 
@@ -367,7 +367,6 @@ function renderHighlight(){
     el.innerHTML = html;
 }
 
-/* 이동 */
 function prev(){ date.setMonth(date.getMonth()-1); render(); }
 function next(){ date.setMonth(date.getMonth()+1); render(); }
 
