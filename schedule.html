@@ -364,8 +364,17 @@ function renderHighlight(){
         const lines = data[k].split('\n');
 
         const filtered = lines.filter(line =>
-            line.includes('💿') || line.includes('🎉')
-        );
+    line.includes('💿') ||
+    line.includes('🎉') ||
+    line.includes('🍓') ||
+    line.includes('🌴') ||
+    line.includes('🎀') ||
+    line.includes('🧁') ||
+    line.includes('👾') ||
+    line.includes('🌻') ||
+    line.includes('🫛') ||
+    line.includes('😊')
+);
 
         if(filtered.length > 0){
             html += `
