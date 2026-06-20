@@ -19,7 +19,6 @@ body{
     padding:24px 16px 60px;
 }
 
-/* HEADER */
 .header{ margin-bottom:24px; }
 
 .header iframe{
@@ -30,7 +29,7 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* DDAY */
+/* ===== DDAY ===== */
 #dday-container{
     display:flex;
     align-items:center;
@@ -64,7 +63,9 @@ body{
     color:#222;
 }
 
-/* GRID */
+.dday-btn:active{ opacity:0.5; }
+
+/* grid */
 .grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -84,7 +85,7 @@ body{
 
 .wide{ grid-column:1 / -1; }
 
-/* MISSION */
+/* mission */
 .todo-section{ margin:32px 0 40px; }
 
 .todo-box{
@@ -119,7 +120,7 @@ body{
     font-weight:600;
 }
 
-/* OFFICIAL */
+/* ===== OFFICIAL ACCOUNTS ===== */
 .sns-section{
     margin-top:40px;
     text-align:center;
@@ -132,17 +133,10 @@ body{
     margin-top:14px;
 }
 
-.sns-icons img{
+.sns-icons a svg{
     width:34px;
     height:34px;
-    object-fit:contain;
-}
-
-/* 아이콘 깨질 때 */
-.sns-icons img.fallback{
-    background:#ddd;
-    border-radius:8px;
-    padding:6px;
+    stroke:#222;
 }
 </style>
 </head>
@@ -173,7 +167,7 @@ body{
 
 </div>
 
-<!-- GRID (복구 완료) -->
+<!-- GRID -->
 <div class="grid">
     <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
     <button class="card" onclick="location.href='guide.html'">가이드</button>
@@ -192,43 +186,56 @@ body{
     </div>
 </div>
 
-<!-- OFFICIAL -->
+<!-- OFFICIAL ACCOUNTS -->
 <div class="sns-section">
-    <div class="todo-header">OFFICIAL ACCOUNTS</div>
 
-    <div class="sns-icons">
-        <a href="https://www.instagram.com/hearts2hearts" target="_blank">
-            <img src="인스타그램 아이콘.svg" onerror="this.classList.add('fallback')" alt="instagram">
-        </a>
+  <div class="todo-header">OFFICIAL ACCOUNTS</div>
 
-        <a href="https://x.com/Hearts2Hearts" target="_blank">
-            <img src="X 로고.svg" onerror="this.classList.add('fallback')" alt="x">
-        </a>
+  <div class="sns-icons">
 
-        <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
-            <img src="유튜브 로고.svg" onerror="this.classList.add('fallback')" alt="youtube">
-        </a>
+    <!-- INSTAGRAM -->
+    <a href="https://www.instagram.com/hearts2hearts" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none">
+        <rect x="2" y="2" width="20" height="20" rx="6" stroke-width="2"/>
+        <circle cx="12" cy="12" r="5" stroke-width="2"/>
+        <circle cx="17" cy="7" r="1.2" fill="currentColor"/>
+      </svg>
+    </a>
 
-        <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
-            <img src="위버스 로고.svg" onerror="this.classList.add('fallback')" alt="weverse">
-        </a>
-    </div>
+    <!-- X -->
+    <a href="https://x.com/Hearts2Hearts" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M4 4L20 20M20 4L4 20" stroke-width="2"/>
+      </svg>
+    </a>
+
+    <!-- YOUTUBE -->
+    <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none">
+        <rect x="3" y="6" width="18" height="12" rx="3" stroke-width="2"/>
+        <path d="M10 9l5 3-5 3V9z" fill="currentColor"/>
+      </svg>
+    </a>
+
+    <!-- WEVERSE -->
+    <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M4 18L10 6l2 6 2-6 6 12H4z" stroke-width="2"/>
+      </svg>
+    </a>
+
+  </div>
 </div>
 
 </div>
 
 <script>
 
-/* =========================
-   UTIL
-========================= */
+/* ===== MISSION ===== */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
 
-/* =========================
-   MISSION
-========================= */
 const mission = document.getElementById("mission-list");
 
 const schedules = [
@@ -262,7 +269,8 @@ mission.innerHTML = currentMission.length
     if(typeof item === "string"){
         return `<div>✅ ${item}</div>`;
     }
-    return `<div class="mission-row">
+    return `
+    <div class="mission-row">
         <span>✅ ${item.text}</span>
         <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
     </div>`;
@@ -270,9 +278,7 @@ mission.innerHTML = currentMission.length
 : "진행 중인 미션이 없습니다.";
 
 
-/* =========================
-   DDAY + D+
-========================= */
+/* ===== DDAY + DEBUT ===== */
 
 const ddayList = [
     { name:"🍋 Lemon Tang 컴백", date:"2026-06-22T18:00:00+09:00", type:"dday" },
@@ -289,14 +295,18 @@ const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
 
 function updateDday(){
+
     const item = ddayList[ddayIndex];
     const now = new Date();
     const target = new Date(item.date);
 
     ddayText.textContent = item.name;
 
+    const diff = target - now;
+    const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
+
     if(item.type === "debut"){
-        const start = new Date(2025,1,24);
+        const start = new Date(2025, 1, 24); // Feb = 1
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
         const diffDays = Math.floor((today - start) / (1000*60*60*24)) + 1;
@@ -304,10 +314,11 @@ function updateDday(){
         return;
     }
 
-    const diff = target - now;
-    const day = Math.ceil(diff / (1000*60*60*24));
-
-    ddayLabel.textContent = diff > 0 ? `D-${day}` : "D-DAY";
+    if(diff > 0){
+        ddayLabel.textContent = `D-${day}`;
+    } else {
+        ddayLabel.textContent = "D-DAY";
+    }
 }
 
 function moveDday(dir){
