@@ -137,6 +137,13 @@ body{
     height:34px;
     object-fit:contain;
 }
+
+/* 아이콘 깨질 때 */
+.sns-icons img.fallback{
+    background:#ddd;
+    border-radius:8px;
+    padding:6px;
+}
 </style>
 </head>
 
@@ -166,15 +173,15 @@ body{
 
 </div>
 
-<!-- GRID -->
+<!-- GRID (복구 완료) -->
 <div class="grid">
-    <button class="card wide">스밍리스트</button>
-    <button class="card">가이드</button>
-    <button class="card">투표</button>
-    <button class="card">MV</button>
-    <button class="card">응원법</button>
-    <button class="card">일정</button>
-    <button class="card">아카이브</button>
+    <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
+    <button class="card" onclick="location.href='guide.html'">가이드</button>
+    <button class="card" onclick="location.href='vote.html'">투표</button>
+    <button class="card" onclick="location.href='mv.html'">MV</button>
+    <button class="card" onclick="location.href='cheer.html'">응원법</button>
+    <button class="card" onclick="location.href='schedule.html'">일정</button>
+    <button class="card" onclick="location.href='archive.html'">아카이브</button>
 </div>
 
 <!-- MISSION -->
@@ -185,28 +192,26 @@ body{
     </div>
 </div>
 
-<!-- OFFICIAL ACCOUNTS -->
+<!-- OFFICIAL -->
 <div class="sns-section">
     <div class="todo-header">OFFICIAL ACCOUNTS</div>
 
     <div class="sns-icons">
-
         <a href="https://www.instagram.com/hearts2hearts" target="_blank">
-            <img src="인스타그램 아이콘.svg" alt="instagram">
+            <img src="인스타그램 아이콘.svg" onerror="this.classList.add('fallback')" alt="instagram">
         </a>
 
         <a href="https://x.com/Hearts2Hearts" target="_blank">
-            <img src="X 로고.svg" alt="x">
+            <img src="X 로고.svg" onerror="this.classList.add('fallback')" alt="x">
         </a>
 
         <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
-            <img src="유튜브 로고.svg" alt="youtube">
+            <img src="유튜브 로고.svg" onerror="this.classList.add('fallback')" alt="youtube">
         </a>
 
         <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
-            <img src="위버스 로고.svg" alt="weverse">
+            <img src="위버스 로고.svg" onerror="this.classList.add('fallback')" alt="weverse">
         </a>
-
     </div>
 </div>
 
@@ -215,12 +220,15 @@ body{
 <script>
 
 /* =========================
-   MISSIONS
+   UTIL
 ========================= */
 function toKSTDate(str){
     return new Date(str + "T00:00:00+09:00");
 }
 
+/* =========================
+   MISSION
+========================= */
 const mission = document.getElementById("mission-list");
 
 const schedules = [
@@ -254,8 +262,7 @@ mission.innerHTML = currentMission.length
     if(typeof item === "string"){
         return `<div>✅ ${item}</div>`;
     }
-    return `
-    <div class="mission-row">
+    return `<div class="mission-row">
         <span>✅ ${item.text}</span>
         <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
     </div>`;
@@ -289,7 +296,7 @@ function updateDday(){
     ddayText.textContent = item.name;
 
     if(item.type === "debut"){
-        const start = new Date(2025,1,24); // 2월 24일
+        const start = new Date(2025,1,24);
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
         const diffDays = Math.floor((today - start) / (1000*60*60*24)) + 1;
