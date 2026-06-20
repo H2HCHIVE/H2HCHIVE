@@ -83,6 +83,21 @@ body{
     cursor:pointer;
 }
 
+.card-title{
+    display:block;
+    font-size:1rem;
+    font-weight:600;
+    color:#222;
+}
+
+.card-sub{
+    display:block;
+    margin-top:4px;
+    font-size:.75rem;
+    font-weight:500;
+    color:#999;
+}
+
 .wide{ grid-column:1 / -1; }
 
 /* mission */
@@ -169,13 +184,42 @@ body{
 
 <!-- GRID -->
 <div class="grid">
-    <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
-    <button class="card" onclick="location.href='guide.html'">가이드</button>
-    <button class="card" onclick="location.href='vote.html'">투표</button>
-    <button class="card" onclick="location.href='mv.html'">MV</button>
-    <button class="card" onclick="location.href='cheer.html'">응원법</button>
-    <button class="card" onclick="location.href='schedule.html'">일정</button>
-    <button class="card" onclick="location.href='archive.html'">아카이브</button>
+
+    <button class="card wide" onclick="location.href='stream.html'">
+        <span class="card-title">스밍리스트</span>
+        <span class="card-sub">stream</span>
+    </button>
+
+    <button class="card" onclick="location.href='guide.html'">
+        <span class="card-title">가이드</span>
+        <span class="card-sub">guide</span>
+    </button>
+
+    <button class="card" onclick="location.href='vote.html'">
+        <span class="card-title">투표</span>
+        <span class="card-sub">vote</span>
+    </button>
+
+    <button class="card" onclick="location.href='mv.html'">
+        <span class="card-title">MV</span>
+        <span class="card-sub">mv</span>
+    </button>
+
+    <button class="card" onclick="location.href='cheer.html'">
+        <span class="card-title">응원법</span>
+        <span class="card-sub">cheer</span>
+    </button>
+
+    <button class="card" onclick="location.href='schedule.html'">
+        <span class="card-title">일정</span>
+        <span class="card-sub">calendar</span>
+    </button>
+
+    <button class="card" onclick="location.href='archive.html'">
+        <span class="card-title">아카이브</span>
+        <span class="card-sub">archive</span>
+    </button>
+
 </div>
 
 <!-- MISSION -->
