@@ -149,8 +149,14 @@ display:block;
 </div>  <!-- MISSION -->  <div class="todo-section">      
     <div class="todo-box">      
         <div class="todo-header">📍 오늘의 미션</div>      
-        <div id="mission-list"></div>      
-    </div>      
+        
+    <div id="mission-list"></div>      
+    <div style="margin-top:12px; font-weight:700;">
+  스밍을 끊기지 않고 하였다면<br>
+  🍋 LemonTang 누적 <span id="lemon-count">0</span>회
+</div>
+    </div>
+      
 </div>  <!-- OFFICIAL ACCOUNTS -->  <div class="sns-section">    <div class="todo-header">OFFICIAL ACCOUNTS</div>    <div class="sns-icons">  <a href="https://www.instagram.com/hearts2hearts" target="_blank">      
   <img src="instargram-logo.svg" alt="Instagram">      
 </a>    <a href="https://x.com/Hearts2Hearts" target="_blank">      
@@ -263,6 +269,48 @@ updateDday();
 }
 
 updateDday();
+
+/* ===== LEMON TANG COUNTER ===== */
+
+const startTime = new Date("2026-06-22T18:00:00+09:00");
+
+const CYCLE = 3553;
+const lemonTimes = [163, 1030, 1948, 2825];
+
+function getElapsedSeconds(){
+  return Math.floor((Date.now() - startTime.getTime()) / 1000);
+}
+
+function getCycleInfo(){
+  const elapsed = getElapsedSeconds();
+
+  const cycleCount = Math.floor(elapsed / CYCLE);
+  const cycleTime = elapsed % CYCLE;
+
+  return { cycleCount, cycleTime };
+}
+
+function getLemonCount(){
+  const { cycleCount, cycleTime } = getCycleInfo();
+
+  let count = cycleCount * 4;
+
+  for(const t of lemonTimes){
+    if(cycleTime >= t){
+      count++;
+    }
+  }
+
+  return count;
+}
+
+function updateLemon(){
+  const el = document.getElementById("lemon-count");
+  if(el) el.textContent = getLemonCount();
+}
+
+setInterval(updateLemon, 1000);
+updateLemon();
 
 </script>  </body>
 
