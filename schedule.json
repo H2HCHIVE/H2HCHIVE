@@ -1,4 +1,4 @@
-{
+const scheduleData={
   "2026-01-03": "▶️'Anymotion'Practice(지우🍓, 주은👾, 에이나🌻)\n▶️'UP'Practice(이안🫛)\n▶️2025 MAMA AWARDS BH2ND",
   "2026-01-05": "▶️2025 MUSIC BANK GLOBAL FESTIVAL IN JAPAN BH2ND",
   "2026-01-09": "▶️Fan Sign Event in Japan BH2ND",
@@ -135,4 +135,4 @@
 
   "2026-12-03": "주은👾 생일",
   "2026-12-20": "에이나🌻 생일"
-}
+};
