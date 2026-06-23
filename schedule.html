@@ -225,7 +225,7 @@ let date = new Date();
 let data = {};  
 let filter = 'all';  
   
-fetch('schedule.json')  
+fetch('./schedule.json')  
 .then(res => res.json())  
 .then(json => {  
     data = json;  
