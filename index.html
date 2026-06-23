@@ -19,9 +19,7 @@ body{
     padding:24px 16px 60px;
 }
 
-.header{
-    margin-bottom:24px;
-}
+.header{ margin-bottom:24px; }
 
 .header iframe{
     width:100%;
@@ -31,7 +29,7 @@ body{
     box-shadow:0 4px 12px rgba(0,0,0,.08);
 }
 
-/* ===== DDAY ===== */
+/* DDAY */
 #dday-container{
     display:flex;
     align-items:center;
@@ -39,21 +37,10 @@ body{
     gap:10px;
 }
 
-#dday-box{
-    flex:1;
-    text-align:center;
-    padding:6px 0;
-}
+#dday-box{ flex:1; text-align:center; }
 
-#dday-text{
-    font-size:1.1rem;
-    font-weight:800;
-}
-
-#dday-label{
-    font-size:1.6rem;
-    font-weight:900;
-}
+#dday-text{ font-size:1.1rem; font-weight:800; }
+#dday-label{ font-size:1.6rem; font-weight:900; }
 
 .dday-btn{
     background:none;
@@ -61,8 +48,6 @@ body{
     font-size:22px;
     font-weight:900;
     cursor:pointer;
-    padding:6px 10px;
-    color:#222;
 }
 
 /* grid */
@@ -74,11 +59,9 @@ body{
 
 .card{
     background:white;
-    border:none;
     border-radius:18px;
     padding:22px 12px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
-    font-size:1rem;
     font-weight:600;
     cursor:pointer;
 }
@@ -86,40 +69,16 @@ body{
 .wide{ grid-column:1 / -1; }
 
 /* mission */
-.todo-section{
-    margin:32px 0 40px;
-}
-
 .todo-box{
     background:white;
     border-radius:18px;
     padding:18px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
-    line-height:2;
 }
 
 .todo-header{
-    font-size:1rem;
     font-weight:700;
     margin-bottom:10px;
-    padding-bottom:10px;
-    border-bottom:1px solid #eee;
-}
-
-.mission-row{
-    display:flex;
-    gap:10px;
-    margin:8px 0;
-}
-
-.mission-btn{
-    background:#222;
-    color:#fff;
-    text-decoration:none;
-    padding:5px 12px;
-    border-radius:999px;
-    font-size:.8rem;
-    font-weight:600;
 }
 
 /* LEMON COUNT */
@@ -131,6 +90,12 @@ body{
     margin-top:20px;
     text-align:center;
     font-weight:800;
+}
+
+.lemon-title{
+    font-size:1rem;
+    font-weight:700;
+    margin-bottom:6px;
 }
 
 /* sns */
@@ -149,207 +114,87 @@ body{
 .sns-icons a img{
     width:34px;
     height:34px;
-    display:block;
 }
 </style>
-
 </head>
 
 <body>
 
 <div class="container">
 
-    <!-- HEADER -->
-    <div class="header">
-        <div id="dday-container">
-            <button class="dday-btn" onclick="moveDday(-1)">‹</button>
+<!-- HEADER -->
+<div class="header">
+    <div id="dday-container">
+        <button class="dday-btn" onclick="moveDday(-1)">‹</button>
 
-            <div id="dday-box">
-                <div id="dday-text"></div>
-                <div id="dday-label"></div>
-            </div>
-
-            <button class="dday-btn" onclick="moveDday(1)">›</button>
+        <div id="dday-box">
+            <div id="dday-text"></div>
+            <div id="dday-label"></div>
         </div>
 
-        <iframe
-            src="https://www.youtube.com/embed/1VqxWNwgf5Q"
-            title="LemonTang"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen>
-        </iframe>
+        <button class="dday-btn" onclick="moveDday(1)">›</button>
     </div>
 
-    <!-- GRID -->
-    <div class="grid">
-        <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
-        <button class="card" onclick="location.href='guide.html'">가이드</button>
-        <button class="card" onclick="location.href='vote.html'">투표</button>
-        <button class="card" onclick="location.href='mv.html'">MV</button>
-        <button class="card" onclick="location.href='cheer.html'">응원법</button>
-        <button class="card" onclick="location.href='schedule.html'">일정</button>
-        <button class="card" onclick="location.href='archive.html'">아카이브</button>
-    </div>
-
-    <!-- MISSION -->
-    <div class="todo-section">
-        <div class="todo-box">
-            <div class="todo-header">📍 오늘의 미션</div>
-            <div id="mission-list"></div>
-        </div>
-    </div>
-
-    <!-- LEMON COUNT -->
-    <div class="lemon-count-box" id="lemon-count">
-       <div style="font-size:1rem;font-weight:700;margin-bottom:6px;">
-        내 스밍이 끊기지 않았다면
-      </div>
-    🍋 Lemon Tang 누적 0회
+    <iframe src="https://www.youtube.com/embed/1VqxWNwgf5Q"></iframe>
 </div>
 
-    <!-- OFFICIAL ACCOUNTS -->
-    <div class="sns-section">
-        <div class="todo-header">OFFICIAL ACCOUNTS</div>
+<!-- GRID -->
+<div class="grid">
+    <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
+    <button class="card" onclick="location.href='guide.html'">가이드</button>
+    <button class="card" onclick="location.href='vote.html'">투표</button>
+    <button class="card" onclick="location.href='mv.html'">MV</button>
+    <button class="card" onclick="location.href='cheer.html'">응원법</button>
+    <button class="card" onclick="location.href='schedule.html'">일정</button>
+    <button class="card" onclick="location.href='archive.html'">아카이브</button>
+</div>
 
-        <div class="sns-icons">
-            <a href="https://www.instagram.com/hearts2hearts" target="_blank">
-                <img src="instargram-logo.svg" alt="Instagram">
-            </a>
-
-            <a href="https://x.com/Hearts2Hearts" target="_blank">
-                <img src="x-logo.svg" alt="X">
-            </a>
-
-            <a href="https://youtube.com/@hearts2hearts.official" target="_blank">
-                <img src="youtube-logo.svg" alt="YouTube">
-            </a>
-
-            <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
-                <img src="weverse-logo.svg" alt="Weverse">
-            </a>
-        </div>
+<!-- MISSION -->
+<div class="todo-section">
+    <div class="todo-box">
+        <div class="todo-header">📍 오늘의 미션</div>
+        <div id="mission-list"></div>
     </div>
+</div>
+
+<!-- LEMON COUNT (FIXED) -->
+<div class="lemon-count-box">
+    <div class="lemon-title">
+        끊기지 않고 스밍을 했다면
+    </div>
+    <div id="lemon-count-value">
+        🍋 Lemon Tang 누적 0회
+    </div>
+</div>
+
+<!-- SNS -->
+<div class="sns-section">
+    <div class="todo-header">OFFICIAL ACCOUNTS</div>
+
+    <div class="sns-icons">
+        <a href="https://www.instagram.com/hearts2hearts"><img src="instargram-logo.svg"></a>
+        <a href="https://x.com/Hearts2Hearts"><img src="x-logo.svg"></a>
+        <a href="https://youtube.com/@hearts2hearts.official"><img src="youtube-logo.svg"></a>
+        <a href="https://weverse.io/hearts2hearts/highlight"><img src="weverse-logo.svg"></a>
+    </div>
+</div>
 
 </div>
 
 <script>
 
-/* ===== MISSION ===== */
-function toKSTDate(str){
-    return new Date(str + "T00:00:00+09:00");
-}
-
-const mission = document.getElementById("mission-list");
-
-const schedules = [
-{
-    start:"2026-06-27",
-    end:"2026-06-27",
-    items:[
-        {
-            text:"🎧 Weverse Listening Party 참여하기",
-            link:"https://listening-party.weverse.io/hearts2hearts/wlp/4-233295129"
-        }
-    ]
-}
-];
-
-const now = new Date();
-
-let currentMission = [];
-
-for(const s of schedules){
-    const start = toKSTDate(s.start);
-    const end = toKSTDate(s.end);
-    end.setHours(23,59,59,999);
-
-    if(now >= start && now <= end){
-        currentMission = s.items;
-        break;
-    }
-}
-
-mission.innerHTML = currentMission.length
-? currentMission.map(item => {
-    if(typeof item === "string"){
-        return `<div>✅ ${item}</div>`;
-    }
-    return `
-    <div class="mission-row">
-        <span>✅ ${item.text}</span>
-        <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
-    </div>`;
-}).join("")
-: "진행 중인 미션이 없습니다.";
-
-
-/* ===== DDAY ===== */
-const ddayList = [
-    { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00", type:"debut" },
-    { name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00", type:"dday" },
-    { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00", type:"dday" },
-    { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
-    { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" }
-];
-
-let ddayIndex = 0;
-
-const ddayText = document.getElementById("dday-text");
-const ddayLabel = document.getElementById("dday-label");
-
-function updateDday(){
-
-    const item = ddayList[ddayIndex];
-    const now = new Date();
-    const target = new Date(item.date);
-
-    ddayText.textContent = item.name;
-
-    const diff = target - now;
-    const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
-
-    if(item.type === "debut"){
-        const start = new Date(2025, 1, 24);
-        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-        const diffDays = Math.floor((today - start) / (1000*60*60*24)) + 1;
-        ddayLabel.textContent = `D+${diffDays}`;
-        return;
-    }
-
-    if(diff > 0){
-        ddayLabel.textContent = `D-${day}`;
-    } else {
-        ddayLabel.textContent = "D-DAY";
-    }
-}
-
-function moveDday(dir){
-    ddayIndex += dir;
-
-    if(ddayIndex < 0) ddayIndex = ddayList.length - 1;
-    if(ddayIndex >= ddayList.length) ddayIndex = 0;
-
-    updateDday();
-}
-
-updateDday();
-
-
-/* ===== LEMON TANG COUNT ===== */
+/* ===== LEMON COUNT FIX ===== */
 const lemonStart = new Date("2026-06-22T18:00:00+09:00");
 const cycleLength = 3553;
-
 const lemonTimes = [163, 1030, 1948, 2825];
 
 function updateLemonCount(){
 
     const now = new Date();
-
     const elapsed = Math.floor((now - lemonStart) / 1000);
 
     if(elapsed < 0){
-        document.getElementById("lemon-count").textContent =
+        document.getElementById("lemon-count-value").textContent =
             "🍋 Lemon Tang 누적 0회";
         return;
     }
@@ -359,13 +204,11 @@ function updateLemonCount(){
 
     let count = completedCycles * 4;
 
-    lemonTimes.forEach(time => {
-        if(currentCycleTime >= time){
-            count++;
-        }
+    lemonTimes.forEach(t => {
+        if(currentCycleTime >= t) count++;
     });
 
-    document.getElementById("lemon-count").textContent =
+    document.getElementById("lemon-count-value").textContent =
         `🍋 Lemon Tang 누적 ${count.toLocaleString()}회`;
 }
 
