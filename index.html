@@ -195,13 +195,18 @@ break;
 }
 
 mission.innerHTML = currentMission.length
-? currentMission.map(item => {
-if(typeof item === "string"){
-return <div>✅ ${item}</div>;
-}
-return      <div class="mission-row">     <span>✅ ${item.text}</span>     <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>     </div>;
-}).join("")
-: "진행 중인 미션이 없습니다.";
+  ? currentMission.map(item => {
+      if (typeof item === "string") {
+        return `<div>✅ ${item}</div>`;
+      }
+      return `
+        <div class="mission-row">
+          <span>✅ ${item.text}</span>
+          <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
+        </div>
+      `;
+    }).join("")
+  : "진행 중인 미션이 없습니다.";
 
 /* ===== DDAY ===== */
 
@@ -240,10 +245,10 @@ return;
 
 }
 
-if(diff > 0){
-ddayLabel.textContent = D-${day};
+if (diff > 0) {
+  ddayLabel.textContent = `D-${day}`;
 } else {
-ddayLabel.textContent = "D-DAY";
+  ddayLabel.textContent = "D-DAY";
 }
 
 }
