@@ -225,12 +225,22 @@ let date = new Date();
 let data = {};  
 let filter = 'all';  
   
-fetch('schedule.json')  
-.then(res => res.json())  
-.then(json => {  
-    data = json;  
-    render();  
-});  
+fetch('./schedule.json')
+  .then(res => {
+      if (!res.ok) throw new Error('schedule.json 로딩 실패');
+      return res.json();
+  })
+  .then(json => {
+      data = json;
+      render();
+  })
+  .catch(err => {
+      console.error(err);
+
+      // 🔥 핵심: 데이터 없어도 캘린더는 뜨게 해야 함
+      data = {};
+      render();
+  });
   
 function setTab(t, el){  
     document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));  
