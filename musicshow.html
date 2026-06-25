@@ -125,6 +125,7 @@ body{
 <button onclick="showAlbum('RUDE')">RUDE</button>
 <button onclick="showAlbum('Lemon Tang')">Lemon Tang</button>
 </div>
+<input id="dateSearch" placeholder="예: 250619" oninput="searchByDate()" />
 </header>
 
 <div id="archiveGrid" class="archive-grid"></div>
@@ -181,6 +182,25 @@ async function loadVideos() {
 }
 
 loadVideos();
+function searchByDate(){
+
+    const input = document.getElementById("dateSearch").value;
+
+    if(input === ""){
+        renderVideos(allVideos);
+        return;
+    }
+
+    const filtered = allVideos.filter(v => {
+
+        // 2025-06-19 → 250619 변환
+        const compactDate = v.date.replaceAll("-", "").slice(2);
+
+        return compactDate.includes(input);
+    });
+
+    renderVideos(filtered);
+}
 </script>
 
 </body>
