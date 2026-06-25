@@ -205,14 +205,18 @@ function renderVideos(videos){
     });
 }
 
-function showAlbum(album){
+function getKey(v){
+    return v.album || v.member;
+}
 
-    if(album === "all"){
+function showAlbum(key){
+
+    if(key === "all"){
         renderVideos(allVideos);
         return;
     }
 
-    const filtered = allVideos.filter(v => v.album === album);
+    const filtered = allVideos.filter(v => getKey(v) === key);
     renderVideos(filtered);
 }
 
