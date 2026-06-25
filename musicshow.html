@@ -108,6 +108,38 @@ body{
     font-size:12px;
     color:#777;
 }
+.filter-bar{
+    margin-top:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+/* 버튼 그룹 */
+.filter-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+/* 검색창 개선 */
+#dateSearch{
+    padding:10px 14px;
+    border:1px solid #ddd;
+    border-radius:999px;
+    font-size:13px;
+    width:180px;
+    outline:none;
+    transition:0.2s;
+}
+
+#dateSearch:focus{
+    border-color:#111;
+    width:220px;
+}
 </style>
 </head>
 
@@ -116,16 +148,19 @@ body{
 <header class="header">
     <h1>ARCHIVE</h1>
 
+    <div class="filter-bar">
     <div class="filter-buttons">
         <button onclick="showAlbum('all')">전체</button>
         <button onclick="showAlbum('The Chase')">The Chase</button>
         <button onclick="showAlbum('STYLE')">STYLE</button>
-<button onclick="showAlbum('Pretty Please')">Pretty Please</button>
-<button onclick="showAlbum('FOCUS')">FOCUS</button>
-<button onclick="showAlbum('RUDE')">RUDE</button>
-<button onclick="showAlbum('Lemon Tang')">Lemon Tang</button>
+        <button onclick="showAlbum('Pretty Please')">Pretty Please</button>
+        <button onclick="showAlbum('FOCUS')">FOCUS</button>
+        <button onclick="showAlbum('RUDE')">RUDE</button>
+        <button onclick="showAlbum('Lemon Tang')">Lemon Tang</button>
+    </div>
+
+    <input id="dateSearch" placeholder="예: 250619" oninput="searchByDate()" />
 </div>
-<input id="dateSearch" placeholder="예: 250619" oninput="searchByDate()" />
 </header>
 
 <div id="archiveGrid" class="archive-grid"></div>
