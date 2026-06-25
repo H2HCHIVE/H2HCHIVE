@@ -100,7 +100,7 @@ body{
 <script>
 async function loadVideos() {
 
-    const response = await fetch("videos.json");
+    const response = await fetch("video.json");
     const videos = await response.json();
 
     const grid = document.getElementById("archiveGrid");
