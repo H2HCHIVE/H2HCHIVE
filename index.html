@@ -229,16 +229,14 @@ const now = new Date();
 
 let currentMission = [];
 
-for(const s of schedules){
-const start = toKSTDate(s.start);
-const end = toKSTDate(s.end);
-end.setHours(23,59,59,999);
+for (const s of schedules) {
+  const start = toKSTDate(s.start);
+  const end = toKSTDate(s.end);
+  end.setHours(23,59,59,999);
 
-if(now >= start && now <= end){
-currentMission = s.items;
-break;
-}
-
+  if (now >= start && now <= end) {
+    currentMission.push(...s.items);
+  }
 }
 
 mission.innerHTML = currentMission.length
