@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>H2HCHIVE | 초동 판매량</title>
 
 <style>
@@ -26,6 +25,9 @@ header{
     font-size:24px;
     font-weight:700;
     box-shadow:0 2px 8px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:10;
 }
 
 .container{
@@ -37,10 +39,14 @@ header{
 .card{
     background:#fff;
     border-radius:18px;
-    padding:22px;
+    padding:18px 20px;
+    margin-bottom:16px;
     box-shadow:0 4px 14px rgba(0,0,0,.08);
     cursor:pointer;
     transition:.2s;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
 .card:hover{
@@ -52,66 +58,44 @@ header{
 }
 
 .card h2{
-    font-size:22px;
-    margin-bottom:8px;
+    font-size:20px;
+    margin-bottom:6px;
 }
 
 .card p{
     color:#666;
-    font-size:15px;
-}
-
-.arrow{
-    margin-top:18px;
-    color:#888;
     font-size:14px;
 }
 
-/* 모달 */
+.arrow{
+    font-size:24px;
+    color:#aaa;
+}
 
-.modal{
+#viewer{
     display:none;
-    position:fixed;
-    left:0;
-    top:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.82);
-    z-index:999;
-    overflow-y:auto;
 }
 
-.modal-content{
-    width:min(900px,95%);
-    margin:30px auto;
-    background:#fff;
-    border-radius:18px;
-    padding:18px;
-    animation:fade .2s;
-}
-
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(15px);
-    }
-    to{
-        opacity:1;
-        transform:none;
-    }
-}
-
-.close{
-    float:right;
-    font-size:34px;
+.backBtn{
+    display:inline-block;
+    margin-bottom:18px;
+    color:#111;
+    font-weight:600;
     cursor:pointer;
-    margin-bottom:12px;
 }
 
-.modal img{
+.albumTitle{
+    font-size:26px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.imageBox img{
     width:100%;
+    display:block;
     border-radius:14px;
     margin-bottom:18px;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
 }
 
 .footer{
@@ -121,39 +105,29 @@ header{
     font-size:13px;
 }
 </style>
-
 </head>
 
 <body>
 
 <header>
-📈 초동
+📈 초동 판매량
 </header>
 
 <div class="container">
 
-    <div class="card" onclick="openModal()">
-        <h2>📈 초동 판매량</h2>
-        <p>The Chase · FOCUS · Lemon Tang</p>
+<div id="list"></div>
 
-        <div class="arrow">
-            ▶ 클릭해서 보기
-        </div>
-    </div>
+<div id="viewer">
 
+<div class="backBtn" onclick="showList()">
+← 목록으로
 </div>
 
-<div id="modal" class="modal">
+<div class="albumTitle" id="albumTitle"></div>
 
-    <div class="modal-content">
+<div class="imageBox" id="imageBox"></div>
 
-        <span class="close" onclick="closeModal()">&times;</span>
-
-        <img src="FOCUS-sales.png" alt="FOCUS">
-
-        <img src="LemonTang-sales.png" alt="Lemon Tang">
-
-    </div>
+</div>
 
 </div>
 
@@ -163,23 +137,94 @@ H2HCHIVE
 
 <script>
 
-function openModal(){
-    document.getElementById("modal").style.display="block";
-    document.body.style.overflow="hidden";
+const albums = [
+{
+    title:"The Chase",
+    date:"2025.02.24",
+    images:[
+        "TheChase-sales.png"
+    ]
+},
+{
+    title:"FOCUS",
+    date:"2025.10.20",
+    images:[
+        "FOCUS-sales.png"
+    ]
+},
+{
+    title:"Lemon Tang",
+    date:"2026.02.22",
+    images:[
+        "LemonTang-sales.png"
+    ]
+}
+];
+
+function renderList(){
+
+    const list=document.getElementById("list");
+    list.innerHTML="";
+
+    albums.forEach((album,index)=>{
+
+        list.innerHTML+=`
+        <div class="card" onclick="openAlbum(${index})">
+
+            <div>
+                <h2>${album.title}</h2>
+                <p>${album.date}</p>
+            </div>
+
+            <div class="arrow">›</div>
+
+        </div>
+        `;
+
+    });
+
 }
 
-function closeModal(){
-    document.getElementById("modal").style.display="none";
-    document.body.style.overflow="auto";
+function openAlbum(index){
+
+    document.getElementById("list").style.display="none";
+    document.getElementById("viewer").style.display="block";
+
+    const album=albums[index];
+
+    document.getElementById("albumTitle").textContent=album.title;
+
+    const imageBox=document.getElementById("imageBox");
+    imageBox.innerHTML="";
+
+    album.images.forEach(img=>{
+
+        imageBox.innerHTML+=`
+            <img src="${img}" alt="${album.title}">
+        `;
+
+    });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
 }
 
-window.onclick=function(e){
-    const modal=document.getElementById("modal");
+function showList(){
 
-    if(e.target==modal){
-        closeModal();
-    }
+    document.getElementById("viewer").style.display="none";
+    document.getElementById("list").style.display="block";
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
 }
+
+renderList();
 
 </script>
 
