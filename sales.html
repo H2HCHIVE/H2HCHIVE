@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>H2HCHIVE | 초동 판매량</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f5f6f8;
+    color:#111;
+}
+
+header{
+    background:#fff;
+    padding:22px;
+    text-align:center;
+    font-size:24px;
+    font-weight:700;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.container{
+    max-width:700px;
+    margin:24px auto;
+    padding:16px;
+}
+
+.card{
+    background:#fff;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 4px 14px rgba(0,0,0,.08);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-2px);
+}
+
+.card:active{
+    transform:scale(.98);
+}
+
+.card h2{
+    font-size:22px;
+    margin-bottom:8px;
+}
+
+.card p{
+    color:#666;
+    font-size:15px;
+}
+
+.arrow{
+    margin-top:18px;
+    color:#888;
+    font-size:14px;
+}
+
+/* 모달 */
+
+.modal{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.82);
+    z-index:999;
+    overflow-y:auto;
+}
+
+.modal-content{
+    width:min(900px,95%);
+    margin:30px auto;
+    background:#fff;
+    border-radius:18px;
+    padding:18px;
+    animation:fade .2s;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+.close{
+    float:right;
+    font-size:34px;
+    cursor:pointer;
+    margin-bottom:12px;
+}
+
+.modal img{
+    width:100%;
+    border-radius:14px;
+    margin-bottom:18px;
+}
+
+.footer{
+    text-align:center;
+    color:#999;
+    padding:25px;
+    font-size:13px;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+📈 Sales Archive
+</header>
+
+<div class="container">
+
+    <div class="card" onclick="openModal()">
+        <h2>📈 초동 판매량</h2>
+        <p>The Chase · FOCUS · Lemon Tang</p>
+
+        <div class="arrow">
+            ▶ 클릭해서 보기
+        </div>
+    </div>
+
+</div>
+
+<div id="modal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close" onclick="closeModal()">&times;</span>
+
+        <img src="FOCUS-sales.png" alt="FOCUS">
+
+        <img src="LemonTang-sales.png" alt="Lemon Tang">
+
+    </div>
+
+</div>
+
+<div class="footer">
+H2HCHIVE
+</div>
+
+<script>
+
+function openModal(){
+    document.getElementById("modal").style.display="block";
+    document.body.style.overflow="hidden";
+}
+
+function closeModal(){
+    document.getElementById("modal").style.display="none";
+    document.body.style.overflow="auto";
+}
+
+window.onclick=function(e){
+    const modal=document.getElementById("modal");
+
+    if(e.target==modal){
+        closeModal();
+    }
+}
+
+</script>
+
+</body>
+</html>
