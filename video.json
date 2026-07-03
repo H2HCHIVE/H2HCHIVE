@@ -1,6 +1,12 @@
 [
   {
     "album": "Lemon Tang",
+    "videoId": "d2B1pbf4vzw",
+    "title": "엠카운트다운 1위 앵콜캠",
+    "date": "2026-07-22"
+  },
+  {
+    "album": "Lemon Tang",
     "videoId": "HzByxizLJ0w",
     "title": "엠카운트다운",
     "date": "2026-07-02"
@@ -23,11 +29,12 @@
     "title": "엠카운트다운",
     "date": "2026-06-25"
   },
+
   {
     "album": "RUDE",
-    "videoId": "zuCBLNVStRY",
-    "title": "엠카운트다운",
-    "date": "2026-02-26"
+    "videoId": "4lEau3Dnf2Q",
+    "title": "음악중심 1위 앵콜캠",
+    "date": "2026-03-14"
   },
   {
     "album": "RUDE",
