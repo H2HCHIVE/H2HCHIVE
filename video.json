@@ -706,7 +706,7 @@
     "title": "인기가요 페이스캠",
     "videoId": "l1qwq-uY4NM"
   },
- {
+  {
     "member": "카르멘",
     "date": "2026-06-27",
     "title": "음악중심 세로캠",
@@ -1099,15 +1099,15 @@
   },
   {
     "member": "유하",
-    "date": "2026-07-02",
-    "title": "엠카운트다운 입덕캠",
-    "videoId": "79sGgnpABTY"
-  },
-  {
-    "member": "유하",
     "date": "2026-07-03",
     "title": "뮤직뱅크 세로캠",
     "videoId": "fxm8NgUGLk4"
+  },
+  {
+    "member": "유하",
+    "date": "2026-07-02",
+    "title": "엠카운트다운 입덕캠",
+    "videoId": "79sGgnpABTY"
   },
   {
     "member": "유하",
