@@ -12,14 +12,6 @@ margin:0 auto;
 padding:24px 16px 60px;  
 }  .header{ margin-bottom:24px; }
 
-.header iframe{
-width:100%;
-height:220px;
-border:none;
-border-radius:18px;
-box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-
 /* ===== DDAY ===== */
 #dday-container{
 display:flex;
@@ -137,16 +129,71 @@ width:34px;
 height:34px;
 display:block;
 }
-</style>  </head>  <body>  <div class="container">  <!-- HEADER -->  <div class="header">  <div id="dday-container">
+
+.mvSwiper{
+    width:100%;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.mvSwiper iframe{
+    width:100%;
+    height:220px;
+    border:0;
+    display:block;
+}
+
+.swiper-pagination{
+    position:relative;
+    margin-top:10px;
+}
+
+
+</style>  
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+</head> 
+ <body>  <div class="container">  <!-- HEADER -->  <div class="header">  <div id="dday-container">
 <button class="dday-btn" onclick="moveDday(-1)">‹</button>  <div id="dday-box">
 
 <div id="dday-text"></div>  
-<div id="dday-label"></div>  </div>    <button class="dday-btn" onclick="moveDday(1)">›</button>  </div>  <iframe    
-    src="https://www.youtube.com/embed/1VqxWNwgf5Q"    
-    title="LemonTang"    
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"    
-    allowfullscreen>    
-</iframe>  </div>
+<div id="dday-label"></div>  </div>    <button class="dday-btn" onclick="moveDday(1)">›</button>  </div> <div class="swiper mvSwiper">
+  <div class="swiper-wrapper">
+
+    <div class="swiper-slide">
+      <iframe
+     loading="lazy"   src="https://www.youtube.com/embed/1VqxWNwgf5Q"
+        title="Lemon Tang"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="swiper-slide">
+      <iframe
+      loading="lazy"
+    src="https://www.youtube.com/embed/F7sGJVUrkjQ"
+        title="RUDE!"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="swiper-slide">
+      <iframe
+       loading="lazy" src="https://www.youtube.com/embed/Ur7aK4FvK-U"
+        title="FOCUS"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+
+  <div class="swiper-pagination"></div>
+</div>
+
+ </div>
 
 <div class="todo-section">
   <div class="todo-box">
@@ -380,6 +427,27 @@ fetch("./schedule.json")
     console.error(err);
     todaySchedule.innerHTML = "일정 데이터를 불러오지 못했습니다.";
   });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+new Swiper(".mvSwiper", {
+    loop: true,
+    spaceBetween: 10,
+    centeredSlides: true,
+
+    pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+    },
+
+    autoplay: {
+        delay: 8000,
+        disableOnInteraction: true,
+    },
+});
+
 </script>
 
 </body>
