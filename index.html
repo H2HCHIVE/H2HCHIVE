@@ -1,16 +1,27 @@
-<!DOCTYPE html>  <html lang="ko">    <head>      <meta charset="UTF-8">      
-<meta name="viewport" content="width=device-width, initial-scale=1.0">      
-<title>H2HCHIVE</title>  <style>      
-body{      
-    margin:0;      
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;      
-    background:#f5f6f8;      
-    color:#222;      
-}    .container{  
-max-width:420px;  
-margin:0 auto;  
-padding:24px 16px 60px;  
-}  .header{ margin-bottom:24px; }
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>H2HCHIVE</title>
+
+<style>
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f5f6f8;
+    color:#222;
+}
+
+.container{
+max-width:420px;
+margin:0 auto;
+padding:24px 16px 60px;
+}
+
+.header{
+margin-bottom:24px;
+}
 
 /* ===== DDAY ===== */
 #dday-container{
@@ -46,7 +57,9 @@ padding:6px 10px;
 color:#222;
 }
 
-.dday-btn:active{ opacity:0.5; }
+.dday-btn:active{
+opacity:0.5;
+}
 
 /* grid */
 .grid{
@@ -66,10 +79,14 @@ font-weight:600;
 cursor:pointer;
 }
 
-.wide{ grid-column:1 / -1; }
+.wide{
+grid-column:1 / -1;
+}
 
 /* mission */
-.todo-section{ margin:25px 0 25px; }
+.todo-section{
+margin:25px 0 25px;
+}
 
 .todo-box{
 background:white;
@@ -149,23 +166,42 @@ display:block;
     margin-top:10px;
 }
 
-
-</style>  
+</style>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
-</head> 
- <body>  <div class="container">  <!-- HEADER -->  <div class="header">  <div id="dday-container">
-<button class="dday-btn" onclick="moveDday(-1)">‹</button>  <div id="dday-box">
+</head>
 
-<div id="dday-text"></div>  
-<div id="dday-label"></div>  </div>    <button class="dday-btn" onclick="moveDday(1)">›</button>  </div> <div class="swiper mvSwiper">
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+<div class="header">
+
+<div id="dday-container">
+
+<button class="dday-btn" onclick="moveDday(-1)">‹</button>
+
+<div id="dday-box">
+
+<div id="dday-text"></div>
+<div id="dday-label"></div>
+
+</div>
+
+<button class="dday-btn" onclick="moveDday(1)">›</button>
+
+</div>
+
+<div class="swiper mvSwiper">
+
   <div class="swiper-wrapper">
 
     <div class="swiper-slide">
       <iframe
-     loading="lazy"     
-   src="https://www.youtube.com/embed/chl0R8C4NJ8"
+        loading="lazy"
+        src="https://www.youtube.com/embed/chl0R8C4NJ8"
         title="ICONIC HEART"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen>
@@ -174,8 +210,8 @@ display:block;
 
     <div class="swiper-slide">
       <iframe
-      loading="lazy"
-    src="https://www.youtube.com/embed/1VqxWNwgf5Q"
+        loading="lazy"
+        src="https://www.youtube.com/embed/1VqxWNwgf5Q"
         title="Lemon Tang"
         allowfullscreen>
       </iframe>
@@ -183,7 +219,8 @@ display:block;
 
     <div class="swiper-slide">
       <iframe
-       loading="lazy" src="https://www.youtube.com/embed/F7sGJVUrkjQ"
+        loading="lazy"
+        src="https://www.youtube.com/embed/F7sGJVUrkjQ"
         title="RUDE!"
         allowfullscreen>
       </iframe>
@@ -192,63 +229,115 @@ display:block;
   </div>
 
   <div class="swiper-pagination"></div>
+
 </div>
 
- </div>
+</div>
 
 <div class="todo-section">
+
   <div class="todo-box">
+
     <div class="todo-header">📅 오늘의 일정</div>
+
     <div id="today-schedule">
-      
+
     </div>
+
   </div>
+
 </div>
-<!-- MISSION -->  
-<div class="todo-section">      
-  <div class="todo-box">      
-    <div class="todo-header">📍 오늘의 미션</div>      
-    <div id="mission-list"></div>      
-  </div>      
+
+<!-- MISSION -->
+<div class="todo-section">
+
+  <div class="todo-box">
+
+    <div class="todo-header">📍 오늘의 미션</div>
+
+    <div id="mission-list"></div>
+
+  </div>
+
 </div>
-  <!-- GRID -->  <div class="grid">      
-    <button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>      
-    <button class="card" onclick="location.href='guide.html'">가이드</button>      
-    <button class="card" onclick="location.href='vote.html'">투표</button>      
-    <button class="card" onclick="location.href='mv.html'">MV</button>      
-    <button class="card" onclick="location.href='cheer.html'">응원법</button>      
-    <button class="card" onclick="location.href='schedule.html'">일정</button>      
-    <button class="card" onclick="location.href='archive.html'">아카이브</button>      
+
+<!-- GRID -->
+<div class="grid">
+
+<button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
+
+<button class="card" onclick="location.href='guide.html'">가이드</button>
+
+<button class="card" onclick="location.href='vote.html'">투표</button>
+
+<button class="card" onclick="location.href='mv.html'">MV</button>
+
+<button class="card" onclick="location.href='cheer.html'">응원법</button>
+
+<button class="card" onclick="location.href='schedule.html'">일정</button>
+
+<button class="card" onclick="location.href='archive.html'">아카이브</button>
+
 </div>
-<!-- LEMON TANG COUNTER -->  
-<div class="todo-section">      
-  <div class="todo-box">      
+
+<!-- ICONIC HEART COUNTER -->
+<div class="todo-section">
+
+  <div class="todo-box">
 
     <div class="todo-header">스밍이 끊기지 않았다면</div>
 
     <div style="font-weight:700;">
-      🍋LemonTang 누적<span id="lemon-count">0</span>회
+      💗ICONIC HEART 누적<span id="lemon-count">0</span>회
     </div>
 
-  </div>      
+  </div>
+
 </div>
-</div>  <!-- OFFICIAL ACCOUNTS -->  <div class="sns-section">    <div class="todo-header">OFFICIAL ACCOUNTS</div>    <div class="sns-icons">  <a href="https://www.instagram.com/hearts2hearts" target="_blank">      
-  <img src="instargram-logo.svg" alt="Instagram">      
-</a>    <a href="https://x.com/Hearts2Hearts" target="_blank">      
-  <img src="x-logo.svg" alt="X">      
-</a>    <a href="https://youtube.com/@hearts2hearts.official" target="_blank">      
-  <img src="youtube-logo.svg" alt="YouTube">      
-</a>    <a href="https://weverse.io/hearts2hearts/highlight" target="_blank">      
-  <img src="weverse-logo.svg" alt="Weverse">      
-</a>    </div>
+
+</div>
+
+<!-- OFFICIAL ACCOUNTS -->
+<div class="sns-section">
+
+<div class="todo-header">OFFICIAL ACCOUNTS</div>
+
+<div class="sns-icons">
+
+<a href="https://www.instagram.com/hearts2hearts" target="_blank">
+  <img src="instargram-logo.svg" alt="Instagram">
+</a>
+
+<a href="https://x.com/Hearts2Hearts" target="_blank">
+  <img src="x-logo.svg" alt="X">
+</a>
+
+<a href="https://youtube.com/@hearts2hearts.official" target="_blank">
+  <img src="youtube-logo.svg" alt="YouTube">
+</a>
+
+<a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
+  <img src="weverse-logo.svg" alt="Weverse">
+</a>
+
+</div>
+
 <p class="copyright">
 본 페이지는 팬이 제작·운영하는 비공식 팬페이지입니다.<br>
 직접 제작한 자료를 제외한 모든 콘텐츠의 저작권은 소속사 및 각 콘텐츠의 권리자(방송사 등)에게 있습니다.
-</p>      
-</div> <script>    /* ===== MISSION ===== */  
-function toKSTDate(str){  
-return new Date(str + "T00:00:00+09:00");  
-}  const mission = document.getElementById("mission-list");
+</p>
+
+</div>
+
+<script>
+
+/* ===== MISSION ===== */
+
+function toKSTDate(str){
+return new Date(str + "T00:00:00+09:00");
+}
+
+const mission = document.getElementById("mission-list");
 
 const schedules = [
 {
@@ -268,28 +357,37 @@ const now = new Date();
 let currentMission = [];
 
 for (const s of schedules) {
+
   const start = toKSTDate(s.start);
   const end = toKSTDate(s.end);
+
   end.setHours(23,59,59,999);
 
   if (now >= start && now <= end) {
     currentMission.push(...s.items);
   }
+
 }
 
 mission.innerHTML = currentMission.length
+
   ? currentMission.map(item => {
+
       if (typeof item === "string") {
         return `<div>✅ ${item}</div>`;
       }
+
       return `
         <div class="mission-row">
           <span>✅ ${item.text}</span>
           <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
         </div>
       `;
+
     }).join("")
+
   : "진행 중인 미션이 없습니다.";
+
 
 /* ===== DDAY ===== */
 
@@ -309,20 +407,31 @@ const ddayLabel = document.getElementById("dday-label");
 function updateDday(){
 
 const item = ddayList[ddayIndex];
+
 const now = new Date();
 const target = new Date(item.date);
 
 ddayText.textContent = item.name;
 
 const diff = target - now;
+
 const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
 if(item.type === "debut"){
-const start = new Date(2025, 1, 24);
-const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-const diffDays = Math.floor((today - start) / (1000*60*60*24)) + 1;      
-ddayLabel.textContent = `D+${diffDays}`;      
+const start = new Date(2025, 1, 24);
+
+const today = new Date(
+now.getFullYear(),
+now.getMonth(),
+now.getDate()
+);
+
+const diffDays =
+Math.floor((today - start) / (1000*60*60*24)) + 1;
+
+ddayLabel.textContent = `D+${diffDays}`;
+
 return;
 
 }
@@ -336,10 +445,14 @@ if (diff > 0) {
 }
 
 function moveDday(dir){
+
 ddayIndex += dir;
 
-if(ddayIndex < 0) ddayIndex = ddayList.length - 1;
-if(ddayIndex >= ddayList.length) ddayIndex = 0;
+if(ddayIndex < 0)
+ddayIndex = ddayList.length - 1;
+
+if(ddayIndex >= ddayList.length)
+ddayIndex = 0;
 
 updateDday();
 
@@ -347,91 +460,156 @@ updateDday();
 
 updateDday();
 
-/* ===== LEMON TANG COUNTER ===== */
 
-const startTime = new Date("2026-06-22T18:00:00+09:00");
+/* ===== ICONIC HEART COUNTER ===== */
+
+const startTime = new Date("2026-08-10T00:00:00+09:00");
 
 const CYCLE = 3553;
+
 const lemonTimes = [163, 1030, 1948, 2825];
 
 function getElapsedSeconds(){
-  return Math.floor((Date.now() - startTime.getTime()) / 1000);
+
+  return Math.floor(
+    (Date.now() - startTime.getTime()) / 1000
+  );
+
 }
 
 function getCycleInfo(){
+
   const elapsed = getElapsedSeconds();
 
   const cycleCount = Math.floor(elapsed / CYCLE);
+
   const cycleTime = elapsed % CYCLE;
 
-  return { cycleCount, cycleTime };
+  return {
+    cycleCount,
+    cycleTime
+  };
+
 }
 
 function getLemonCount(){
-  const { cycleCount, cycleTime } = getCycleInfo();
+
+  const {
+    cycleCount,
+    cycleTime
+  } = getCycleInfo();
 
   let count = cycleCount * 4;
 
   for(const t of lemonTimes){
+
     if(cycleTime >= t){
       count++;
     }
+
   }
 
   return count;
+
 }
 
 function updateLemon(){
+
   const el = document.getElementById("lemon-count");
-  if(el) el.textContent = getLemonCount();
+
+  if(el)
+    el.textContent = getLemonCount();
+
 }
 
- setInterval(updateLemon, 1000);
+setInterval(updateLemon, 1000);
+
 updateLemon();
 
 </script>
 
 <script>
-const todaySchedule = document.getElementById("today-schedule");
+
+const todaySchedule =
+document.getElementById("today-schedule");
 
 const today = new Date();
-const yyyy = today.getFullYear();
-const mm = String(today.getMonth() + 1).padStart(2, "0");
-const dd = String(today.getDate()).padStart(2, "0");
 
-const todayKey = `${yyyy}-${mm}-${dd}`;
+const yyyy = today.getFullYear();
+
+const mm = String(
+today.getMonth() + 1
+).padStart(2, "0");
+
+const dd = String(
+today.getDate()
+).padStart(2, "0");
+
+const todayKey =
+`${yyyy}-${mm}-${dd}`;
 
 fetch("./schedule.json")
+
   .then(res => {
-    if (!res.ok) throw new Error("JSON 로드 실패");
+
+    if (!res.ok)
+      throw new Error("JSON 로드 실패");
+
     return res.json();
+
   })
+
   .then(scheduleData => {
-    if (scheduleData && scheduleData[todayKey]) {
+
+    if (
+      scheduleData &&
+      scheduleData[todayKey]
+    ) {
+
       todaySchedule.innerHTML =
-        scheduleData[todayKey].replace(/\n/g, "<br>");
+        scheduleData[todayKey]
+        .replace(/\n/g, "<br>");
+
     } else {
-      todaySchedule.innerHTML = "오늘 일정이 없습니다.";
+
+      todaySchedule.innerHTML =
+        "오늘 일정이 없습니다.";
+
     }
+
   })
+
   .catch(err => {
+
     console.error(err);
-    todaySchedule.innerHTML = "일정 데이터를 불러오지 못했습니다.";
+
+    todaySchedule.innerHTML =
+      "일정 데이터를 불러오지 못했습니다.";
+
   });
+
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
+
 new Swiper(".mvSwiper", {
+
     loop: true,
+
     spaceBetween: 10,
+
     centeredSlides: true,
 
     pagination: {
+
         el: ".swiper-pagination",
+
         clickable: true,
+
     },
+
 });
 
 </script>
