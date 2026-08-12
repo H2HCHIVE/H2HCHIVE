@@ -467,7 +467,7 @@ const startTime = new Date("2026-08-10T00:00:00+09:00");
 
 const CYCLE = 3553;
 
-const lemonTimes = [163, 1030, 1948, 2825];
+const lemonTimes = [163, 1948];
 
 function getElapsedSeconds(){
 
@@ -499,7 +499,7 @@ function getLemonCount(){
     cycleTime
   } = getCycleInfo();
 
-  let count = cycleCount * 4;
+  let count = cycleCount * 2;
 
   for(const t of lemonTimes){
 
