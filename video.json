@@ -1,6 +1,12 @@
 [
  {
     "album": "15-LOVE",
+    "videoId": "QGZ9ir9DzI0",
+    "title": "엠카운트다운 풀캠",
+    "date": "2026-08-27"
+  },
+ {
+    "album": "15-LOVE",
     "videoId": "ZgobJaKHY-4",
     "title": "엠카운트다운",
     "date": "2026-08-27"
@@ -358,11 +364,18 @@
     "videoId": "6AsnbKx6OyU",
     "title": "인기가요",
     "date": "2025-03-16"
-  },  {
+  },
+  {
     "album": "Lemon Tang",
     "videoId": "HzByxizLJ0w",
     "title": "엠카운트다운",
     "date": "2026-07-02"
+  },
+  {
+    "member": "지우",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "-czILbC4QdA"
   },
   {
     "member": "지우",
@@ -729,6 +742,12 @@
     "date": "2025-02-27",
     "title": "엠카운트다운 세로캠",
     "videoId": "3n8XVn-4vnI"
+  },
+  {
+    "member": "카르멘",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "gM11LEOI4P4"
   },
   {
     "member": "카르멘",
@@ -1165,6 +1184,12 @@
   },
   {
     "member": "유하",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "Cqlo2OXPVzQ"
+  },
+  {
+    "member": "유하",
     "date": "2026-07-12",
     "title": "인기가요 페이스캠",
     "videoId": "RAsdy9nQrmI"
@@ -1480,6 +1505,12 @@
     "date": "2025-02-27",
     "title": "엠카운트다운 세로캠",
     "videoId": "m85G_EBkPOU"
+  },
+  {
+    "member": "스텔라",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "zMqyGVUIwSI"
   },
   {
     "member": "스텔라",
@@ -1825,6 +1856,12 @@
   },
   {
     "member": "주은",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "gOdLJs5LBmI"
+  },
+  {
+    "member": "주은",
     "date": "2026-07-12",
     "title": "인기가요 페이스캠",
     "videoId": "JoVNbau2yUA"
@@ -2092,6 +2129,12 @@
     "date": "2025-02-27",
     "title": "엠카운트다운 세로캠",
     "videoId": "92CSltXb2b4"
+  },
+  {
+    "member": "에이나",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "Rdh6uuHsHGE"
   },
   {
     "member": "에이나",
@@ -2422,6 +2465,12 @@
     "date": "2025-02-27",
     "title": "엠카운트다운 세로캠",
     "videoId": "xckLUGOdsK0"
+  },
+  {
+    "member": "이안",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "bOVUUauvvE0"
   },
   {
     "member": "이안",
@@ -2896,6 +2945,12 @@
     "date": "2025-02-27",
     "title": "엠카운트다운 입덕캠",
     "videoId": "GU8Z83GcrYI"
+  },
+  {
+    "member": "예온",
+    "date": "2026-08-27",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "QnWi787YeZY"
   },
   {
     "member": "예온",
