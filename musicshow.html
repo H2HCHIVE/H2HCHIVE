@@ -304,9 +304,13 @@ function showType(type){
 
 /* 앨범 선택 */
 
-function showAlbum(album){
+function showType(type){
 
-    currentAlbum = album;
+    currentType = type;
+
+    // 직캠 종류를 바꾸면 앨범/멤버 필터 초기화
+    currentAlbum = "all";
+    currentMember = "all";
 
     applyFilters();
 
