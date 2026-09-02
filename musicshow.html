@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!DOCTYPE html><html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>H2HCHIVE 음방 직캠</title>
-
-<style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>H2HCHIVE 음방 직캠</title><style>
 *{
     margin:0;
     padding:0;
@@ -35,11 +30,20 @@ body{
     letter-spacing:1px;
 }
 
-.filter-buttons{
+.filter-bar{
     margin-top:12px;
     display:flex;
+    flex-direction:column;
     justify-content:center;
+    align-items:center;
+    gap:10px;
+}
+
+.filter-buttons{
+    display:flex;
     gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
 }
 
 .filter-buttons button{
@@ -56,6 +60,21 @@ body{
     background:#111;
     color:#fff;
     border-color:#111;
+}
+
+#dateSearch{
+    padding:10px 14px;
+    border:1px solid #ddd;
+    border-radius:999px;
+    font-size:13px;
+    width:180px;
+    outline:none;
+    transition:0.2s;
+}
+
+#dateSearch:focus{
+    border-color:#111;
+    width:220px;
 }
 
 .archive-grid{
@@ -108,47 +127,18 @@ body{
     font-size:12px;
     color:#777;
 }
-.filter-bar{
-    margin-top:12px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:12px;
-    flex-wrap:wrap;
-}
+</style></head><body><header class="header"><h1>📺음방 직캠</h1>
 
-/* 버튼 그룹 */
-.filter-buttons{
-    display:flex;
-    gap:8px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
+<div class="filter-bar">
 
-/* 검색창 개선 */
-#dateSearch{
-    padding:10px 14px;
-    border:1px solid #ddd;
-    border-radius:999px;
-    font-size:13px;
-    width:180px;
-    outline:none;
-    transition:0.2s;
-}
+    <!-- 직캠 종류 -->
+    <div class="filter-buttons">
+        <button onclick="showType('all')">전체</button>
+        <button onclick="showType('group')">그룹 직캠</button>
+        <button onclick="showType('member')">멤버 직캠</button>
+    </div>
 
-#dateSearch:focus{
-    border-color:#111;
-    width:220px;
-}
-</style>
-</head>
-
-<body>
-
-<header class="header">
-    <h1>📺음방 직캠</h1>
-
-    <div class="filter-bar">
+    <!-- 앨범 필터 -->
     <div class="filter-buttons">
         <button onclick="showAlbum('all')">전체</button>
         <button onclick="showAlbum('The Chase')">The Chase</button>
@@ -158,25 +148,41 @@ body{
         <button onclick="showAlbum('RUDE')">RUDE</button>
         <button onclick="showAlbum('Lemon Tang')">Lemon Tang</button>
         <button onclick="showAlbum('15-LOVE')">15-LOVE</button>
-<button onclick="showAlbum('지우')">지우</button>
-<button onclick="showAlbum('카르멘')">카르멘</button>
-<button onclick="showAlbum('유하')">유하</button>
-<button onclick="showAlbum('스텔라')">스텔라</button>
-<button onclick="showAlbum('주은')">주은</button>
-<button onclick="showAlbum('에이나')">에이나</button>
-<button onclick="showAlbum('이안')">이안</button>
-<button onclick="showAlbum('예온')">예온</button>
     </div>
 
-    <input id="dateSearch" placeholder="예: 250224" oninput="searchByDate()" />
+    <!-- 멤버 필터 -->
+    <div class="filter-buttons">
+        <button onclick="showMember('all')">전체</button>
+        <button onclick="showMember('지우')">지우</button>
+        <button onclick="showMember('카르멘')">카르멘</button>
+        <button onclick="showMember('유하')">유하</button>
+        <button onclick="showMember('스텔라')">스텔라</button>
+        <button onclick="showMember('주은')">주은</button>
+        <button onclick="showMember('에이나')">에이나</button>
+        <button onclick="showMember('이안')">이안</button>
+        <button onclick="showMember('예온')">예온</button>
+    </div>
+
+    <!-- 날짜 검색 -->
+    <input
+        id="dateSearch"
+        placeholder="예: 250224"
+        oninput="searchByDate()"
+    >
+
 </div>
-</header>
 
-<div id="archiveGrid" class="archive-grid"></div>
+</header><div id="archiveGrid" class="archive-grid"></div><script>
 
-<script>
 let allVideos = [];
 
+let currentType = "all";
+let currentAlbum = "all";
+let currentMember = "all";
+let currentDate = "";
+
+
+/* 영상 출력 */
 function renderVideos(videos){
 
     const grid = document.getElementById("archiveGrid");
@@ -188,17 +194,29 @@ function renderVideos(videos){
         const card = document.createElement("a");
 
         card.className = "archive-card";
-        card.href = `https://www.youtube.com/watch?v=${video.videoId}`;
+
+        card.href =
+            `https://www.youtube.com/watch?v=${video.videoId}`;
+
         card.target = "_blank";
 
         card.innerHTML = `
-            <img class="archive-thumb"
-                 src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
-                 alt="${video.title}">
+            <img
+                class="archive-thumb"
+                src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
+                alt="${video.title}"
+            >
 
             <div class="archive-content">
-                <div class="archive-title">${video.title}</div>
-                <div class="archive-date">${video.date}</div>
+
+                <div class="archive-title">
+                    ${video.title}
+                </div>
+
+                <div class="archive-date">
+                    ${video.date}
+                </div>
+
             </div>
         `;
 
@@ -206,50 +224,144 @@ function renderVideos(videos){
     });
 }
 
-function getKey(v){
-    return v.album || v.member;
-}
 
-function showAlbum(key){
+/* 모든 필터 적용 */
+function applyFilters(){
 
-    if(key === "all"){
-        renderVideos(allVideos);
-        return;
+    let filtered = allVideos;
+
+
+    /* 직캠 종류 */
+
+    if(currentType === "group"){
+
+        // member가 없는 영상 = 그룹 직캠
+        filtered = filtered.filter(video => !video.member);
+
     }
 
-    const filtered = allVideos.filter(v => getKey(v) === key);
+    if(currentType === "member"){
+
+        // member가 있는 영상 = 멤버 직캠
+        filtered = filtered.filter(video => video.member);
+
+    }
+
+
+    /* 앨범 */
+
+    if(currentAlbum !== "all"){
+
+        filtered = filtered.filter(
+            video => video.album === currentAlbum
+        );
+
+    }
+
+
+    /* 멤버 */
+
+    if(currentMember !== "all"){
+
+        filtered = filtered.filter(
+            video => video.member === currentMember
+        );
+
+    }
+
+
+    /* 날짜 */
+
+    if(currentDate !== ""){
+
+        filtered = filtered.filter(video => {
+
+            // 2026-08-30 → 260830
+            const compactDate =
+                video.date.replaceAll("-", "").slice(2);
+
+            return compactDate.includes(currentDate);
+
+        });
+
+    }
+
+
     renderVideos(filtered);
 }
 
-async function loadVideos() {
 
-    const response = await fetch("video.json");
-    allVideos = await response.json();
+/* 직캠 종류 선택 */
 
-    renderVideos(allVideos);
+function showType(type){
+
+    currentType = type;
+
+    applyFilters();
+
 }
 
-loadVideos();
+
+/* 앨범 선택 */
+
+function showAlbum(album){
+
+    currentAlbum = album;
+
+    applyFilters();
+
+}
+
+
+/* 멤버 선택 */
+
+function showMember(member){
+
+    currentMember = member;
+
+    applyFilters();
+
+}
+
+
+/* 날짜 검색 */
+
 function searchByDate(){
 
-    const input = document.getElementById("dateSearch").value;
+    currentDate =
+        document.getElementById("dateSearch").value.trim();
 
-    if(input === ""){
+    applyFilters();
+
+}
+
+
+/* JSON 불러오기 */
+
+async function loadVideos(){
+
+    try{
+
+        const response =
+            await fetch("video.json");
+
+        allVideos =
+            await response.json();
+
         renderVideos(allVideos);
-        return;
+
+    }catch(error){
+
+        console.error("video.json 불러오기 실패:", error);
+
     }
 
-    const filtered = allVideos.filter(v => {
-
-        // 2025-06-19 → 250619 변환
-        const compactDate = v.date.replaceAll("-", "").slice(2);
-
-        return compactDate.includes(input);
-    });
-
-    renderVideos(filtered);
 }
-</script>
 
-</body>
+
+/* 시작 */
+
+loadVideos();
+
+</script></body>
 </html>
