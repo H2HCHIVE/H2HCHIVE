@@ -297,20 +297,19 @@ function showType(type){
 
     currentType = type;
 
+    // 직캠 종류 변경 시 앨범/멤버 필터 초기화
+    currentAlbum = "all";
+    currentMember = "all";
+
     applyFilters();
 
 }
 
-
 /* 앨범 선택 */
 
-function showType(type){
+function showAlbum(album){
 
-    currentType = type;
-
-    // 직캠 종류를 바꾸면 앨범/멤버 필터 초기화
-    currentAlbum = "all";
-    currentMember = "all";
+    currentAlbum = album;
 
     applyFilters();
 
