@@ -1,0 +1,32 @@
+name: Split Videos
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "video.json"
+      - "split_video.py"
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run split script
+        run: python split_video.py
+
+      - name: Save generated JSON files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add group.json jiwoo.json carmen.json yuha.json stella.json jueun.json aina.json ian.json yeon.json
+
+          git diff --cached --quiet || git commit -m "Update split video JSON files"
+          git push
