@@ -139,8 +139,7 @@ body{
     </div>
 
     <!-- 앨범 필터 -->
-    <div class="filter-buttons">
-        <button onclick="showAlbum('all')">전체</button>
+    <div id="albumFilters" class="filter-buttons">
         <button onclick="showAlbum('The Chase')">The Chase</button>
         <button onclick="showAlbum('STYLE')">STYLE</button>
         <button onclick="showAlbum('Pretty Please')">Pretty Please</button>
@@ -151,8 +150,7 @@ body{
     </div>
 
     <!-- 멤버 필터 -->
-    <div class="filter-buttons">
-        <button onclick="showMember('all')">전체</button>
+    <div id="memberFilters" class="filter-buttons">
         <button onclick="showMember('지우')">지우</button>
         <button onclick="showMember('카르멘')">카르멘</button>
         <button onclick="showMember('유하')">유하</button>
@@ -208,7 +206,6 @@ function renderVideos(videos){
             >
 
             <div class="archive-content">
-
                 <div class="archive-title">
                     ${video.title}
                 </div>
@@ -216,7 +213,6 @@ function renderVideos(videos){
                 <div class="archive-date">
                     ${video.date}
                 </div>
-
             </div>
         `;
 
@@ -297,13 +293,42 @@ function showType(type){
 
     currentType = type;
 
-    // 직캠 종류 변경 시 앨범/멤버 필터 초기화
+    // 직캠 종류 변경 시 세부 필터 초기화
     currentAlbum = "all";
     currentMember = "all";
 
-    applyFilters();
 
+    const albumFilters =
+        document.getElementById("albumFilters");
+
+    const memberFilters =
+        document.getElementById("memberFilters");
+
+
+    if(type === "group"){
+
+        // 그룹 직캠 → 앨범만 표시
+        albumFilters.style.display = "flex";
+        memberFilters.style.display = "none";
+
+    }else if(type === "member"){
+
+        // 멤버 직캠 → 멤버만 표시
+        albumFilters.style.display = "none";
+        memberFilters.style.display = "flex";
+
+    }else{
+
+        // 전체 → 둘 다 표시
+        albumFilters.style.display = "flex";
+        memberFilters.style.display = "flex";
+
+    }
+
+
+    applyFilters();
 }
+
 
 /* 앨범 선택 */
 
@@ -311,8 +336,10 @@ function showAlbum(album){
 
     currentAlbum = album;
 
-    applyFilters();
+    // 앨범을 선택하면 그룹 직캠으로 설정
+    currentType = "group";
 
+    applyFilters();
 }
 
 
@@ -322,8 +349,10 @@ function showMember(member){
 
     currentMember = member;
 
-    applyFilters();
+    // 멤버를 선택하면 멤버 직캠으로 설정
+    currentType = "member";
 
+    applyFilters();
 }
 
 
@@ -335,7 +364,6 @@ function searchByDate(){
         document.getElementById("dateSearch").value.trim();
 
     applyFilters();
-
 }
 
 
@@ -351,18 +379,23 @@ async function loadVideos(){
         allVideos =
             await response.json();
 
-        renderVideos(allVideos);
+        applyFilters();
 
     }catch(error){
 
-        console.error("video.json 불러오기 실패:", error);
+        console.error(
+            "video.json 불러오기 실패:",
+            error
+        );
 
     }
-
 }
 
 
-/* 시작 */
+/* 초기 화면 */
+
+document.getElementById("albumFilters").style.display = "flex";
+document.getElementById("memberFilters").style.display = "flex";
 
 loadVideos();
 
