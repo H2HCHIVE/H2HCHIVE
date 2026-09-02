@@ -223,7 +223,6 @@ body{
 
         <!-- =========================
              앨범 필터
-             그룹 직캠 선택 시 표시
         ========================= -->
 
         <div
@@ -265,7 +264,6 @@ body{
 
         <!-- =========================
              멤버 필터
-             멤버 직캠 선택 시 표시
         ========================= -->
 
         <div
@@ -434,8 +432,7 @@ function applyFilters(){
 
     if(currentType === "group"){
 
-        // member가 없는 영상
-        // = 그룹 직캠
+        // member가 없는 영상 = 그룹 직캠
 
         filtered =
             filtered.filter(
@@ -447,8 +444,7 @@ function applyFilters(){
 
     if(currentType === "member"){
 
-        // member가 있는 영상
-        // = 멤버 직캠
+        // member가 있는 영상 = 멤버 직캠
 
         filtered =
             filtered.filter(
@@ -527,6 +523,48 @@ function applyFilters(){
 
 
 /* =========================
+   필터 표시 상태
+========================= */
+
+function updateFilterVisibility(){
+
+    const albumFilters =
+        document.getElementById(
+            "albumFilters"
+        );
+
+    const memberFilters =
+        document.getElementById(
+            "memberFilters"
+        );
+
+
+    /*
+       멤버 직캠 선택
+       → 앨범 필터 숨김
+    */
+
+    albumFilters.style.display =
+        currentType === "member"
+            ? "none"
+            : "flex";
+
+
+    /*
+       그룹 직캠 선택
+       → 멤버 필터 숨김
+    */
+
+    memberFilters.style.display =
+        currentType === "group"
+            ? "none"
+            : "flex";
+
+}
+
+
+
+/* =========================
    직캠 종류 선택
 ========================= */
 
@@ -537,7 +575,7 @@ function showType(type){
 
 
     /*
-       직캠 종류를 바꾸면
+       직캠 종류를 변경하면
        기존 세부 필터 초기화
     */
 
@@ -548,82 +586,25 @@ function showType(type){
         "all";
 
 
-
-    const albumFilters =
-        document.getElementById(
-            "albumFilters"
-        );
-
-
-    const memberFilters =
-        document.getElementById(
-            "memberFilters"
-        );
-
-
-
-    /* -------------------------
-       그룹 직캠
-    ------------------------- */
-
-    if(type === "group"){
-
-        albumFilters.style.display =
-            "flex";
-
-        memberFilters.style.display =
-            "none";
-
-    }
-
-
-    /* -------------------------
-       멤버 직캠
-    ------------------------- */
-
-    else if(type === "member"){
-
-        albumFilters.style.display =
-            "none";
-
-        memberFilters.style.display =
-            "flex";
-
-    }
-
-
-    /* -------------------------
-       전체
-    ------------------------- */
-
-    else{
-
-        albumFilters.style.display =
-            "none";
-
-        memberFilters.style.display =
-            "none";
-
-    }
-
-
-
     /*
-       전체 버튼을 누르면
+       전체를 선택하면
        날짜 검색도 초기화
     */
 
     if(type === "all"){
 
-        currentDate = "";
+        currentDate =
+            "";
 
         document.getElementById(
             "dateSearch"
-        ).value = "";
+        ).value =
+            "";
 
     }
 
 
+    updateFilterVisibility();
 
     applyFilters();
 
@@ -645,30 +626,14 @@ function showAlbum(album){
     currentType =
         "group";
 
-
     currentAlbum =
         album;
-
 
     currentMember =
         "all";
 
 
-
-    /*
-       필터 표시 상태
-    */
-
-    document.getElementById(
-        "albumFilters"
-    ).style.display = "flex";
-
-
-    document.getElementById(
-        "memberFilters"
-    ).style.display = "none";
-
-
+    updateFilterVisibility();
 
     applyFilters();
 
@@ -690,30 +655,14 @@ function showMember(member){
     currentType =
         "member";
 
-
     currentMember =
         member;
-
 
     currentAlbum =
         "all";
 
 
-
-    /*
-       필터 표시 상태
-    */
-
-    document.getElementById(
-        "albumFilters"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "memberFilters"
-    ).style.display = "flex";
-
-
+    updateFilterVisibility();
 
     applyFilters();
 
