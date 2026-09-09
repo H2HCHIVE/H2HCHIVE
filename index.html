@@ -6,7 +6,6 @@
 <title>H2HCHIVE</title>
 
 <style>
-
 body{
     margin:0;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
@@ -15,120 +14,111 @@ body{
 }
 
 .container{
-    max-width:420px;
-    margin:0 auto;
-    padding:24px 16px 60px;
+max-width:420px;
+margin:0 auto;
+padding:24px 16px 60px;
 }
 
 .header{
-    margin-bottom:24px;
+margin-bottom:24px;
 }
 
-
 /* ===== DDAY ===== */
-
 #dday-container{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
 }
 
 #dday-box{
-    flex:1;
-    text-align:center;
-    padding:6px 0;
+flex:1;
+text-align:center;
+padding:6px 0;
 }
 
 #dday-text{
-    font-size:1.1rem;
-    font-weight:800;
+font-size:1.1rem;
+font-weight:800;
 }
 
 #dday-label{
-    font-size:1.6rem;
-    font-weight:900;
+font-size:1.6rem;
+font-weight:900;
 }
 
 .dday-btn{
-    background:none;
-    border:none;
-    font-size:22px;
-    font-weight:900;
-    cursor:pointer;
-    padding:6px 10px;
-    color:#222;
+background:none;
+border:none;
+font-size:22px;
+font-weight:900;
+cursor:pointer;
+padding:6px 10px;
+color:#222;
 }
 
 .dday-btn:active{
-    opacity:0.5;
+opacity:0.5;
 }
 
-
-/* ===== GRID ===== */
-
+/* grid */
 .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
 }
 
 .card{
-    background:white;
-    border:none;
-    border-radius:18px;
-    padding:22px 12px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-    font-size:1rem;
-    font-weight:600;
-    cursor:pointer;
+background:white;
+border:none;
+border-radius:18px;
+padding:22px 12px;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+font-size:1rem;
+font-weight:600;
+cursor:pointer;
 }
 
 .wide{
-    grid-column:1 / -1;
+grid-column:1 / -1;
 }
 
-
-/* ===== MISSION / SCHEDULE ===== */
-
+/* mission */
 .todo-section{
-    margin:25px 0 25px;
+margin:25px 0 25px;
 }
 
 .todo-box{
-    background:white;
-    border-radius:18px;
-    padding:18px;
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
-    line-height:2;
+background:white;
+border-radius:18px;
+padding:18px;
+box-shadow:0 4px 12px rgba(0,0,0,.08);
+line-height:2;
 }
 
 .todo-header{
-    font-size:1rem;
-    font-weight:700;
-    margin-bottom:10px;
-    padding-bottom:10px;
-    border-bottom:1px solid #eee;
+font-size:1rem;
+font-weight:700;
+margin-bottom:10px;
+padding-bottom:10px;
+border-bottom:1px solid #eee;
 }
 
 .mission-row{
-    display:flex;
-    gap:10px;
-    margin:8px 0;
+display:flex;
+gap:10px;
+margin:8px 0;
 }
 
 .mission-btn{
-    background:#222;
-    color:#fff;
-    text-decoration:none;
-    padding:5px 12px;
-    border-radius:999px;
-    font-size:.8rem;
-    font-weight:600;
+background:#222;
+color:#fff;
+text-decoration:none;
+padding:5px 12px;
+border-radius:999px;
+font-size:.8rem;
+font-weight:600;
 }
-
-
-/* ===== COPYRIGHT ===== */
 
 .copyright{
     margin-top:16px;
@@ -138,29 +128,24 @@ body{
     text-align:center;
 }
 
-
 /* ===== OFFICIAL ACCOUNTS ===== */
-
 .sns-section{
-    margin-top:20px;
-    text-align:center;
+margin-top:20px;
+text-align:center;
 }
 
 .sns-icons{
-    display:flex;
-    justify-content:center;
-    gap:18px;
-    margin-top:14px;
+display:flex;
+justify-content:center;
+gap:18px;
+margin-top:14px;
 }
 
 .sns-icons a img{
-    width:34px;
-    height:34px;
-    display:block;
+width:34px;
+height:34px;
+display:block;
 }
-
-
-/* ===== MV SWIPER ===== */
 
 .mvSwiper{
     width:100%;
@@ -183,920 +168,450 @@ body{
 
 </style>
 
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 
 </head>
-
 
 <body>
 
 <div class="container">
 
-
-<!-- ===== HEADER ===== -->
-
+<!-- HEADER -->
 <div class="header">
 
+<div id="dday-container">
 
-    <!-- DDAY -->
+<button class="dday-btn" onclick="moveDday(-1)">‹</button>
 
-    <div id="dday-container">
+<div id="dday-box">
 
-        <button
-            class="dday-btn"
-            onclick="moveDday(-1)"
-        >
-            ‹
-        </button>
-
-
-        <div id="dday-box">
-
-            <div id="dday-text"></div>
-
-            <div id="dday-label"></div>
-
-        </div>
-
-
-        <button
-            class="dday-btn"
-            onclick="moveDday(1)"
-        >
-            ›
-        </button>
-
-    </div>
-
-
-    <!-- ===== MV ===== -->
-
-    <div class="swiper mvSwiper">
-
-        <div class="swiper-wrapper">
-
-
-            <div class="swiper-slide">
-
-                <iframe
-                    loading="lazy"
-                    src="https://www.youtube.com/embed/gNUMxMuxH20"
-                    title="Moonride"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen>
-                </iframe>
-
-            </div>
-
-
-            <div class="swiper-slide">
-
-                <iframe
-                    loading="lazy"
-                    src="https://www.youtube.com/embed/chl0R8C4NJ8"
-                    title="ICONIC HEART"
-                    allowfullscreen>
-                </iframe>
-
-            </div>
-
-
-            <div class="swiper-slide">
-
-                <iframe
-                    loading="lazy"
-                    src="https://www.youtube.com/embed/1VqxWNwgf5Q"
-                    title="Lemon Tang"
-                    allowfullscreen>
-                </iframe>
-
-            </div>
-
-
-        </div>
-
-
-        <div class="swiper-pagination"></div>
-
-    </div>
+<div id="dday-text"></div>
+<div id="dday-label"></div>
 
 </div>
 
+<button class="dday-btn" onclick="moveDday(1)">›</button>
 
+</div>
 
-<!-- ===== TODAY SCHEDULE ===== -->
+<div class="swiper mvSwiper">
+
+  <div class="swiper-wrapper">
+
+    <div class="swiper-slide">
+      <iframe
+        loading="lazy"
+        src="https://www.youtube.com/embed/gNUMxMuxH20"
+        title="Moonride"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="swiper-slide">
+      <iframe
+        loading="lazy"
+        src="https://www.youtube.com/embed/chl0R8C4NJ8"
+        title="ICONIC HEART"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <div class="swiper-slide">
+      <iframe
+        loading="lazy"
+        src="https://www.youtube.com/embed/1VqxWNwgf5Q"
+        title="Lemon Tang"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+
+  <div class="swiper-pagination"></div>
+
+</div>
+
+</div>
 
 <div class="todo-section">
 
-    <div class="todo-box">
+  <div class="todo-box">
 
-        <div class="todo-header">
-            📅 오늘의 일정
-        </div>
+    <div class="todo-header">📅 오늘의 일정</div>
 
-        <div id="today-schedule"></div>
+    <div id="today-schedule">
 
     </div>
 
+  </div>
+
 </div>
 
-
-
-<!-- ===== MISSION ===== -->
-
+<!-- MISSION -->
 <div class="todo-section">
 
-    <div class="todo-box">
+  <div class="todo-box">
 
-        <div class="todo-header">
-            📍 오늘의 미션
-        </div>
+    <div class="todo-header">📍 오늘의 미션</div>
 
-        <div id="mission-list"></div>
+    <div id="mission-list"></div>
 
-    </div>
+  </div>
 
 </div>
 
-
-
-<!-- ===== GRID ===== -->
-
+<!-- GRID -->
 <div class="grid">
 
+<button class="card wide" onclick="location.href='stream.html'">스밍리스트</button>
 
-    <button
-        class="card wide"
-        onclick="location.href='stream.html'"
-    >
-        스밍리스트
-    </button>
+<button class="card" onclick="location.href='mv.html'">MV</button>
 
+<button class="card" onclick="location.href='cheer.html'">응원법</button>
 
-    <button
-        class="card"
-        onclick="location.href='mv.html'"
-    >
-        MV
-    </button>
+<button class="card" onclick="location.href='schedule.html'">일정</button>
 
-
-    <button
-        class="card"
-        onclick="location.href='cheer.html'"
-    >
-        응원법
-    </button>
-
-
-    <button
-        class="card"
-        onclick="location.href='schedule.html'"
-    >
-        일정
-    </button>
-
-
-    <button
-        class="card"
-        onclick="location.href='archive.html'"
-    >
-        아카이브
-    </button>
-
+<button class="card" onclick="location.href='archive.html'">아카이브</button>
 
 </div>
 
-
-
-<!-- ===== MOONRIDE COUNTER ===== -->
-
+<!-- MOONRIDE COUNTER -->
 <div class="todo-section">
 
-    <div class="todo-box">
+  <div class="todo-box">
 
-        <div class="todo-header">
-            스밍이 끊기지 않았다면
-        </div>
+    <div class="todo-header">스밍이 끊기지 않았다면</div>
 
-
-        <div style="font-weight:700;">
-
-            🌕 Moonride 누적
-            <span id="moonride-count">0</span>회
-
-        </div>
-
+    <div style="font-weight:700;">
+      🌕 Moonride 누적<span id="moonride-count">0</span>회
     </div>
 
+  </div>
+
 </div>
 
-
 </div>
 
-
-
-<!-- ===== OFFICIAL ACCOUNTS ===== -->
-
+<!-- OFFICIAL ACCOUNTS -->
 <div class="sns-section">
 
+<div class="todo-header">OFFICIAL ACCOUNTS</div>
 
-    <div class="todo-header">
-        OFFICIAL ACCOUNTS
-    </div>
+<div class="sns-icons">
 
+<a href="https://www.instagram.com/hearts2hearts" target="_blank">
+  <img src="instargram-logo.svg" alt="Instagram">
+</a>
 
-    <div class="sns-icons">
+<a href="https://x.com/Hearts2Hearts" target="_blank">
+  <img src="x-logo.svg" alt="X">
+</a>
 
+<a href="https://youtube.com/@hearts2hearts.official" target="_blank">
+  <img src="youtube-logo.svg" alt="YouTube">
+</a>
 
-        <a
-            href="https://www.instagram.com/hearts2hearts"
-            target="_blank"
-        >
-            <img
-                src="instargram-logo.svg"
-                alt="Instagram"
-            >
-        </a>
-
-
-        <a
-            href="https://x.com/Hearts2Hearts"
-            target="_blank"
-        >
-            <img
-                src="x-logo.svg"
-                alt="X"
-            >
-        </a>
-
-
-        <a
-            href="https://youtube.com/@hearts2hearts.official"
-            target="_blank"
-        >
-            <img
-                src="youtube-logo.svg"
-                alt="YouTube"
-            >
-        </a>
-
-
-        <a
-            href="https://weverse.io/hearts2hearts/highlight"
-            target="_blank"
-        >
-            <img
-                src="weverse-logo.svg"
-                alt="Weverse"
-            >
-        </a>
-
-
-    </div>
-
-
-    <p class="copyright">
-
-        본 페이지는 팬이 제작·운영하는 비공식 팬페이지입니다.<br>
-
-        직접 제작한 자료를 제외한 모든 콘텐츠의 저작권은
-        소속사 및 각 콘텐츠의 권리자(방송사 등)에게 있습니다.
-
-    </p>
-
+<a href="https://weverse.io/hearts2hearts/highlight" target="_blank">
+  <img src="weverse-logo.svg" alt="Weverse">
+</a>
 
 </div>
 
+<p class="copyright">
+본 페이지는 팬이 제작·운영하는 비공식 팬페이지입니다.<br>
+직접 제작한 자료를 제외한 모든 콘텐츠의 저작권은 소속사 및 각 콘텐츠의 권리자(방송사 등)에게 있습니다.
+</p>
 
-
-<!-- ===== SCRIPT : MISSION ===== -->
+</div>
 
 <script>
 
+/* ===== MISSION ===== */
+
 function toKSTDate(str){
-
-    return new Date(
-        str + "T00:00:00+09:00"
-    );
-
+return new Date(str + "T00:00:00+09:00");
 }
 
-
-const mission =
-    document.getElementById("mission-list");
-
+const mission = document.getElementById("mission-list");
 
 const schedules = [
-
-    {
-
-        start:"2026-09-07",
-
-        end:"2026-09-13",
-
-        items:[
-
-            {
-
-                text:"🗳멜론 주간인기상 투표하기",
-
-                link:"http://into.melon.com/weeklyaward"
-
-            }
-
-        ]
-
-    }
-
+{
+start:"2026-09-07",
+end:"2026-09-13",
+items:[
+{
+text:"🗳멜론 주간인기상 투표하기",
+link:"http://into.melon.com/weeklyaward"
+}
+]
+},
 ];
-
 
 const now = new Date();
 
 let currentMission = [];
 
+for (const s of schedules) {
 
-for(const s of schedules){
+  const start = toKSTDate(s.start);
+  const end = toKSTDate(s.end);
 
-    const start =
-        toKSTDate(s.start);
+  end.setHours(23,59,59,999);
 
-    const end =
-        toKSTDate(s.end);
-
-    end.setHours(
-        23,
-        59,
-        59,
-        999
-    );
-
-
-    if(
-        now >= start &&
-        now <= end
-    ){
-
-        currentMission.push(
-            ...s.items
-        );
-
-    }
+  if (now >= start && now <= end) {
+    currentMission.push(...s.items);
+  }
 
 }
 
+mission.innerHTML = currentMission.length
 
-mission.innerHTML =
+  ? currentMission.map(item => {
 
-    currentMission.length
+      if (typeof item === "string") {
+        return `<div>✅ ${item}</div>`;
+      }
 
-    ?
-
-    currentMission.map(item => {
-
-        if(
-            typeof item === "string"
-        ){
-
-            return `
-                <div>
-                    ✅ ${item}
-                </div>
-            `;
-
-        }
-
-
-        return `
-
-            <div class="mission-row">
-
-                <span>
-                    ✅ ${item.text}
-                </span>
-
-                <a
-                    class="mission-btn"
-                    href="${item.link}"
-                    target="_blank"
-                >
-                    바로가기
-                </a>
-
-            </div>
-
-        `;
+      return `
+        <div class="mission-row">
+          <span>✅ ${item.text}</span>
+          <a class="mission-btn" href="${item.link}" target="_blank">바로가기</a>
+        </div>
+      `;
 
     }).join("")
 
-    :
-
-    "진행 중인 미션이 없습니다.";
+  : "진행 중인 미션이 없습니다.";
 
 
-</script>
-
-
-
-<!-- ===== SCRIPT : DDAY ===== -->
-
-<script>
+/* ===== DDAY ===== */
 
 const ddayList = [
-
-    {
-        name:"🎉 데뷔",
-        date:"2025-02-24T00:00:00+09:00",
-        type:"debut"
-    },
-
-    {
-        name:"🍓 지우 생일",
-        date:"2026-09-07T00:00:00+09:00",
-        type:"dday"
-    },
-
-    {
-        name:"🫛 이안 생일",
-        date:"2026-10-09T00:00:00+09:00",
-        type:"dday"
-    },
-
-    {
-        name:"👾 주은 생일",
-        date:"2026-12-03T00:00:00+09:00",
-        type:"dday"
-    },
-
-    {
-        name:"🌻 에이나 생일",
-        date:"2026-12-20T00:00:00+09:00",
-        type:"dday"
-    }
-
+{ name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00", type:"debut" },
+{ name:"🍓 지우 생일", date:"2026-09-07T00:00:00+09:00", type:"dday" },
+{ name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00", type:"dday" },
+{ name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
+{ name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" }
 ];
-
 
 let ddayIndex = 0;
 
-
-const ddayText =
-    document.getElementById("dday-text");
-
-
-const ddayLabel =
-    document.getElementById("dday-label");
-
+const ddayText = document.getElementById("dday-text");
+const ddayLabel = document.getElementById("dday-label");
 
 function updateDday(){
 
-    const item =
-        ddayList[ddayIndex];
+const item = ddayList[ddayIndex];
 
+const now = new Date();
+const target = new Date(item.date);
 
-    const now =
-        new Date();
+ddayText.textContent = item.name;
 
+const diff = target - now;
 
-    const target =
-        new Date(item.date);
+const day = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
+if(item.type === "debut"){
 
-    ddayText.textContent =
-        item.name;
+const start = new Date(2025, 1, 24);
 
+const today = new Date(
+now.getFullYear(),
+now.getMonth(),
+now.getDate()
+);
 
-    const diff =
-        target - now;
+const diffDays =
+Math.floor((today - start) / (1000*60*60*24)) + 1;
 
+ddayLabel.textContent = `D+${diffDays}`;
 
-    const day =
-        Math.ceil(
-            diff /
-            (1000 * 60 * 60 * 24)
-        );
-
-
-    if(
-        item.type === "debut"
-    ){
-
-        const start =
-            new Date(
-                2025,
-                1,
-                24
-            );
-
-
-        const today =
-            new Date(
-                now.getFullYear(),
-                now.getMonth(),
-                now.getDate()
-            );
-
-
-        const diffDays =
-
-            Math.floor(
-                (
-                    today - start
-                ) /
-                (1000 * 60 * 60 * 24)
-            ) + 1;
-
-
-        ddayLabel.textContent =
-            `D+${diffDays}`;
-
-
-        return;
-
-    }
-
-
-    if(diff > 0){
-
-        ddayLabel.textContent =
-            `D-${day}`;
-
-    }
-
-    else{
-
-        ddayLabel.textContent =
-            "D-DAY";
-
-    }
+return;
 
 }
 
+if (diff > 0) {
+  ddayLabel.textContent = `D-${day}`;
+} else {
+  ddayLabel.textContent = "D-DAY";
+}
+
+}
 
 function moveDday(dir){
 
-    ddayIndex += dir;
+ddayIndex += dir;
 
+if(ddayIndex < 0)
+ddayIndex = ddayList.length - 1;
 
-    if(
-        ddayIndex < 0
-    ){
-
-        ddayIndex =
-            ddayList.length - 1;
-
-    }
-
-
-    if(
-        ddayIndex >=
-        ddayList.length
-    ){
-
-        ddayIndex = 0;
-
-    }
-
-
-    updateDday();
-
-}
-
+if(ddayIndex >= ddayList.length)
+ddayIndex = 0;
 
 updateDday();
 
-</script>
+}
+
+updateDday();
 
 
+/* ===== MOONRIDE COUNTER ===== */
 
-<!-- ===== SCRIPT : MOONRIDE COUNTER ===== -->
+const startTime = new Date("2026-09-09T18:00:00+09:00");
 
-<script>
+const CYCLE = 3601;
 
-/*
+// 스밍리스트에서 Moonride가 나오는 위치
+// 02:43 = 163초
+// 32:15 = 1935초
+const moonrideTimes = [163, 1935];
 
-    ===== MOONRIDE COUNTER =====
+function getElapsedSeconds(){
 
-    스밍리스트 기준
-
-    01 Lemon Tang       02:43
-    02 Moonride         02:57
-
-    ...
-
-    11 Lemon Tang       02:43
-    12 Moonride         02:57
-
-
-    Moonride 재생 시점
-
-    1회차
-    → 02:43
-
-    2회차
-    → 32:15
-
-
-    스밍리스트 전체 길이
-    → 약 60분 1초
-
-
-    따라서 리스트가 반복될 때마다
-
-    Moonride
-    → 02:43
-    → 32:15
-
-    총 2회 재생됨.
-
-*/
-
-
-/* ===== 스밍 시작 시간 ===== */
-
-const moonrideStartTime =
-    new Date(
-        "2026-09-09T00:00:00+09:00"
-    );
-
-
-/* ===== Moonride 등장 시점 ===== */
-
-const moonrideTimes = [
-
-    2 * 60 + 43,    // 02:43
-
-    32 * 60 + 15     // 32:15
-
-];
-
-
-/* ===== 전체 스밍리스트 길이 ===== */
-
-const STREAMING_CYCLE =
-    60 * 60 + 1;
-
-
-/* ===== 경과 시간 ===== */
-
-function getMoonrideElapsedSeconds(){
-
-    return Math.floor(
-
-        (
-            Date.now()
-            -
-            moonrideStartTime.getTime()
-        )
-        /
-        1000
-
-    );
+  return Math.floor(
+    (Date.now() - startTime.getTime()) / 1000
+  );
 
 }
 
+function getCycleInfo(){
 
-/* ===== Moonride 누적 횟수 계산 ===== */
+  const elapsed = getElapsedSeconds();
+
+  const cycleCount = Math.floor(elapsed / CYCLE);
+
+  const cycleTime = elapsed % CYCLE;
+
+  return {
+    cycleCount,
+    cycleTime
+  };
+
+}
 
 function getMoonrideCount(){
 
-    const elapsed =
-        getMoonrideElapsedSeconds();
+  const {
+    cycleCount,
+    cycleTime
+  } = getCycleInfo();
 
+  let count = cycleCount * 2;
 
-    if(elapsed < 0){
+  for(const t of moonrideTimes){
 
-        return 0;
-
+    if(cycleTime >= t){
+      count++;
     }
 
+  }
 
-    /*
-        현재 몇 번째 스밍리스트인지
-    */
-
-    const cycle =
-        Math.floor(
-            elapsed /
-            STREAMING_CYCLE
-        );
-
-
-    /*
-        현재 스밍리스트에서
-        몇 초가 지났는지
-    */
-
-    const cycleTime =
-        elapsed %
-        STREAMING_CYCLE;
-
-
-    /*
-        이전에 완료된 리스트에서
-        재생된 Moonride
-
-        리스트당 2회
-    */
-
-    let count =
-        cycle *
-        moonrideTimes.length;
-
-
-    /*
-        현재 리스트에서
-        이미 지나간 Moonride 확인
-    */
-
-    for(
-        const time of moonrideTimes
-    ){
-
-        if(
-            cycleTime >= time
-        ){
-
-            count++;
-
-        }
-
-    }
-
-
-    return count;
+  return count;
 
 }
-
-
-/* ===== 화면 업데이트 ===== */
 
 function updateMoonride(){
 
-    const el =
-        document.getElementById(
-            "moonride-count"
-        );
+  const el = document.getElementById("moonride-count");
 
-
-    if(el){
-
-        el.textContent =
-            getMoonrideCount();
-
-    }
+  if(el)
+    el.textContent = getMoonrideCount();
 
 }
 
-
-/*
-    1초마다 업데이트
-*/
-
-setInterval(
-    updateMoonride,
-    1000
-);
-
-
-/*
-    페이지 로드 즉시 실행
-*/
+setInterval(updateMoonride, 1000);
 
 updateMoonride();
 
 </script>
 
-
-
-<!-- ===== SCRIPT : TODAY SCHEDULE ===== -->
-
 <script>
 
 const todaySchedule =
-    document.getElementById(
-        "today-schedule"
-    );
+document.getElementById("today-schedule");
 
+const today = new Date();
 
-const today =
-    new Date();
+const yyyy = today.getFullYear();
 
+const mm = String(
+today.getMonth() + 1
+).padStart(2, "0");
 
-const yyyy =
-    today.getFullYear();
-
-
-const mm =
-    String(
-        today.getMonth() + 1
-    ).padStart(2, "0");
-
-
-const dd =
-    String(
-        today.getDate()
-    ).padStart(2, "0");
-
+const dd = String(
+today.getDate()
+).padStart(2, "0");
 
 const todayKey =
-    `${yyyy}-${mm}-${dd}`;
-
+`${yyyy}-${mm}-${dd}`;
 
 fetch("./schedule.json")
 
-    .then(res => {
+  .then(res => {
 
-        if(!res.ok){
+    if (!res.ok)
+      throw new Error("JSON 로드 실패");
 
-            throw new Error(
-                "JSON 로드 실패"
-            );
+    return res.json();
 
-        }
+  })
 
-        return res.json();
+  .then(scheduleData => {
 
-    })
+    if (
+      scheduleData &&
+      scheduleData[todayKey]
+    ) {
 
+      todaySchedule.innerHTML =
+        scheduleData[todayKey]
+        .replace(/\n/g, "<br>");
 
-    .then(scheduleData => {
+    } else {
 
-        if(
+      todaySchedule.innerHTML =
+        "오늘 일정이 없습니다.";
 
-            scheduleData &&
-            scheduleData[todayKey]
+    }
 
-        ){
+  })
 
-            todaySchedule.innerHTML =
+  .catch(err => {
 
-                scheduleData[todayKey]
-                .replace(
-                    /\n/g,
-                    "<br>"
-                );
+    console.error(err);
 
-        }
+    todaySchedule.innerHTML =
+      "일정 데이터를 불러오지 못했습니다.";
 
-        else{
-
-            todaySchedule.innerHTML =
-                "오늘 일정이 없습니다.";
-
-        }
-
-    })
-
-
-    .catch(err => {
-
-        console.error(err);
-
-        todaySchedule.innerHTML =
-            "일정 데이터를 불러오지 못했습니다.";
-
-    });
+  });
 
 </script>
-
-
-
-<!-- ===== SWIPER ===== -->
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-
 <script>
 
-new Swiper(
-    ".mvSwiper",
-    {
+new Swiper(".mvSwiper", {
 
-        loop:true,
+    loop: true,
 
-        spaceBetween:10,
+    spaceBetween: 10,
 
-        centeredSlides:true,
+    centeredSlides: true,
 
-        pagination:{
+    pagination: {
 
-            el:
-                ".swiper-pagination",
+        el: ".swiper-pagination",
 
-            clickable:true,
+        clickable: true,
 
-        },
+    },
 
-    }
-);
+});
 
 </script>
-
 
 </body>
 </html>
