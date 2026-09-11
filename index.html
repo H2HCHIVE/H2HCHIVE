@@ -529,6 +529,8 @@ updateMoonride();
 
 <script>
 
+/* ===== TODAY SCHEDULE ===== */
+
 const todaySchedule =
 document.getElementById("today-schedule");
 
@@ -547,12 +549,24 @@ today.getDate()
 const todayKey =
 `${yyyy}-${mm}-${dd}`;
 
-fetch("./schedule.json")
+/*
+현재 연도에 맞는 schedule-YYYY.json을 자동으로 불러옴
+
+예:
+2026년 → schedule-2026.json
+2027년 → schedule-2027.json
+2028년 → schedule-2028.json
+*/
+
+const scheduleFile =
+`./schedule-${yyyy}.json`;
+
+fetch(scheduleFile)
 
   .then(res => {
 
     if (!res.ok)
-      throw new Error("JSON 로드 실패");
+      throw new Error(`${scheduleFile} 로드 실패`);
 
     return res.json();
 
