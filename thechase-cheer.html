@@ -50,15 +50,13 @@ body{
     display:block;
 }
 
-/* 응원법 가이드 토글 */
+/* 응원법 가이드 */
 .guide-toggle{
     width:100%;
     margin-top:24px;
     padding:14px 0;
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+    display:block;
 
     background:none;
     border:0;
@@ -76,12 +74,6 @@ body{
 
 .guide-toggle:active{
     opacity:.6;
-}
-
-.guide-arrow{
-    color:#999;
-    font-size:.9rem;
-    transition:transform .2s ease;
 }
 
 /* 가이드 이미지 */
@@ -126,11 +118,9 @@ body{
     <button
         type="button"
         class="guide-toggle"
-        id="guide-toggle"
         onclick="toggleGuide()"
     >
-        <span id="guide-text">응원법 가이드</span>
-        <span class="guide-arrow" id="guide-arrow">⌄</span>
+        응원법 가이드
     </button>
 
     <div class="guide-content" id="guide-content">
@@ -149,15 +139,8 @@ body{
 function toggleGuide(){
 
     const content = document.getElementById("guide-content");
-    const arrow = document.getElementById("guide-arrow");
 
-    const isOpen = content.classList.toggle("open");
-
-    if(isOpen){
-        arrow.textContent = "⌃";
-    }else{
-        arrow.textContent = "⌄";
-    }
+    content.classList.toggle("open");
 }
 </script>
 
