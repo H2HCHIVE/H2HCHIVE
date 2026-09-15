@@ -11,39 +11,142 @@
     box-sizing:border-box;
 }
 
+html,
 body{
     margin:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:#f5f6f8;
     color:#222;
 }
 
-.container{
+.page{
+    width:100%;
+    min-height:100vh;
+    display:flex;
+}
+
+
+/* =========================
+   왼쪽 사이드바
+========================= */
+
+.sidebar{
+    width:100px;
+    min-height:100vh;
+    flex-shrink:0;
+
+    padding:24px 6px;
+
+    background:#f5f6f8;
+    border-right:1px solid #e5e5e5;
+}
+
+.sidebar-title{
+    padding:0 2px 20px;
+
+    text-align:center;
+
+    font-size:1.1rem;
+    font-weight:700;
+}
+
+.menu-list{
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+}
+
+.menu-link{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    gap:5px;
+
+    min-height:62px;
+    padding:8px 3px;
+
+    border-radius:10px;
+
+    color:#666;
+    text-decoration:none;
+
+    font-size:10px;
+    font-weight:500;
+
+    text-align:center;
+
+    transition:.2s;
+}
+
+.menu-link:hover{
+    background:#fff;
+    color:#222;
+}
+
+.menu-link.active{
+    background:#fff;
+    color:#222;
+
+    font-weight:600;
+
+    box-shadow:0 2px 7px rgba(0,0,0,.05);
+}
+
+.menu-icon{
+    width:auto;
+
+    text-align:center;
+
+    font-size:18px;
+    line-height:1;
+}
+
+.menu-name{
+    white-space:nowrap;
+}
+
+
+/* =========================
+   오른쪽 콘텐츠
+========================= */
+
+.content{
+    flex:1;
+    min-width:0;
+    min-height:100vh;
+}
+
+.content-inner{
     max-width:900px;
     margin:0 auto;
+
     padding:24px 16px 60px;
 }
 
-/* 상단 */
-.header{
-    margin-bottom:20px;
-}
 
-.back-btn{
-    display:inline-block;
-    margin-bottom:16px;
-    color:#222;
-    text-decoration:none;
-    font-size:1.5rem;
-}
+/* =========================
+   제목
+========================= */
 
 .title{
-    margin:0;
+    margin:0 0 20px;
+
     font-size:1.7rem;
     font-weight:700;
 }
 
-/* 카테고리 */
+
+/* =========================
+   카테고리
+========================= */
+
 .category-list{
     display:flex;
     flex-direction:column;
@@ -54,6 +157,7 @@ body{
     margin-bottom:16px;
 
     background:#fff;
+
     border:1px solid #e5e5e5;
     border-radius:14px;
 }
@@ -69,8 +173,10 @@ body{
     background:none;
 
     color:#555;
+
     font-family:inherit;
     font-size:.9rem;
+
     text-align:left;
 
     cursor:pointer;
@@ -87,6 +193,7 @@ body{
 
 .category.active::before{
     content:"";
+
     display:inline-block;
 
     width:5px;
@@ -97,13 +204,20 @@ body{
     vertical-align:middle;
 
     border-radius:50%;
+
     background:#89CFF0;
 }
 
-/* 검색 */
+
+/* =========================
+   검색
+========================= */
+
 .search{
     display:flex;
+
     gap:8px;
+
     margin-bottom:20px;
 }
 
@@ -120,6 +234,7 @@ body{
 
     font-family:inherit;
     font-size:.85rem;
+
     outline:none;
 }
 
@@ -127,10 +242,17 @@ body{
     border-color:#b9dff0;
 }
 
-/* 영상 목록 */
+
+/* =========================
+   영상 목록
+========================= */
+
 .video-grid{
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
     gap:12px;
 }
 
@@ -146,11 +268,13 @@ body{
     text-decoration:none;
     color:#222;
 
-    box-shadow:0 2px 8px rgba(0,0,0,.05);
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.05);
 }
 
 .video-thumbnail{
     width:100%;
+
     aspect-ratio:16 / 9;
 
     object-fit:cover;
@@ -169,11 +293,13 @@ body{
 
     font-size:.82rem;
     font-weight:600;
+
     line-height:1.35;
 
     display:-webkit-box;
     -webkit-line-clamp:2;
     -webkit-box-orient:vertical;
+
     overflow:hidden;
 }
 
@@ -181,6 +307,11 @@ body{
     font-size:.72rem;
     color:#999;
 }
+
+
+/* =========================
+   영상 없음
+========================= */
 
 .empty{
     grid-column:1 / -1;
@@ -190,12 +321,37 @@ body{
     text-align:center;
 
     color:#999;
+
     font-size:.85rem;
 }
 
+
+/* =========================
+   작은 화면
+========================= */
+
 @media(max-width:360px){
 
-    .container{
+    .sidebar{
+        width:88px;
+        padding:22px 4px;
+    }
+
+    .sidebar-title{
+        font-size:1rem;
+        padding-bottom:18px;
+    }
+
+    .menu-link{
+        min-height:58px;
+        font-size:9px;
+    }
+
+    .menu-icon{
+        font-size:17px;
+    }
+
+    .content-inner{
         padding-left:12px;
         padding-right:12px;
     }
@@ -217,116 +373,218 @@ body{
 
 <body>
 
-<div class="container">
-
-    <div class="header">
-
-        <a href="content.html" class="back-btn">←</a>
-
-        <h1 class="title">자체 콘텐츠</h1>
-
-    </div>
+<div class="page">
 
 
-    <!-- 카테고리 -->
+    <!-- =========================
+         왼쪽 메뉴
+    ========================== -->
 
-    <div class="category-list">
+    <aside class="sidebar">
 
-        <button class="category active">
-            전체
-        </button>
-
-        <button class="category">
-            S2cret Diary
-        </button>
-
-        <button class="category">
-            Crunchy Hearts
-        </button>
-
-        <button class="category">
-            Performances & Choreography
-        </button>
-
-        <button class="category">
-            Production BH2ND
-        </button>
-
-        <button class="category">
-            Hearts Chase
-        </button>
-
-        <button class="category">
-            Daily BH2ND
-        </button>
-
-        <button class="category">
-            2025 Holiday Vlogs
-        </button>
-
-        <button class="category">
-            2026 Holiday Vlog
-        </button>
-
-        <button class="category">
-            둘셋하투하
-        </button>
-
-    </div>
-
-
-    <!-- 검색 -->
-
-    <div class="search">
-
-        <input
-            type="text"
-            id="titleSearch"
-            placeholder="제목 검색"
-        >
-
-        <input
-            type="text"
-            id="dateSearch"
-            placeholder="날짜 검색"
-        >
-
-    </div>
-
-
-    <!-- 영상 목록 -->
-
-    <div class="video-grid" id="videoGrid">
-
-        <div class="empty">
-            등록된 콘텐츠가 없습니다.
+        <div class="sidebar-title">
+            콘텐츠
         </div>
 
-    </div>
+        <nav class="menu-list">
+
+            <a
+                href="content.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">📺</span>
+                <span class="menu-name">음악방송</span>
+            </a>
+
+
+            <a
+                href="selfcontent.html"
+                class="menu-link active"
+            >
+                <span class="menu-icon">▶️</span>
+                <span class="menu-name">자체 콘텐츠</span>
+            </a>
+
+
+            <a
+                href="external.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">📹</span>
+                <span class="menu-name">외부 콘텐츠</span>
+            </a>
+
+
+            <a
+                href="radio.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">📻</span>
+                <span class="menu-name">라디오</span>
+            </a>
+
+
+            <a
+                href="weverse.html"
+                class="menu-link"
+            >
+                <span class="menu-icon">📶</span>
+                <span class="menu-name">위버스 라이브</span>
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- =========================
+         오른쪽 콘텐츠
+    ========================== -->
+
+    <main class="content">
+
+        <div class="content-inner">
+
+
+            <h1 class="title">
+                자체 콘텐츠
+            </h1>
+
+
+            <!-- 카테고리 -->
+
+            <div class="category-list">
+
+                <button
+                    class="category active"
+                    type="button"
+                >
+                    전체
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    S2cret Diary
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    Crunchy Hearts
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    Performances & Choreography
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    Production BH2ND
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    Hearts Chase
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    Daily BH2ND
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    2025 Holiday Vlogs
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    2026 Holiday Vlog
+                </button>
+
+                <button
+                    class="category"
+                    type="button"
+                >
+                    둘셋하투하
+                </button>
+
+            </div>
+
+
+            <!-- 검색 -->
+
+            <div class="search">
+
+                <input
+                    type="text"
+                    id="titleSearch"
+                    placeholder="제목 검색"
+                >
+
+                <input
+                    type="text"
+                    id="dateSearch"
+                    placeholder="날짜 검색"
+                >
+
+            </div>
+
+
+            <!-- 영상 목록 -->
+
+            <div
+                class="video-grid"
+                id="videoGrid"
+            >
+
+                <div class="empty">
+                    등록된 콘텐츠가 없습니다.
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
 
 </div>
 
 
 <script>
 
-/*
-    나중에 영상을 추가할 때 이 부분에 작성
+/* =========================================
+   영상 데이터
 
-    예시:
+   나중에 영상 추가할 때 아래 형식으로 입력
+========================================= */
 
+const videos = [
+
+    /*
     {
         title: "영상 제목",
         date: "2026-09-16",
         category: "Production BH2ND",
         videoId: "유튜브영상ID"
     }
-
-*/
-
-const videos = [
-
-    // 여기에 영상 추가
-
+    */
 
 ];
 
@@ -347,13 +605,22 @@ const videoGrid =
 let currentCategory = "전체";
 
 
+/* =========================================
+   영상 출력
+========================================= */
+
 function render(){
 
     const titleKeyword =
-        titleSearch.value.trim().toLowerCase();
+        titleSearch.value
+            .trim()
+            .toLowerCase();
+
 
     const dateKeyword =
-        dateSearch.value.trim().replace(/-/g,"");
+        dateSearch.value
+            .trim()
+            .replace(/-/g,"");
 
 
     const filtered =
@@ -438,25 +705,36 @@ function render(){
 }
 
 
+/* =========================================
+   카테고리 선택
+========================================= */
+
 categories.forEach(button => {
 
-    button.addEventListener("click", () => {
+    button.addEventListener(
+        "click",
+        () => {
 
-        categories.forEach(item =>
-            item.classList.remove("active")
-        );
+            categories.forEach(item => {
+                item.classList.remove("active");
+            });
 
-        button.classList.add("active");
+            button.classList.add("active");
 
-        currentCategory =
-            button.textContent.trim();
+            currentCategory =
+                button.textContent.trim();
 
-        render();
+            render();
 
-    });
+        }
+    );
 
 });
 
+
+/* =========================================
+   검색
+========================================= */
 
 titleSearch.addEventListener(
     "input",
