@@ -175,7 +175,7 @@ display:block;
     position:fixed;
 
     left:12px;
-    top:42%;
+    top:18%;
 
     width:158px;
     min-height:48px;
@@ -222,7 +222,20 @@ display:block;
     overflow:hidden;
 }
 
+
+/* 곡 제목 + 곡 번호 */
+
+.kst-player-song{
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    min-width:0;
+}
+
 .kst-player-title{
+    min-width:0;
+
     font-size:12px;
     font-weight:700;
 
@@ -234,6 +247,19 @@ display:block;
 
     color:#222;
 }
+
+.kst-player-number{
+    font-size:8px;
+    font-weight:600;
+
+    color:#89CFF0;
+
+    white-space:nowrap;
+    flex-shrink:0;
+}
+
+
+/* 시간 */
 
 .kst-player-time{
     font-size:10px;
@@ -266,22 +292,6 @@ display:block;
     background:#89CFF0;
 
     transition:width .5s linear;
-}
-
-
-/* KST SYNC */
-
-.kst-player-label{
-    position:absolute;
-
-    right:9px;
-    bottom:-13px;
-
-    font-size:7px;
-
-    color:#89CFF0;
-
-    white-space:nowrap;
 }
 
 
@@ -466,11 +476,22 @@ display:block;
 
     <div class="kst-player-info">
 
-        <div
-            id="kst-player-title"
-            class="kst-player-title"
-        >
-            -
+        <div class="kst-player-song">
+
+            <div
+                id="kst-player-title"
+                class="kst-player-title"
+            >
+                -
+            </div>
+
+            <div
+                id="kst-player-number"
+                class="kst-player-number"
+            >
+                1 / 20
+            </div>
+
         </div>
 
         <div
@@ -489,10 +510,6 @@ display:block;
 
         </div>
 
-    </div>
-
-    <div class="kst-player-label">
-        KST SYNC
     </div>
 
 </div>
@@ -844,6 +861,11 @@ const kstPlayerTitle =
         "kst-player-title"
     );
 
+const kstPlayerNumber =
+    document.getElementById(
+        "kst-player-number"
+    );
+
 const kstPlayerTime =
     document.getElementById(
         "kst-player-time"
@@ -1019,6 +1041,17 @@ function updateKstPlayer(){
 
 
     /*
+       곡 번호
+
+       예:
+       13 / 20
+    */
+
+    kstPlayerNumber.textContent =
+        `${current.index + 1} / ${kstPlaylist.length}`;
+
+
+    /*
        현재 시간 / 전체 시간
     */
 
@@ -1187,14 +1220,19 @@ window.addEventListener(
     "scroll",
     function(){
 
-        /* 스크롤 중 */
+        /*
+           스크롤 중에는 플레이어를 흐리게 표시
+        */
 
         kstPlayer.classList.add(
             "scrolling"
         );
 
 
-        /* 스크롤이 멈추면 다시 선명하게 */
+        /*
+           스크롤이 멈춘 뒤
+           0.5초 후 다시 선명하게 표시
+        */
 
         clearTimeout(
             kstScrollTimer
