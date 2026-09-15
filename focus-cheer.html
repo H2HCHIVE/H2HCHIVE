@@ -33,32 +33,64 @@ body{
     margin-bottom:24px;
 }
 
+/* 응원법 영상 */
+.cheer-video{
+    width:100%;
+    aspect-ratio:16 / 9;
+    background:#000;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.cheer-video iframe{
+    width:100%;
+    height:100%;
+    border:0;
+    display:block;
+}
+
+/* 응원법 가이드 */
+.guide-toggle{
+    width:100%;
+    margin-top:24px;
+    padding:14px 0;
+
+    display:block;
+
+    background:none;
+    border:0;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+
+    color:#222;
+    font-family:inherit;
+    font-size:.95rem;
+    font-weight:500;
+
+    cursor:pointer;
+    text-align:left;
+}
+
+.guide-toggle:active{
+    opacity:.6;
+}
+
+/* 가이드 이미지 */
+.guide-content{
+    display:none;
+    padding-top:16px;
+}
+
+.guide-content.open{
+    display:block;
+}
+
 .cheer-image{
     width:100%;
     border-radius:18px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
     display:block;
-}
-
-.video-link{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin-top:24px;
-    padding:18px 0;
-
-    border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-
-    text-decoration:none;
-    color:#222;
-    font-size:1rem;
-    font-weight:500;
-}
-
-.arrow{
-    color:#999;
 }
 </style>
 </head>
@@ -71,23 +103,46 @@ body{
 
     <div class="title">FOCUS</div>
 
-    <img
-        src="포커스 응원법.png"
-        alt="포커스 응원법"
-        class="cheer-image"
-    >
+    <!-- 응원법 영상 -->
+    <div class="cheer-video">
+        <iframe
+            src="https://www.youtube.com/embed/0pmDQ1iovVo"
+            title="FOCUS 응원법 영상"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+        </iframe>
+    </div>
 
-    <a
-        href="https://youtu.be/0pmDQ1iovVo"
-        target="_blank"
-        class="video-link"
+    <!-- 응원법 가이드 -->
+    <button
+        type="button"
+        class="guide-toggle"
+        onclick="toggleGuide()"
     >
-        <span>응원법 영상 보기</span>
-        <span class="arrow">→</span>
-    </a>
+        응원법 가이드
+    </button>
+
+    <div class="guide-content" id="guide-content">
+
+        <img
+            src="포커스 응원법.png"
+            alt="FOCUS 응원법 가이드"
+            class="cheer-image"
+        >
+
+    </div>
 
 </div>
 
+<script>
+function toggleGuide(){
+
+    const content = document.getElementById("guide-content");
+
+    content.classList.toggle("open");
+}
+</script>
+
 </body>
 </html>
-
