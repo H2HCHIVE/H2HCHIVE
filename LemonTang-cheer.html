@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LemonTang 응원법 | H2HCHIVE</title>
+<title>Lemon Tang 응원법 | H2HCHIVE</title>
 
 <style>
 body{
@@ -33,32 +33,64 @@ body{
     margin-bottom:24px;
 }
 
+/* 응원법 영상 */
+.cheer-video{
+    width:100%;
+    aspect-ratio:16 / 9;
+    background:#000;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
+
+.cheer-video iframe{
+    width:100%;
+    height:100%;
+    border:0;
+    display:block;
+}
+
+/* 응원법 가이드 */
+.guide-toggle{
+    width:100%;
+    margin-top:24px;
+    padding:14px 0;
+
+    display:block;
+
+    background:none;
+    border:0;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+
+    color:#222;
+    font-family:inherit;
+    font-size:.95rem;
+    font-weight:500;
+
+    cursor:pointer;
+    text-align:left;
+}
+
+.guide-toggle:active{
+    opacity:.6;
+}
+
+/* 가이드 이미지 */
+.guide-content{
+    display:none;
+    padding-top:16px;
+}
+
+.guide-content.open{
+    display:block;
+}
+
 .cheer-image{
     width:100%;
     border-radius:18px;
     box-shadow:0 4px 12px rgba(0,0,0,.08);
     display:block;
-}
-
-.video-link{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin-top:24px;
-    padding:18px 0;
-
-    border-top:1px solid #ddd;
-    border-bottom:1px solid #ddd;
-
-    text-decoration:none;
-    color:#222;
-    font-size:1rem;
-    font-weight:500;
-}
-
-.arrow{
-    color:#999;
 }
 </style>
 </head>
@@ -69,25 +101,48 @@ body{
 
     <a href="cheer.html" class="back-btn">←</a>
 
-    <div class="title">LemonTang</div>
+    <div class="title">Lemon Tang</div>
 
-    <img
-        src="레몬탱 응원법.jpg"
-        alt="레몬탱 응원법"
-        class="cheer-image"
-    >
+    <!-- 응원법 영상 -->
+    <div class="cheer-video">
+        <iframe
+            src="https://www.youtube.com/embed/vzJnOHBAtCo"
+            title="Lemon Tang 응원법 영상"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+        </iframe>
+    </div>
 
-    <a
-        href="https://youtu.be/vzJnOHBAtCo"
-        target="_blank"
-        class="video-link"
+    <!-- 응원법 가이드 -->
+    <button
+        type="button"
+        class="guide-toggle"
+        onclick="toggleGuide()"
     >
-        <span>응원법 영상 보기</span>
-        <span class="arrow">→</span>
-    </a>
+        응원법 가이드
+    </button>
+
+    <div class="guide-content" id="guide-content">
+
+        <img
+            src="레몬탱 응원법.jpg"
+            alt="Lemon Tang 응원법 가이드"
+            class="cheer-image"
+        >
+
+    </div>
 
 </div>
 
+<script>
+function toggleGuide(){
+
+    const content = document.getElementById("guide-content");
+
+    content.classList.toggle("open");
+}
+</script>
+
 </body>
 </html>
-
