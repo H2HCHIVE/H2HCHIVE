@@ -50,45 +50,44 @@ body{
     display:block;
 }
 
-/* 가이드 토글 */
+/* 응원법 가이드 토글 */
 .guide-toggle{
     width:100%;
-    margin-top:20px;
-    padding:16px 18px;
+    margin-top:24px;
+    padding:14px 0;
 
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    background:#fff;
+    background:none;
     border:0;
-    border-radius:14px;
-
-    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
 
     color:#222;
     font-family:inherit;
-    font-size:1rem;
-    font-weight:600;
+    font-size:.95rem;
+    font-weight:500;
 
     cursor:pointer;
     text-align:left;
 }
 
 .guide-toggle:active{
-    opacity:.7;
+    opacity:.6;
 }
 
 .guide-arrow{
     color:#999;
-    font-size:1rem;
-    transition:transform .25s ease;
+    font-size:.9rem;
+    transition:transform .2s ease;
 }
 
-/* 가이드 영역 */
+/* 가이드 이미지 */
 .guide-content{
     display:none;
-    margin-top:16px;
+    padding-top:16px;
 }
 
 .guide-content.open{
@@ -117,23 +116,23 @@ body{
         <iframe
             src="https://www.youtube.com/embed/3ycS2cJvAN4"
             title="The Chase 응원법 영상"
+            loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen>
         </iframe>
     </div>
 
-    <!-- 응원법 가이드 펼치기 -->
+    <!-- 응원법 가이드 -->
     <button
         type="button"
         class="guide-toggle"
         id="guide-toggle"
         onclick="toggleGuide()"
     >
-        <span id="guide-text">응원법 가이드 펼치기</span>
+        <span id="guide-text">응원법 가이드</span>
         <span class="guide-arrow" id="guide-arrow">⌄</span>
     </button>
 
-    <!-- 응원법 가이드 이미지 -->
     <div class="guide-content" id="guide-content">
 
         <img
@@ -150,16 +149,13 @@ body{
 function toggleGuide(){
 
     const content = document.getElementById("guide-content");
-    const text = document.getElementById("guide-text");
     const arrow = document.getElementById("guide-arrow");
 
     const isOpen = content.classList.toggle("open");
 
     if(isOpen){
-        text.textContent = "응원법 가이드 닫기";
         arrow.textContent = "⌃";
     }else{
-        text.textContent = "응원법 가이드 펼치기";
         arrow.textContent = "⌄";
     }
 }
