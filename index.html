@@ -174,23 +174,23 @@ display:block;
 .kst-player{
     position:fixed;
 
-    right:12px;
-    bottom:12px;
+    left:12px;
+    top:42%;
 
     width:158px;
     min-height:48px;
 
     background:rgba(255,255,255,.96);
 
-    border:1px solid rgba(0,0,0,.06);
+    border:1px solid rgba(137,207,240,.45);
     border-radius:14px;
 
-    box-shadow:0 4px 14px rgba(0,0,0,.12);
+    box-shadow:0 4px 14px rgba(0,0,0,.10);
 
     display:flex;
     align-items:center;
 
-    padding:7px 8px;
+    padding:7px 9px;
 
     box-sizing:border-box;
 
@@ -198,6 +198,18 @@ display:block;
 
     backdrop-filter:blur(8px);
     -webkit-backdrop-filter:blur(8px);
+
+    transition:
+        opacity .25s ease,
+        transform .25s ease;
+}
+
+
+/* 스크롤 중 */
+
+.kst-player.scrolling{
+    opacity:.28;
+    transform:translateX(-2px);
 }
 
 
@@ -205,7 +217,7 @@ display:block;
 
 .kst-player-info{
     min-width:0;
-    flex:1;
+    width:100%;
 
     overflow:hidden;
 }
@@ -219,6 +231,8 @@ display:block;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
+
+    color:#222;
 }
 
 .kst-player-time{
@@ -249,45 +263,13 @@ display:block;
     width:0%;
     height:100%;
 
-    background:#222;
+    background:#89CFF0;
 
     transition:width .5s linear;
 }
 
 
-/* 재생 버튼 */
-
-.kst-player-button{
-    width:30px;
-    height:30px;
-
-    margin-left:7px;
-
-    padding:0;
-
-    border:none;
-    border-radius:50%;
-
-    background:#222;
-    color:#fff;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:11px;
-
-    cursor:pointer;
-
-    flex-shrink:0;
-}
-
-.kst-player-button:active{
-    transform:scale(.92);
-}
-
-
-/* 실제 음원 재생이 아니라는 표시 */
+/* KST SYNC */
 
 .kst-player-label{
     position:absolute;
@@ -297,7 +279,7 @@ display:block;
 
     font-size:7px;
 
-    color:#aaa;
+    color:#89CFF0;
 
     white-space:nowrap;
 }
@@ -309,8 +291,7 @@ display:block;
 
     .kst-player{
         width:148px;
-        right:8px;
-        bottom:8px;
+        left:8px;
     }
 
 }
@@ -478,7 +459,10 @@ display:block;
      KST SYNC MINI PLAYER
      ===================================================== -->
 
-<div class="kst-player">
+<div
+    class="kst-player"
+    id="kst-player"
+>
 
     <div class="kst-player-info">
 
@@ -506,15 +490,6 @@ display:block;
         </div>
 
     </div>
-
-    <button
-        id="kst-player-button"
-        class="kst-player-button"
-        type="button"
-        aria-label="재생"
-    >
-        ▶
-    </button>
 
     <div class="kst-player-label">
         KST SYNC
@@ -879,16 +854,6 @@ const kstPlayerProgress =
         "kst-player-progress-bar"
     );
 
-const kstPlayerButton =
-    document.getElementById(
-        "kst-player-button"
-    );
-
-
-/* ===== 플레이어 상태 ===== */
-
-let kstPlayerPlaying = true;
-
 
 /* ===== 시간 표시 ===== */
 
@@ -955,14 +920,6 @@ function getKstPlayerPosition(){
 
     /*
        3601초마다 정확하게 반복.
-
-       % 연산을 사용하기 때문에
-
-       18:00:00 → 0
-       19:00:01 → 0
-       20:00:02 → 0
-
-       식으로 자동 계산됩니다.
     */
 
     const cyclePosition =
@@ -1016,8 +973,7 @@ function getKstPlayerPosition(){
 
 
     /*
-       이론적으로 여기까지 올 일은 없지만
-       예외 상황에서는 마지막 곡으로 처리합니다.
+       예외 처리
     */
 
     return {
@@ -1039,12 +995,6 @@ function getKstPlayerPosition(){
    ========================================================= */
 
 function updateKstPlayer(){
-
-    /*
-       일시정지 상태에서도
-       화면의 곡 정보 자체는
-       현재 KST 위치를 기준으로 유지합니다.
-    */
 
     const current =
         getKstPlayerPosition();
@@ -1098,65 +1048,7 @@ function updateKstPlayer(){
             )
         ) + "%";
 
-
-    /*
-       재생 버튼
-    */
-
-    if(kstPlayerPlaying){
-
-        kstPlayerButton.textContent =
-            "❚❚";
-
-        kstPlayerButton.setAttribute(
-            "aria-label",
-            "일시정지"
-        );
-
-    }else{
-
-        kstPlayerButton.textContent =
-            "▶";
-
-        kstPlayerButton.setAttribute(
-            "aria-label",
-            "현재 시간으로 재생"
-        );
-
-    }
-
 }
-
-
-/* =========================================================
-   재생 / 일시정지 버튼
-   ========================================================= */
-
-kstPlayerButton.addEventListener(
-    "click",
-    function(){
-
-        kstPlayerPlaying =
-            !kstPlayerPlaying;
-
-
-        /*
-           중요한 부분.
-
-           ▶을 다시 누르면
-           멈췄던 위치에서 단순히 이어가는 게 아니라
-
-           "현재 KST가 어디인지"
-
-           다시 계산합니다.
-
-           따라서 KST 기준 동기화가 계속 유지됩니다.
-        */
-
-        updateKstPlayer();
-
-    }
-);
 
 
 /* =========================================================
@@ -1276,6 +1168,53 @@ new Swiper(".mvSwiper", {
     },
 
 });
+
+</script>
+
+
+<script>
+
+/* =========================================================
+   SCROLL FADE
+   ========================================================= */
+
+const kstPlayer =
+    document.getElementById("kst-player");
+
+let kstScrollTimer;
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        /* 스크롤 중 */
+
+        kstPlayer.classList.add(
+            "scrolling"
+        );
+
+
+        /* 스크롤이 멈추면 다시 선명하게 */
+
+        clearTimeout(
+            kstScrollTimer
+        );
+
+        kstScrollTimer =
+            setTimeout(
+                function(){
+
+                    kstPlayer.classList.remove(
+                        "scrolling"
+                    );
+
+                },
+                500
+            );
+
+    },
+    { passive:true }
+);
 
 </script>
 
