@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>자체 콘텐츠 | H2HCHIVE</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f5f6f8;
+    color:#222;
+}
+
+.container{
+    max-width:900px;
+    margin:0 auto;
+    padding:24px 16px 60px;
+}
+
+/* 상단 */
+.header{
+    margin-bottom:20px;
+}
+
+.back-btn{
+    display:inline-block;
+    margin-bottom:16px;
+    color:#222;
+    text-decoration:none;
+    font-size:1.5rem;
+}
+
+.title{
+    margin:0;
+    font-size:1.7rem;
+    font-weight:700;
+}
+
+/* 카테고리 */
+.category-list{
+    display:flex;
+    flex-direction:column;
+
+    max-height:126px;
+    overflow-y:auto;
+
+    margin-bottom:16px;
+
+    background:#fff;
+    border:1px solid #e5e5e5;
+    border-radius:14px;
+}
+
+.category{
+    flex-shrink:0;
+
+    padding:13px 14px;
+
+    border:0;
+    border-bottom:1px solid #eee;
+
+    background:none;
+
+    color:#555;
+    font-family:inherit;
+    font-size:.9rem;
+    text-align:left;
+
+    cursor:pointer;
+}
+
+.category:last-child{
+    border-bottom:0;
+}
+
+.category.active{
+    color:#222;
+    font-weight:600;
+}
+
+.category.active::before{
+    content:"";
+    display:inline-block;
+
+    width:5px;
+    height:5px;
+
+    margin-right:7px;
+
+    vertical-align:middle;
+
+    border-radius:50%;
+    background:#89CFF0;
+}
+
+/* 검색 */
+.search{
+    display:flex;
+    gap:8px;
+    margin-bottom:20px;
+}
+
+.search input{
+    min-width:0;
+    flex:1;
+
+    padding:11px 12px;
+
+    border:1px solid #ddd;
+    border-radius:10px;
+
+    background:#fff;
+
+    font-family:inherit;
+    font-size:.85rem;
+    outline:none;
+}
+
+.search input:focus{
+    border-color:#b9dff0;
+}
+
+/* 영상 목록 */
+.video-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+}
+
+.video-card{
+    display:block;
+
+    overflow:hidden;
+
+    background:#fff;
+
+    border-radius:14px;
+
+    text-decoration:none;
+    color:#222;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.video-thumbnail{
+    width:100%;
+    aspect-ratio:16 / 9;
+
+    object-fit:cover;
+
+    display:block;
+
+    background:#eee;
+}
+
+.video-info{
+    padding:10px 11px 12px;
+}
+
+.video-title{
+    margin-bottom:5px;
+
+    font-size:.82rem;
+    font-weight:600;
+    line-height:1.35;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.video-date{
+    font-size:.72rem;
+    color:#999;
+}
+
+.empty{
+    grid-column:1 / -1;
+
+    padding:50px 20px;
+
+    text-align:center;
+
+    color:#999;
+    font-size:.85rem;
+}
+
+@media(max-width:360px){
+
+    .container{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .video-grid{
+        gap:9px;
+    }
+
+    .video-info{
+        padding:9px;
+    }
+
+    .video-title{
+        font-size:.78rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+
+        <a href="content.html" class="back-btn">←</a>
+
+        <h1 class="title">자체 콘텐츠</h1>
+
+    </div>
+
+
+    <!-- 카테고리 -->
+
+    <div class="category-list">
+
+        <button class="category active">
+            전체
+        </button>
+
+        <button class="category">
+            S2cret Diary
+        </button>
+
+        <button class="category">
+            Crunchy Hearts
+        </button>
+
+        <button class="category">
+            Performances & Choreography
+        </button>
+
+        <button class="category">
+            Production BH2ND
+        </button>
+
+        <button class="category">
+            Hearts Chase
+        </button>
+
+        <button class="category">
+            Daily BH2ND
+        </button>
+
+        <button class="category">
+            2025 Holiday Vlogs
+        </button>
+
+        <button class="category">
+            2026 Holiday Vlog
+        </button>
+
+        <button class="category">
+            둘셋하투하
+        </button>
+
+    </div>
+
+
+    <!-- 검색 -->
+
+    <div class="search">
+
+        <input
+            type="text"
+            id="titleSearch"
+            placeholder="제목 검색"
+        >
+
+        <input
+            type="text"
+            id="dateSearch"
+            placeholder="날짜 검색"
+        >
+
+    </div>
+
+
+    <!-- 영상 목록 -->
+
+    <div class="video-grid" id="videoGrid">
+
+        <div class="empty">
+            등록된 콘텐츠가 없습니다.
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/*
+    나중에 영상을 추가할 때 이 부분에 작성
+
+    예시:
+
+    {
+        title: "영상 제목",
+        date: "2026-09-16",
+        category: "Production BH2ND",
+        videoId: "유튜브영상ID"
+    }
+
+*/
+
+const videos = [
+
+    // 여기에 영상 추가
+
+
+];
+
+
+const categories =
+    document.querySelectorAll(".category");
+
+const titleSearch =
+    document.getElementById("titleSearch");
+
+const dateSearch =
+    document.getElementById("dateSearch");
+
+const videoGrid =
+    document.getElementById("videoGrid");
+
+
+let currentCategory = "전체";
+
+
+function render(){
+
+    const titleKeyword =
+        titleSearch.value.trim().toLowerCase();
+
+    const dateKeyword =
+        dateSearch.value.trim().replace(/-/g,"");
+
+
+    const filtered =
+        videos.filter(video => {
+
+            const categoryMatch =
+                currentCategory === "전체" ||
+                video.category === currentCategory;
+
+
+            const titleMatch =
+                !titleKeyword ||
+                video.title
+                    .toLowerCase()
+                    .includes(titleKeyword);
+
+
+            const videoDate =
+                (video.date || "")
+                    .replace(/-/g,"");
+
+
+            const dateMatch =
+                !dateKeyword ||
+                videoDate.includes(dateKeyword);
+
+
+            return (
+                categoryMatch &&
+                titleMatch &&
+                dateMatch
+            );
+
+        });
+
+
+    if(filtered.length === 0){
+
+        videoGrid.innerHTML = `
+            <div class="empty">
+                등록된 콘텐츠가 없습니다.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    videoGrid.innerHTML =
+        filtered.map(video => `
+
+            <a
+                class="video-card"
+                href="https://www.youtube.com/watch?v=${video.videoId}"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+
+                <img
+                    class="video-thumbnail"
+                    src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
+                    alt=""
+                    loading="lazy"
+                >
+
+                <div class="video-info">
+
+                    <div class="video-title">
+                        ${video.title}
+                    </div>
+
+                    <div class="video-date">
+                        ${video.date || ""}
+                    </div>
+
+                </div>
+
+            </a>
+
+        `).join("");
+
+}
+
+
+categories.forEach(button => {
+
+    button.addEventListener("click", () => {
+
+        categories.forEach(item =>
+            item.classList.remove("active")
+        );
+
+        button.classList.add("active");
+
+        currentCategory =
+            button.textContent.trim();
+
+        render();
+
+    });
+
+});
+
+
+titleSearch.addEventListener(
+    "input",
+    render
+);
+
+dateSearch.addEventListener(
+    "input",
+    render
+);
+
+
+render();
+
+</script>
+
+</body>
+</html>
