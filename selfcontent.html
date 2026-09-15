@@ -26,101 +26,11 @@ body{
 
 
 /* =========================
-   전체 레이아웃
-========================= */
-
-.page{
-    width:100%;
-    min-height:100vh;
-    display:flex;
-}
-
-
-/* =========================
-   왼쪽 메뉴
-========================= */
-
-.sidebar{
-    width:100px;
-    min-height:100vh;
-    flex-shrink:0;
-
-    padding:24px 6px;
-
-    background:#f5f6f8;
-    border-right:1px solid #e5e5e5;
-}
-
-.sidebar-title{
-    padding:0 2px 20px;
-
-    text-align:center;
-
-    font-size:1.1rem;
-    font-weight:700;
-}
-
-.menu-list{
-    display:flex;
-    flex-direction:column;
-    gap:3px;
-}
-
-.menu-link{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-
-    gap:5px;
-
-    min-height:62px;
-    padding:8px 3px;
-
-    border-radius:10px;
-
-    color:#666;
-    text-decoration:none;
-
-    font-size:10px;
-    font-weight:500;
-
-    text-align:center;
-
-    transition:.2s;
-}
-
-.menu-link:hover{
-    background:#fff;
-    color:#222;
-}
-
-.menu-link.active{
-    background:#fff;
-    color:#222;
-
-    font-weight:600;
-
-    box-shadow:0 2px 7px rgba(0,0,0,.05);
-}
-
-.menu-icon{
-    font-size:18px;
-    line-height:1;
-}
-
-.menu-name{
-    white-space:nowrap;
-}
-
-
-/* =========================
-   오른쪽 영역
+   오른쪽 콘텐츠
 ========================= */
 
 .content{
-    flex:1;
-    min-width:0;
+    width:100%;
     min-height:100vh;
 }
 
@@ -388,26 +298,6 @@ body{
 
 @media(max-width:360px){
 
-    .sidebar{
-        width:88px;
-
-        padding:22px 4px;
-    }
-
-    .sidebar-title{
-        font-size:1rem;
-        padding-bottom:18px;
-    }
-
-    .menu-link{
-        min-height:58px;
-        font-size:9px;
-    }
-
-    .menu-icon{
-        font-size:17px;
-    }
-
     .content-inner{
         padding-left:12px;
         padding-right:12px;
@@ -424,209 +314,145 @@ body{
     .video-title{
         font-size:.76rem;
     }
+
 }
 </style>
 </head>
 
 <body>
 
-<div class="page">
+
+<main class="content">
+
+    <div class="content-inner">
 
 
-    <!-- =========================
-         왼쪽 메뉴
-    ========================== -->
+        <!-- 전체 / 자체 콘텐츠 -->
 
-    <aside class="sidebar">
+        <div class="main-filter">
 
-        <div class="sidebar-title">
-            콘텐츠
+            <button
+                type="button"
+                class="active"
+            >
+                자체 콘텐츠
+            </button>
+
         </div>
 
-        <nav class="menu-list">
 
-            <a
-                href="content.html"
-                class="menu-link"
+        <!-- 카테고리 -->
+
+        <div class="category-list">
+
+            <button
+                type="button"
+                class="category active"
             >
-                <span class="menu-icon">📺</span>
-                <span class="menu-name">음악방송</span>
-            </a>
+                전체
+            </button>
 
-            <a
-                href="selfcontent.html"
-                class="menu-link active"
+            <button
+                type="button"
+                class="category"
             >
-                <span class="menu-icon">▶️</span>
-                <span class="menu-name">자체 콘텐츠</span>
-            </a>
+                S2cret Diary
+            </button>
 
-            <a
-                href="external.html"
-                class="menu-link"
+            <button
+                type="button"
+                class="category"
             >
-                <span class="menu-icon">📹</span>
-                <span class="menu-name">외부 콘텐츠</span>
-            </a>
+                Crunchy Hearts
+            </button>
 
-            <a
-                href="radio.html"
-                class="menu-link"
+            <button
+                type="button"
+                class="category"
             >
-                <span class="menu-icon">📻</span>
-                <span class="menu-name">라디오</span>
-            </a>
+                Performances & Choreography
+            </button>
 
-            <a
-                href="weverse.html"
-                class="menu-link"
+            <button
+                type="button"
+                class="category"
             >
-                <span class="menu-icon">📶</span>
-                <span class="menu-name">위버스 라이브</span>
-            </a>
+                Production BH2ND
+            </button>
 
-        </nav>
+            <button
+                type="button"
+                class="category"
+            >
+                Hearts Chase
+            </button>
 
-    </aside>
+            <button
+                type="button"
+                class="category"
+            >
+                Daily BH2ND
+            </button>
 
+            <button
+                type="button"
+                class="category"
+            >
+                2025 Holiday Vlogs
+            </button>
 
-    <!-- =========================
-         오른쪽 콘텐츠
-    ========================== -->
+            <button
+                type="button"
+                class="category"
+            >
+                2026 Holiday Vlog
+            </button>
 
-    <main class="content">
+            <button
+                type="button"
+                class="category"
+            >
+                둘셋하투하
+            </button>
 
-        <div class="content-inner">
-
-
-            <!-- 전체 / 자체 콘텐츠 -->
-
-            <div class="main-filter">
-
-                <button
-                    type="button"
-                    class="active"
-                >
-                    자체 콘텐츠
-                </button>
-
-            </div>
-
-
-            <!-- 카테고리 -->
-
-            <div class="category-list">
-
-                <button
-                    type="button"
-                    class="category active"
-                >
-                    전체
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    S2cret Diary
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    Crunchy Hearts
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    Performances & Choreography
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    Production BH2ND
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    Hearts Chase
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    Daily BH2ND
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    2025 Holiday Vlogs
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    2026 Holiday Vlog
-                </button>
-
-                <button
-                    type="button"
-                    class="category"
-                >
-                    둘셋하투하
-                </button>
-
-            </div>
+        </div>
 
 
-            <!-- 검색 -->
+        <!-- 검색 -->
 
-            <div class="search-area">
+        <div class="search-area">
 
-                <input
-                    type="text"
-                    id="titleSearch"
-                    placeholder="제목 검색"
-                >
-
-                <input
-                    type="text"
-                    id="dateSearch"
-                    placeholder="날짜 검색"
-                >
-
-            </div>
-
-
-            <!-- 영상 -->
-
-            <div
-                class="video-grid"
-                id="videoGrid"
+            <input
+                type="text"
+                id="titleSearch"
+                placeholder="제목 검색"
             >
 
-                <div class="empty">
-                    등록된 콘텐츠가 없습니다.
-                </div>
+            <input
+                type="text"
+                id="dateSearch"
+                placeholder="날짜 검색"
+            >
 
+        </div>
+
+
+        <!-- 영상 -->
+
+        <div
+            class="video-grid"
+            id="videoGrid"
+        >
+
+            <div class="empty">
+                등록된 콘텐츠가 없습니다.
             </div>
 
         </div>
 
-    </main>
+    </div>
 
-</div>
+</main>
 
 
 <script>
