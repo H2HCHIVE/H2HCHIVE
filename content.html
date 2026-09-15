@@ -132,7 +132,7 @@ body{
 
 
 /* =========================
-   음악방송
+   콘텐츠 iframe
 ========================= */
 
 .content-frame{
@@ -198,7 +198,8 @@ body{
 
 
             <a
-                href="content.html"
+                href="musicshow.html"
+                target="content-frame"
                 class="menu-link active"
             >
                 <span class="menu-icon">📺</span>
@@ -208,6 +209,7 @@ body{
 
             <a
                 href="selfcontent.html"
+                target="content-frame"
                 class="menu-link"
             >
                 <span class="menu-icon">▶️</span>
@@ -217,6 +219,7 @@ body{
 
             <a
                 href="external.html"
+                target="content-frame"
                 class="menu-link"
             >
                 <span class="menu-icon">📹</span>
@@ -226,6 +229,7 @@ body{
 
             <a
                 href="radio.html"
+                target="content-frame"
                 class="menu-link"
             >
                 <span class="menu-icon">📻</span>
@@ -235,6 +239,7 @@ body{
 
             <a
                 href="weverse.html"
+                target="content-frame"
                 class="menu-link"
             >
                 <span class="menu-icon">📶</span>
@@ -255,15 +260,39 @@ body{
     <main class="content">
 
         <iframe
+            name="content-frame"
             src="musicshow.html"
             class="content-frame"
-            title="음악방송"
+            title="콘텐츠"
         ></iframe>
 
     </main>
 
 
 </div>
+
+
+<script>
+
+const menuLinks =
+    document.querySelectorAll(".menu-link");
+
+
+menuLinks.forEach(link => {
+
+    link.addEventListener("click", () => {
+
+        menuLinks.forEach(item => {
+            item.classList.remove("active");
+        });
+
+        link.classList.add("active");
+
+    });
+
+});
+
+</script>
 
 
 </body>
