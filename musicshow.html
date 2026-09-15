@@ -61,6 +61,40 @@ body{
     justify-content:center;
 }
 
+
+/* =========================
+   앨범 필터
+========================= */
+
+#albumFilters{
+    max-height:120px;
+    overflow-y:auto;
+
+    width:100%;
+    padding:2px 4px;
+
+    align-content:flex-start;
+
+    scrollbar-width:thin;
+    scrollbar-color:#ccc transparent;
+}
+
+
+/* Chrome / Safari */
+#albumFilters::-webkit-scrollbar{
+    width:5px;
+}
+
+#albumFilters::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+#albumFilters::-webkit-scrollbar-thumb{
+    background:#ccc;
+    border-radius:999px;
+}
+
+
 .filter-buttons button{
     padding:8px 14px;
     border:1px solid #ddd;
@@ -181,6 +215,10 @@ body{
 
     .archive-date{
         font-size:11px;
+    }
+
+    #albumFilters{
+        max-height:120px;
     }
 
 }
@@ -540,7 +578,7 @@ function updateFilterVisibility(){
 
 
     /*
-       그룹 직캠 선택
+       그룹 직캠
        → 앨범 필터 표시
     */
 
@@ -559,7 +597,7 @@ function updateFilterVisibility(){
 
 
     /*
-       멤버 직캠 선택
+       멤버 직캠
        → 멤버 필터 표시
     */
 
@@ -620,11 +658,6 @@ function showType(type){
     }
 
 
-    /*
-       그룹 / 멤버 직캠을 다시 누르면
-       해당 세부 필터를 다시 표시
-    */
-
     updateFilterVisibility();
 
     applyFilters();
@@ -641,7 +674,7 @@ function showAlbum(album){
 
     /*
        앨범을 선택하면
-       자동으로 그룹 직캠 상태
+       그룹 직캠 상태 유지
     */
 
     currentType =
@@ -655,25 +688,11 @@ function showAlbum(album){
 
 
     /*
-       앨범을 선택한 뒤에는
-       앨범 선택 영역을 접음
+       앨범 필터는 계속 표시
+       → 내부에서 세로 스크롤
     */
 
-    document.getElementById(
-        "albumFilters"
-    ).style.display =
-        "none";
-
-
-    /*
-       멤버 필터는 숨김
-    */
-
-    document.getElementById(
-        "memberFilters"
-    ).style.display =
-        "none";
-
+    updateFilterVisibility();
 
     applyFilters();
 
@@ -689,7 +708,7 @@ function showMember(member){
 
     /*
        멤버를 선택하면
-       자동으로 멤버 직캠 상태
+       멤버 직캠 상태
     */
 
     currentType =
@@ -702,26 +721,7 @@ function showMember(member){
         "all";
 
 
-    /*
-       멤버를 선택한 뒤에는
-       멤버 선택 영역을 접음
-    */
-
-    document.getElementById(
-        "memberFilters"
-    ).style.display =
-        "none";
-
-
-    /*
-       앨범 필터는 숨김
-    */
-
-    document.getElementById(
-        "albumFilters"
-    ).style.display =
-        "none";
-
+    updateFilterVisibility();
 
     applyFilters();
 
