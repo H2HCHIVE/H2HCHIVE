@@ -4,266 +4,791 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>콘텐츠 | H2HCHIVE</title>
+<title>H2HCHIVE 음방 직캠</title>
 
 <style>
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
 }
 
-html,
 body{
-    margin:0;
-    width:100%;
-    min-height:100%;
-}
-
-body{
+    background:#f7f7f7;
+    color:#111;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    background:#f5f6f8;
-    color:#222;
 }
 
 
 /* =========================
-   전체 레이아웃
+   HEADER
 ========================= */
 
-.page{
-    width:100%;
-    min-height:100vh;
-
-    display:flex;
-}
-
-
-/* =========================
-   왼쪽 메뉴
-========================= */
-
-.sidebar{
-    width:100px;
-    min-height:100vh;
-
-    flex-shrink:0;
-
-    padding:24px 6px;
-
-    background:#f5f6f8;
-    border-right:1px solid #e5e5e5;
-}
-
-.sidebar-title{
-    padding:0 2px 20px;
-
+.header{
+    position:sticky;
+    top:0;
+    background:#fff;
+    border-bottom:1px solid #e5e5e5;
+    padding:20px;
     text-align:center;
+    z-index:100;
+}
 
-    font-size:1.1rem;
+.header h1{
+    font-size:24px;
     font-weight:700;
+    letter-spacing:1px;
 }
 
-.menu-list{
-    display:flex;
-    flex-direction:column;
-    gap:3px;
-}
 
-.menu-link{
+/* =========================
+   FILTER
+========================= */
+
+.filter-bar{
+    margin-top:12px;
     display:flex;
     flex-direction:column;
-    align-items:center;
     justify-content:center;
-
-    gap:5px;
-
-    min-height:62px;
-
-    padding:8px 3px;
-
-    border-radius:10px;
-
-    color:#666;
-    text-decoration:none;
-
-    font-size:10px;
-    font-weight:500;
-
-    text-align:center;
-
-    transition:.2s;
+    align-items:center;
+    gap:10px;
 }
 
-.menu-link:hover{
+.filter-buttons{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.filter-buttons button{
+    padding:8px 14px;
+    border:1px solid #ddd;
     background:#fff;
-    color:#222;
+    border-radius:999px;
+    font-size:13px;
+    cursor:pointer;
+    transition:0.2s;
 }
 
-.menu-link.active{
-    background:#fff;
-    color:#222;
-    font-weight:600;
-
-    box-shadow:0 2px 7px rgba(0,0,0,.05);
-}
-
-.menu-icon{
-    width:auto;
-
-    text-align:center;
-
-    font-size:18px;
-    line-height:1;
-}
-
-.menu-name{
-    white-space:nowrap;
+.filter-buttons button:hover{
+    background:#111;
+    color:#fff;
+    border-color:#111;
 }
 
 
 /* =========================
-   오른쪽 콘텐츠
+   DATE SEARCH
 ========================= */
 
-.content{
-    flex:1;
-    min-width:0;
-    min-height:100vh;
+#dateSearch{
+    padding:10px 14px;
+    border:1px solid #ddd;
+    border-radius:999px;
+    font-size:13px;
+    width:180px;
+    outline:none;
+    transition:0.2s;
+}
+
+#dateSearch:focus{
+    border-color:#111;
+    width:220px;
 }
 
 
 /* =========================
-   음악방송
+   VIDEO GRID
 ========================= */
 
-.content-frame{
+.archive-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    padding:20px;
+    max-width:1200px;
+    margin:0 auto;
+}
+
+
+/* =========================
+   VIDEO CARD
+========================= */
+
+.archive-card{
     display:block;
+    text-decoration:none;
+    color:inherit;
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid #e5e5e5;
+    transition:0.2s;
+}
 
+.archive-card:hover{
+    transform:translateY(-2px);
+}
+
+.archive-thumb{
     width:100%;
-    height:100vh;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    display:block;
+}
 
-    border:0;
+.archive-content{
+    padding:12px;
+}
+
+.archive-title{
+    font-size:14px;
+    font-weight:600;
+    line-height:1.4;
+    margin-bottom:8px;
+
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.archive-date{
+    font-size:12px;
+    color:#777;
 }
 
 
 /* =========================
-   작은 화면
+   MOBILE
 ========================= */
 
-@media(max-width:360px){
+@media (max-width:600px){
 
-    .sidebar{
-        width:88px;
-        padding:22px 4px;
+    .archive-grid{
+        gap:10px;
+        padding:10px;
     }
 
-    .sidebar-title{
-        font-size:1rem;
-        padding-bottom:18px;
+    .archive-content{
+        padding:10px;
     }
 
-    .menu-link{
-        min-height:58px;
-
-        font-size:9px;
+    .archive-title{
+        font-size:13px;
     }
 
-    .menu-icon{
-        font-size:17px;
+    .archive-date{
+        font-size:11px;
     }
 
 }
-</style>
 
+</style>
 </head>
 
 
 <body>
 
 
-<div class="page">
+<header class="header">
+
+    <h1>📺음방 직캠</h1>
 
 
-    <!-- =========================
-         LEFT MENU
-    ========================= -->
+    <div class="filter-bar">
 
-    <aside class="sidebar">
 
-        <div class="sidebar-title">
-            콘텐츠
+        <!-- =========================
+             직캠 종류
+        ========================= -->
+
+        <div class="filter-buttons">
+
+            <button onclick="showType('all')">
+                전체
+            </button>
+
+            <button onclick="showType('group')">
+                그룹 직캠
+            </button>
+
+            <button onclick="showType('member')">
+                멤버 직캠
+            </button>
+
         </div>
 
 
-        <nav class="menu-list">
+        <!-- =========================
+             앨범 필터
+        ========================= -->
+
+        <div
+            id="albumFilters"
+            class="filter-buttons"
+            style="display:none;"
+        >
+
+            <button onclick="showAlbum('The Chase')">
+                The Chase
+            </button>
+
+            <button onclick="showAlbum('STYLE')">
+                STYLE
+            </button>
+
+            <button onclick="showAlbum('Pretty Please')">
+                Pretty Please
+            </button>
+
+            <button onclick="showAlbum('FOCUS')">
+                FOCUS
+            </button>
+
+            <button onclick="showAlbum('RUDE')">
+                RUDE
+            </button>
+
+            <button onclick="showAlbum('Lemon Tang')">
+                Lemon Tang
+            </button>
+
+            <button onclick="showAlbum('15-LOVE')">
+                15-LOVE
+            </button>
+
+        </div>
 
 
-            <a
-                href="content.html"
-                class="menu-link active"
+        <!-- =========================
+             멤버 필터
+        ========================= -->
+
+        <div
+            id="memberFilters"
+            class="filter-buttons"
+            style="display:none;"
+        >
+
+            <button onclick="showMember('지우')">
+                지우
+            </button>
+
+            <button onclick="showMember('카르멘')">
+                카르멘
+            </button>
+
+            <button onclick="showMember('유하')">
+                유하
+            </button>
+
+            <button onclick="showMember('스텔라')">
+                스텔라
+            </button>
+
+            <button onclick="showMember('주은')">
+                주은
+            </button>
+
+            <button onclick="showMember('에이나')">
+                에이나
+            </button>
+
+            <button onclick="showMember('이안')">
+                이안
+            </button>
+
+            <button onclick="showMember('예온')">
+                예온
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             날짜 검색
+        ========================= -->
+
+        <input
+            id="dateSearch"
+            placeholder="예: 250224"
+            oninput="searchByDate()"
+        >
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================
+     영상 목록
+========================= -->
+
+<div
+    id="archiveGrid"
+    class="archive-grid"
+></div>
+
+
+
+<script>
+
+
+/* =========================
+   상태값
+========================= */
+
+let allVideos = [];
+
+let currentType = "all";
+
+let currentAlbum = "all";
+
+let currentMember = "all";
+
+let currentDate = "";
+
+
+
+/* =========================
+   영상 출력
+========================= */
+
+function renderVideos(videos){
+
+    const grid =
+        document.getElementById("archiveGrid");
+
+
+    grid.innerHTML = "";
+
+
+    videos.forEach(video => {
+
+        const card =
+            document.createElement("a");
+
+
+        card.className =
+            "archive-card";
+
+
+        card.href =
+            `https://www.youtube.com/watch?v=${video.videoId}`;
+
+
+        card.target = "_blank";
+
+
+        card.innerHTML = `
+
+            <img
+                class="archive-thumb"
+                src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
+                alt="${video.title}"
             >
-                <span class="menu-icon">📺</span>
-                <span class="menu-name">음악방송</span>
-            </a>
 
 
-            <a
-                href="selfcontent.html"
-                class="menu-link"
-            >
-                <span class="menu-icon">▶️</span>
-                <span class="menu-name">자체 콘텐츠</span>
-            </a>
+            <div class="archive-content">
+
+                <div class="archive-title">
+                    ${video.title}
+                </div>
 
 
-            <a
-                href="external.html"
-                class="menu-link"
-            >
-                <span class="menu-icon">📹</span>
-                <span class="menu-name">외부 콘텐츠</span>
-            </a>
+                <div class="archive-date">
+                    ${video.date}
+                </div>
+
+            </div>
+
+        `;
 
 
-            <a
-                href="radio.html"
-                class="menu-link"
-            >
-                <span class="menu-icon">📻</span>
-                <span class="menu-name">라디오</span>
-            </a>
+        grid.appendChild(card);
 
+    });
 
-            <a
-                href="weverse.html"
-                class="menu-link"
-            >
-                <span class="menu-icon">📶</span>
-                <span class="menu-name">위버스 라이브</span>
-            </a>
-
-
-        </nav>
-
-    </aside>
+}
 
 
 
-    <!-- =========================
-         RIGHT CONTENT
-    ========================= -->
+/* =========================
+   필터 적용
+========================= */
 
-    <main class="content">
+function applyFilters(){
 
-        <iframe
-            src="musicshow.html"
-            class="content-frame"
-            title="음악방송"
-        ></iframe>
-
-    </main>
+    let filtered =
+        allVideos;
 
 
-</div>
+    /* -------------------------
+       직캠 종류
+    ------------------------- */
+
+    if(currentType === "group"){
+
+        // member가 없는 영상 = 그룹 직캠
+
+        filtered =
+            filtered.filter(
+                video => !video.member
+            );
+
+    }
+
+
+    if(currentType === "member"){
+
+        // member가 있는 영상 = 멤버 직캠
+
+        filtered =
+            filtered.filter(
+                video => video.member
+            );
+
+    }
+
+
+
+    /* -------------------------
+       앨범
+    ------------------------- */
+
+    if(currentAlbum !== "all"){
+
+        filtered =
+            filtered.filter(
+                video =>
+                    video.album === currentAlbum
+            );
+
+    }
+
+
+
+    /* -------------------------
+       멤버
+    ------------------------- */
+
+    if(currentMember !== "all"){
+
+        filtered =
+            filtered.filter(
+                video =>
+                    video.member === currentMember
+            );
+
+    }
+
+
+
+    /* -------------------------
+       날짜
+    ------------------------- */
+
+    if(currentDate !== ""){
+
+        filtered =
+            filtered.filter(video => {
+
+                // 2026-08-30
+                // ↓
+                // 260830
+
+                const compactDate =
+                    video.date
+                        .replaceAll("-", "")
+                        .slice(2);
+
+
+                return compactDate.includes(
+                    currentDate
+                );
+
+            });
+
+    }
+
+
+
+    renderVideos(filtered);
+
+}
+
+
+
+/* =========================
+   필터 표시 상태
+========================= */
+
+function updateFilterVisibility(){
+
+    const albumFilters =
+        document.getElementById(
+            "albumFilters"
+        );
+
+    const memberFilters =
+        document.getElementById(
+            "memberFilters"
+        );
+
+
+    /*
+       그룹 직캠 선택
+       → 앨범 필터 표시
+    */
+
+    if(currentType === "group"){
+
+        albumFilters.style.display =
+            "flex";
+
+    }
+    else{
+
+        albumFilters.style.display =
+            "none";
+
+    }
+
+
+    /*
+       멤버 직캠 선택
+       → 멤버 필터 표시
+    */
+
+    if(currentType === "member"){
+
+        memberFilters.style.display =
+            "flex";
+
+    }
+    else{
+
+        memberFilters.style.display =
+            "none";
+
+    }
+
+}
+
+
+
+/* =========================
+   직캠 종류 선택
+========================= */
+
+function showType(type){
+
+    currentType =
+        type;
+
+
+    /*
+       직캠 종류를 변경하면
+       기존 세부 필터 초기화
+    */
+
+    currentAlbum =
+        "all";
+
+    currentMember =
+        "all";
+
+
+    /*
+       전체를 선택하면
+       날짜 검색도 초기화
+    */
+
+    if(type === "all"){
+
+        currentDate =
+            "";
+
+        document.getElementById(
+            "dateSearch"
+        ).value =
+            "";
+
+    }
+
+
+    /*
+       그룹 / 멤버 직캠을 다시 누르면
+       해당 세부 필터를 다시 표시
+    */
+
+    updateFilterVisibility();
+
+    applyFilters();
+
+}
+
+
+
+/* =========================
+   앨범 선택
+========================= */
+
+function showAlbum(album){
+
+    /*
+       앨범을 선택하면
+       자동으로 그룹 직캠 상태
+    */
+
+    currentType =
+        "group";
+
+    currentAlbum =
+        album;
+
+    currentMember =
+        "all";
+
+
+    /*
+       앨범을 선택한 뒤에는
+       앨범 선택 영역을 접음
+    */
+
+    document.getElementById(
+        "albumFilters"
+    ).style.display =
+        "none";
+
+
+    /*
+       멤버 필터는 숨김
+    */
+
+    document.getElementById(
+        "memberFilters"
+    ).style.display =
+        "none";
+
+
+    applyFilters();
+
+}
+
+
+
+/* =========================
+   멤버 선택
+========================= */
+
+function showMember(member){
+
+    /*
+       멤버를 선택하면
+       자동으로 멤버 직캠 상태
+    */
+
+    currentType =
+        "member";
+
+    currentMember =
+        member;
+
+    currentAlbum =
+        "all";
+
+
+    /*
+       멤버를 선택한 뒤에는
+       멤버 선택 영역을 접음
+    */
+
+    document.getElementById(
+        "memberFilters"
+    ).style.display =
+        "none";
+
+
+    /*
+       앨범 필터는 숨김
+    */
+
+    document.getElementById(
+        "albumFilters"
+    ).style.display =
+        "none";
+
+
+    applyFilters();
+
+}
+
+
+
+/* =========================
+   날짜 검색
+========================= */
+
+function searchByDate(){
+
+    currentDate =
+        document
+            .getElementById("dateSearch")
+            .value
+            .trim();
+
+
+    applyFilters();
+
+}
+
+
+
+/* =========================
+   video.json 불러오기
+========================= */
+
+async function loadVideos(){
+
+    try{
+
+        const response =
+            await fetch("video.json");
+
+
+        allVideos =
+            await response.json();
+
+
+        applyFilters();
+
+    }
+
+    catch(error){
+
+        console.error(
+            "video.json 불러오기 실패:",
+            error
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   시작
+========================= */
+
+loadVideos();
+
+
+</script>
 
 
 </body>
