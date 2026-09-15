@@ -19,6 +19,8 @@ body{
     padding:24px 16px 60px;
 }
 
+/* 뒤로가기 */
+
 .back-btn{
     display:inline-block;
     text-decoration:none;
@@ -27,39 +29,78 @@ body{
     margin-bottom:20px;
 }
 
+/* 제목 */
+
 .title{
     font-size:2rem;
     font-weight:700;
     margin-bottom:24px;
 }
 
+
+/* =========================
+   MV CARD
+   ========================= */
+
 .mv-list{
     display:flex;
     flex-direction:column;
+    gap:24px;
 }
 
-.mv-link{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.mv-card{
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+}
 
-    padding:18px 0;
 
-    border-bottom:1px solid #ddd;
+/* 영상 */
 
-    text-decoration:none;
-    color:#222;
+.mv-video{
+    width:100%;
+    aspect-ratio:16 / 9;
+    background:#000;
+}
+
+.mv-video iframe{
+    width:100%;
+    height:100%;
+    border:0;
+    display:block;
+}
+
+
+/* 제목 */
+
+.mv-name{
+    padding:14px 16px 16px;
 
     font-size:1rem;
-    font-weight:500;
+    font-weight:700;
+
+    color:#222;
 }
 
-.mv-link:active{
-    opacity:0.6;
-}
 
-.arrow{
-    color:#999;
+/* 모바일 */
+
+@media(max-width:360px){
+
+    .container{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .mv-list{
+        gap:20px;
+    }
+
+    .mv-card{
+        border-radius:16px;
+    }
+
 }
 </style>
 </head>
@@ -68,51 +109,204 @@ body{
 
 <div class="container">
 
+    <!-- 뒤로가기 -->
+
     <a href="index.html" class="back-btn">←</a>
+
+
+    <!-- 제목 -->
 
     <div class="title">MV</div>
 
+
+    <!-- MV 목록 -->
+
     <div class="mv-list">
 
-        <a href="https://youtu.be/kxUA2wwYiME" target="_blank" class="mv-link">
-            <span>The Chase</span>
-            <span class="arrow">→</span>
-        </a>
 
-        <a href="https://youtu.be/n7kFRxFIPrI" target="_blank" class="mv-link">
-            <span>STYLE</span>
-            <span class="arrow">→</span>
-        </a>
+        <!-- The Chase -->
 
-        <a href="https://youtu.be/ufwB9Uja_wM" target="_blank" class="mv-link">
-            <span>Pretty Please</span>
-            <span class="arrow">→</span>
-        </a>
+        <div class="mv-card">
 
-        <a href="https://youtu.be/Ur7aK4FvK-U" target="_blank" class="mv-link">
-            <span>FOCUS</span>
-            <span class="arrow">→</span>
-        </a>
+            <div class="mv-video">
 
-        <a href="https://youtu.be/F7sGJVUrkjQ" target="_blank" class="mv-link">
-            <span>RUDE!</span>
-            <span class="arrow">→</span>
-        </a>
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/kxUA2wwYiME"
+                    title="The Chase"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
 
-       <a href="https://youtu.be/1VqxWNwgf5Q" target="_blank" class="mv-link">
-            <span>Lemon Tang</span>
-            <span class="arrow">→</span>
-        </a>
+            </div>
 
-       <a href="https://youtu.be/chl0R8C4NJ8" target="_blank" class="mv-link">
-            <span>ICONIC HEART</span>
-            <span class="arrow">→</span>
-        </a>
+            <div class="mv-name">
+                The Chase
+            </div>
 
-        <a href="https://youtu.be/gNUMxMuxH20" target="_blank" class="mv-link">
-            <span>Moonride</span>
-            <span class="arrow">→</span>
-        </a>
+        </div>
+
+
+        <!-- STYLE -->
+
+        <div class="mv-card">
+
+            <div class="mv-video">
+
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/n7kFRxFIPrI"
+                    title="STYLE"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <div class="mv-name">
+                STYLE
+            </div>
+
+        </div>
+
+
+        <!-- Pretty Please -->
+
+        <div class="mv-card">
+
+            <div class="mv-video">
+
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/ufwB9Uja_wM"
+                    title="Pretty Please"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <div class="mv-name">
+                Pretty Please
+            </div>
+
+        </div>
+
+
+        <!-- FOCUS -->
+
+        <div class="mv-card">
+
+            <div class="mv-video">
+
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/Ur7aK4FvK-U"
+                    title="FOCUS"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <div class="mv-name">
+                FOCUS
+            </div>
+
+        </div>
+
+
+        <!-- RUDE! -->
+
+        <div class="mv-card">
+
+            <div class="mv-video">
+
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/F7sGJVUrkjQ"
+                    title="RUDE!"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <div class="mv-name">
+                RUDE!
+            </div>
+
+        </div>
+
+
+        <!-- Lemon Tang -->
+
+        <div class="mv-card">
+
+            <div class="mv-video">
+
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/1VqxWNwgf5Q"
+                    title="Lemon Tang"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <div class="mv-name">
+                Lemon Tang
+            </div>
+
+        </div>
+
+
+        <!-- ICONIC HEART -->
+
+        <div class="mv-card">
+
+            <div class="mv-video">
+
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/chl0R8C4NJ8"
+                    title="ICONIC HEART"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <div class="mv-name">
+                ICONIC HEART
+            </div>
+
+        </div>
+
+
+        <!-- Moonride -->
+
+        <div class="mv-card">
+
+            <div class="mv-video">
+
+                <iframe
+                    loading="lazy"
+                    src="https://www.youtube.com/embed/gNUMxMuxH20"
+                    title="Moonride"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <div class="mv-name">
+                Moonride
+            </div>
+
+        </div>
+
 
     </div>
 
