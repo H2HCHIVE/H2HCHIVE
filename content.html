@@ -40,10 +40,9 @@ body{
     min-height:100vh;
     flex-shrink:0;
 
-    padding:18px 6px;
+    padding:24px 6px;
 
     background:#f5f6f8;
-
     border-right:1px solid #e5e5e5;
 }
 
@@ -52,36 +51,17 @@ body{
    뒤로가기
 ========================= */
 
-.back-button{
-    display:flex;
+.back-btn{
+    display:inline-block;
 
-    align-items:center;
-    justify-content:center;
+    margin:0 0 20px 2px;
 
-    width:100%;
+    text-decoration:none;
 
-    margin-bottom:16px;
-    padding:7px 3px;
-
-    border:0;
-    border-radius:8px;
-
-    background:transparent;
-
-    color:#888;
-
-    font-family:inherit;
-    font-size:10px;
-    font-weight:500;
-
-    cursor:pointer;
-
-    transition:.2s;
-}
-
-.back-button:hover{
-    background:#fff;
     color:#222;
+
+    font-size:1.5rem;
+    line-height:1;
 }
 
 
@@ -197,22 +177,23 @@ body{
     .sidebar{
         width:88px;
 
-        padding:16px 4px;
+        padding:22px 4px;
     }
 
-    .back-button{
-        font-size:9px;
+    .back-btn{
+        margin-left:2px;
+        margin-bottom:18px;
+
+        font-size:1.4rem;
     }
 
     .sidebar-title{
         font-size:1rem;
-
         padding-bottom:18px;
     }
 
     .menu-link{
         min-height:58px;
-
         font-size:9px;
     }
 
@@ -239,13 +220,13 @@ body{
 
         <!-- 뒤로가기 -->
 
-        <button
-            type="button"
-            class="back-button"
-            onclick="history.back()"
+        <a
+            href="index.html"
+            class="back-btn"
+            aria-label="홈으로 돌아가기"
         >
-            ← 돌아가기
-        </button>
+            ←
+        </a>
 
 
         <!-- 제목 -->
