@@ -44,6 +44,21 @@ body{
 
     background:#f5f6f8;
     border-right:1px solid #e5e5e5;
+
+    transition:
+        width .25s ease,
+        padding .25s ease;
+}
+
+
+/* =========================
+   축소된 사이드바
+========================= */
+
+.sidebar.collapsed{
+    width:58px;
+
+    padding:24px 5px;
 }
 
 
@@ -66,6 +81,19 @@ body{
 
     font-size:1.5rem;
     line-height:1;
+
+    transition:
+        font-size .25s ease,
+        margin .25s ease;
+}
+
+
+/* 축소 상태 */
+
+.sidebar.collapsed .back-btn{
+    font-size:1.25rem;
+
+    margin-bottom:20px;
 }
 
 
@@ -80,6 +108,26 @@ body{
 
     font-size:1.1rem;
     font-weight:700;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    transition:
+        opacity .15s ease,
+        height .25s ease,
+        padding .25s ease;
+}
+
+
+/* 축소 상태 */
+
+.sidebar.collapsed .sidebar-title{
+    height:0;
+
+    padding:0;
+
+    opacity:0;
 }
 
 
@@ -134,11 +182,6 @@ body{
     color:#222;
 }
 
-
-/* =========================
-   기본 활성 상태
-========================= */
-
 .menu-link.active{
     background:#fff;
 
@@ -152,7 +195,7 @@ body{
 
 
 /* =========================
-   메뉴 아이콘
+   아이콘
 ========================= */
 
 .menu-icon{
@@ -170,7 +213,7 @@ body{
 
 
 /* =========================
-   선택된 메뉴 축소
+   선택된 메뉴
 ========================= */
 
 .menu-link.active{
@@ -187,7 +230,7 @@ body{
 
 
 /* =========================
-   선택된 메뉴 글자 숨김
+   메뉴 글자
 ========================= */
 
 .menu-name{
@@ -204,6 +247,40 @@ body{
     opacity:0;
 
     overflow:hidden;
+}
+
+
+/* =========================
+   사이드바가 좁아졌을 때
+========================= */
+
+/*
+   선택된 메뉴가 하나라도 있으면
+   JS가 sidebar에 collapsed를 추가함
+*/
+
+.sidebar.collapsed .menu-link{
+    min-height:52px;
+
+    padding:7px 2px;
+
+    gap:4px;
+}
+
+.sidebar.collapsed .menu-link.active{
+    min-height:36px;
+
+    padding:5px 2px;
+
+    gap:0;
+}
+
+.sidebar.collapsed .menu-icon{
+    font-size:17px;
+}
+
+.sidebar.collapsed .menu-link.active .menu-icon{
+    font-size:13px;
 }
 
 
@@ -240,11 +317,23 @@ body{
         padding:22px 4px;
     }
 
+    .sidebar.collapsed{
+        width:52px;
+
+        padding:22px 4px;
+    }
+
     .back-btn{
         margin-left:2px;
         margin-bottom:18px;
 
         font-size:1.4rem;
+    }
+
+    .sidebar.collapsed .back-btn{
+        font-size:1.2rem;
+
+        margin-bottom:18px;
     }
 
     .sidebar-title{
@@ -259,18 +348,20 @@ body{
         font-size:9px;
     }
 
-    .menu-link.active{
-        min-height:36px;
-
-        padding:5px 3px;
-    }
-
     .menu-icon{
         font-size:17px;
     }
 
-    .menu-link.active .menu-icon{
-        font-size:13px;
+    .menu-link.active{
+        min-height:36px;
+    }
+
+    .sidebar.collapsed .menu-link{
+        min-height:50px;
+    }
+
+    .sidebar.collapsed .menu-link.active{
+        min-height:34px;
     }
 
 }
@@ -287,7 +378,7 @@ body{
          사이드바
     ========================= -->
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
 
 
         <!-- 뒤로가기 -->
@@ -389,23 +480,42 @@ body{
 
 <script>
 
+const sidebar =
+    document.getElementById("sidebar");
+
 const menuLinks =
     document.querySelectorAll(".menu-link");
 
+
+/* =========================
+   메뉴 클릭
+========================= */
 
 menuLinks.forEach(link => {
 
     link.addEventListener("click", () => {
 
+
+        /* 모든 메뉴 비활성화 */
+
         menuLinks.forEach(item => {
             item.classList.remove("active");
         });
 
+
+        /* 클릭한 메뉴 활성화 */
+
         link.classList.add("active");
+
+
+        /* 사이드바 축소 */
+
+        sidebar.classList.add("collapsed");
 
     });
 
 });
+
 
 </script>
 
