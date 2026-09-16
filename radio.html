@@ -188,7 +188,7 @@ body{
 
 
 /* =========================
-   검색
+   검색 + 정렬
 ========================= */
 
 .search-area{
@@ -230,6 +230,38 @@ body{
 
 
 /* =========================
+   정렬
+========================= */
+
+.sort-area{
+    display:flex;
+
+    justify-content:flex-end;
+
+    margin-top:-6px;
+    margin-bottom:12px;
+}
+
+.sort-select{
+    padding:8px 10px;
+
+    border:1px solid #ddd;
+    border-radius:8px;
+
+    background:#fff;
+
+    color:#666;
+
+    font-family:inherit;
+    font-size:.72rem;
+
+    outline:none;
+
+    cursor:pointer;
+}
+
+
+/* =========================
    콘텐츠 영역
 ========================= */
 
@@ -263,25 +295,49 @@ body{
 
     box-shadow:
         0 2px 7px rgba(0,0,0,.05);
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+.content-card:active{
+    transform:scale(.98);
 }
 
 .content-card-inner{
     padding:14px;
 }
 
+
+/* =========================
+   카테고리 표시
+========================= */
+
+.content-category{
+    margin-bottom:7px;
+
+    color:#89CFF0;
+
+    font-size:.64rem;
+    font-weight:600;
+}
+
 .content-title{
-    margin-bottom:5px;
+    margin-bottom:7px;
 
     font-size:.8rem;
     font-weight:600;
 
-    line-height:1.35;
+    line-height:1.4;
+
+    word-break:keep-all;
 }
 
-.content-description{
+.content-date{
     color:#999;
 
-    font-size:.7rem;
+    font-size:.68rem;
     line-height:1.4;
 }
 
@@ -326,6 +382,18 @@ body{
         font-size:.76rem;
     }
 
+    .content-category{
+        font-size:.6rem;
+    }
+
+    .content-date{
+        font-size:.64rem;
+    }
+
+    .sort-select{
+        font-size:.68rem;
+    }
+
 }
 </style>
 </head>
@@ -353,18 +421,14 @@ body{
 
         <!-- =========================
              카테고리
-             
-             나중에 추가
         ========================= -->
 
-        <div class="category-list">
+        <div
+            class="category-list"
+            id="categoryList"
+        >
 
-            <button
-                type="button"
-                class="category active"
-            >
-                전체
-            </button>
+            <!-- JavaScript에서 자동 생성 -->
 
         </div>
 
@@ -377,15 +441,39 @@ body{
 
             <input
                 type="text"
+                id="titleSearch"
                 placeholder="제목 검색"
-                disabled
             >
 
             <input
                 type="text"
+                id="dateSearch"
                 placeholder="날짜 검색"
-                disabled
             >
+
+        </div>
+
+
+        <!-- =========================
+             정렬
+        ========================= -->
+
+        <div class="sort-area">
+
+            <select
+                id="sortSelect"
+                class="sort-select"
+            >
+
+                <option value="latest">
+                    최신순
+                </option>
+
+                <option value="oldest">
+                    오래된순
+                </option>
+
+            </select>
 
         </div>
 
@@ -394,10 +482,13 @@ body{
              콘텐츠 영역
         ========================= -->
 
-        <div class="content-area">
+        <div
+            class="content-area"
+            id="contentArea"
+        >
 
             <div class="empty">
-                등록된 라디오 콘텐츠가 없습니다.
+                라디오 콘텐츠를 불러오는 중입니다.
             </div>
 
         </div>
@@ -410,13 +501,457 @@ body{
 
 <script>
 
-/*
-   라디오 콘텐츠 기능 추가 예정
+/* =========================
+   설정
+========================= */
 
-   나중에 라디오 출연 기록,
-   영상 및 관련 콘텐츠를 추가하면
-   이 영역을 확장하면 됩니다.
-*/
+const JSON_URL = "radio.json";
+
+
+/* =========================
+   데이터
+========================= */
+
+let radioData = [];
+
+let currentCategory = "전체";
+
+let currentSort = "latest";
+
+
+/* =========================
+   요소
+========================= */
+
+const categoryList =
+    document.getElementById("categoryList");
+
+const contentArea =
+    document.getElementById("contentArea");
+
+const titleSearch =
+    document.getElementById("titleSearch");
+
+const dateSearch =
+    document.getElementById("dateSearch");
+
+const sortSelect =
+    document.getElementById("sortSelect");
+
+
+/* =========================
+   JSON 불러오기
+========================= */
+
+async function loadRadioData(){
+
+    try{
+
+        const response =
+            await fetch(JSON_URL);
+
+        if(!response.ok){
+            throw new Error(
+                "radio.json을 불러올 수 없습니다."
+            );
+        }
+
+        radioData =
+            await response.json();
+
+
+        /* =========================
+           날짜 기준 최신순 정렬
+        ========================= */
+
+        radioData.sort((a,b) => {
+
+            return new Date(b.date) -
+                   new Date(a.date);
+
+        });
+
+
+        createCategories();
+
+        renderContents();
+
+    }catch(error){
+
+        console.error(error);
+
+        contentArea.innerHTML = `
+            <div class="empty">
+                라디오 콘텐츠를 불러오지 못했습니다.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   카테고리 생성
+========================= */
+
+function createCategories(){
+
+    categoryList.innerHTML = "";
+
+
+    /* 전체 */
+
+    const allButton =
+        document.createElement("button");
+
+    allButton.type = "button";
+
+    allButton.className =
+        "category active";
+
+    allButton.textContent =
+        "전체";
+
+    allButton.addEventListener(
+        "click",
+        () => {
+
+            currentCategory = "전체";
+
+            updateCategoryButtons(
+                allButton
+            );
+
+            renderContents();
+
+        }
+    );
+
+    categoryList.appendChild(
+        allButton
+    );
+
+
+    /* =========================
+       JSON의 category 추출
+    ========================= */
+
+    const categories =
+        [...new Set(
+            radioData
+                .map(item => item.category)
+                .filter(category => category)
+        )];
+
+
+    categories.forEach(category => {
+
+        const button =
+            document.createElement("button");
+
+        button.type = "button";
+
+        button.className =
+            "category";
+
+        button.textContent =
+            category;
+
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                currentCategory =
+                    category;
+
+                updateCategoryButtons(
+                    button
+                );
+
+                renderContents();
+
+            }
+        );
+
+
+        categoryList.appendChild(
+            button
+        );
+
+    });
+
+}
+
+
+/* =========================
+   카테고리 활성화
+========================= */
+
+function updateCategoryButtons(
+    activeButton
+){
+
+    const buttons =
+        categoryList.querySelectorAll(
+            ".category"
+        );
+
+    buttons.forEach(button => {
+
+        button.classList.remove(
+            "active"
+        );
+
+    });
+
+    activeButton.classList.add(
+        "active"
+    );
+
+}
+
+
+/* =========================
+   콘텐츠 렌더링
+========================= */
+
+function renderContents(){
+
+    let filtered =
+        [...radioData];
+
+
+    /* =========================
+       카테고리 필터
+    ========================= */
+
+    if(currentCategory !== "전체"){
+
+        filtered =
+            filtered.filter(item =>
+                item.category ===
+                currentCategory
+            );
+
+    }
+
+
+    /* =========================
+       제목 검색
+    ========================= */
+
+    const titleKeyword =
+        titleSearch.value
+            .trim()
+            .toLowerCase();
+
+
+    if(titleKeyword){
+
+        filtered =
+            filtered.filter(item =>
+                (item.title || "")
+                    .toLowerCase()
+                    .includes(titleKeyword)
+            );
+
+    }
+
+
+    /* =========================
+       날짜 검색
+    ========================= */
+
+    const dateKeyword =
+        dateSearch.value
+            .trim();
+
+
+    if(dateKeyword){
+
+        filtered =
+            filtered.filter(item =>
+                (item.date || "")
+                    .includes(dateKeyword)
+            );
+
+    }
+
+
+    /* =========================
+       정렬
+    ========================= */
+
+    filtered.sort((a,b) => {
+
+        const dateA =
+            new Date(a.date);
+
+        const dateB =
+            new Date(b.date);
+
+
+        if(currentSort === "latest"){
+
+            return dateB - dateA;
+
+        }else{
+
+            return dateA - dateB;
+
+        }
+
+    });
+
+
+    /* =========================
+       데이터 없음
+    ========================= */
+
+    if(filtered.length === 0){
+
+        contentArea.innerHTML = `
+            <div class="empty">
+                해당하는 라디오 콘텐츠가 없습니다.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    /* =========================
+       카드 생성
+    ========================= */
+
+    contentArea.innerHTML = "";
+
+
+    filtered.forEach(item => {
+
+        const card =
+            document.createElement("a");
+
+
+        card.className =
+            "content-card";
+
+
+        /*
+           유튜브 영상 연결
+        */
+
+        if(item.videoId){
+
+            card.href =
+                "https://www.youtube.com/watch?v=" +
+                item.videoId;
+
+            card.target = "_blank";
+
+            card.rel =
+                "noopener noreferrer";
+
+        }else{
+
+            card.href = "#";
+
+            card.addEventListener(
+                "click",
+                event => {
+                    event.preventDefault();
+                }
+            );
+
+        }
+
+
+        card.innerHTML = `
+
+            <div class="content-card-inner">
+
+                <div class="content-category">
+                    ${escapeHTML(item.category || "")}
+                </div>
+
+                <div class="content-title">
+                    ${escapeHTML(item.title || "제목 없음")}
+                </div>
+
+                <div class="content-date">
+                    ${escapeHTML(item.date || "")}
+                </div>
+
+            </div>
+
+        `;
+
+
+        contentArea.appendChild(
+            card
+        );
+
+    });
+
+}
+
+
+/* =========================
+   HTML 특수문자 처리
+========================= */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
+   검색 이벤트
+========================= */
+
+titleSearch.addEventListener(
+    "input",
+    renderContents
+);
+
+dateSearch.addEventListener(
+    "input",
+    renderContents
+);
+
+
+/* =========================
+   정렬 이벤트
+========================= */
+
+sortSelect.addEventListener(
+    "change",
+    () => {
+
+        currentSort =
+            sortSelect.value;
+
+        renderContents();
+
+    }
+);
+
+
+/* =========================
+   실행
+========================= */
+
+loadRadioData();
 
 </script>
 
