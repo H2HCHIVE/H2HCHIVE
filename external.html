@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>외부 콘텐츠 | H2HCHIVE</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:#f5f6f8;
+    color:#222;
+}
+
+
+/* =========================
+   콘텐츠
+========================= */
+
+.content{
+    width:100%;
+    min-height:100vh;
+}
+
+.content-inner{
+    width:100%;
+    max-width:900px;
+
+    margin:0 auto;
+
+    padding:24px 16px 60px;
+}
+
+
+/* =========================
+   상단 제목
+========================= */
+
+.main-title{
+    margin-bottom:14px;
+
+    padding-bottom:10px;
+
+    border-bottom:1px solid #ddd;
+}
+
+.main-title h1{
+    display:inline-block;
+
+    position:relative;
+
+    margin:0;
+
+    padding:0 0 10px;
+
+    font-size:1.1rem;
+    font-weight:700;
+}
+
+.main-title h1::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:-11px;
+
+    height:2px;
+
+    background:#89CFF0;
+}
+
+
+/* =========================
+   카테고리
+========================= */
+
+.category-list{
+    display:flex;
+    flex-direction:column;
+
+    max-height:126px;
+
+    overflow-y:auto;
+
+    margin-bottom:14px;
+
+    border:1px solid #e1e1e1;
+    border-radius:10px;
+
+    background:#fff;
+
+    scrollbar-width:thin;
+    scrollbar-color:#d5d5d5 transparent;
+}
+
+.category-list::-webkit-scrollbar{
+    width:4px;
+}
+
+.category-list::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.category-list::-webkit-scrollbar-thumb{
+    background:#d5d5d5;
+    border-radius:999px;
+}
+
+
+/* =========================
+   카테고리 버튼
+========================= */
+
+.category{
+    flex-shrink:0;
+
+    width:100%;
+
+    min-height:42px;
+
+    padding:10px 12px;
+
+    border:0;
+    border-bottom:1px solid #eee;
+
+    background:#fff;
+
+    color:#777;
+
+    font-family:inherit;
+    font-size:.82rem;
+    font-weight:500;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.15s;
+}
+
+.category:last-child{
+    border-bottom:0;
+}
+
+.category:hover{
+    background:#fafafa;
+    color:#222;
+}
+
+.category.active{
+    background:#f8fcff;
+
+    color:#222;
+
+    font-weight:600;
+}
+
+.category.active::before{
+    content:"";
+
+    display:inline-block;
+
+    width:4px;
+    height:4px;
+
+    margin-right:7px;
+
+    vertical-align:middle;
+
+    border-radius:50%;
+
+    background:#89CFF0;
+}
+
+
+/* =========================
+   검색
+========================= */
+
+.search-area{
+    display:flex;
+
+    gap:8px;
+
+    margin-bottom:16px;
+}
+
+.search-area input{
+    width:100%;
+    min-width:0;
+
+    padding:10px 11px;
+
+    border:1px solid #ddd;
+    border-radius:9px;
+
+    background:#fff;
+
+    color:#222;
+
+    font-family:inherit;
+    font-size:.8rem;
+
+    outline:none;
+
+    transition:.2s;
+}
+
+.search-area input:focus{
+    border-color:#b9dff0;
+}
+
+.search-area input::placeholder{
+    color:#aaa;
+}
+
+
+/* =========================
+   콘텐츠 영역
+========================= */
+
+.content-area{
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
+    gap:10px;
+}
+
+
+/* =========================
+   콘텐츠 카드
+========================= */
+
+.content-card{
+    display:block;
+
+    overflow:hidden;
+
+    min-height:120px;
+
+    background:#fff;
+
+    border-radius:13px;
+
+    text-decoration:none;
+    color:#222;
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.05);
+}
+
+.content-card-inner{
+    padding:14px;
+}
+
+.content-title{
+    margin-bottom:5px;
+
+    font-size:.8rem;
+    font-weight:600;
+
+    line-height:1.35;
+}
+
+.content-description{
+    color:#999;
+
+    font-size:.7rem;
+    line-height:1.4;
+}
+
+
+/* =========================
+   준비 중
+========================= */
+
+.empty{
+    grid-column:1 / -1;
+
+    padding:45px 10px;
+
+    color:#999;
+
+    font-size:.8rem;
+
+    text-align:center;
+}
+
+
+/* =========================
+   모바일
+========================= */
+
+@media(max-width:360px){
+
+    .content-inner{
+        padding-left:12px;
+        padding-right:12px;
+    }
+
+    .content-area{
+        gap:8px;
+    }
+
+    .content-card-inner{
+        padding:12px;
+    }
+
+    .content-title{
+        font-size:.76rem;
+    }
+
+}
+</style>
+</head>
+
+
+<body>
+
+
+<main class="content">
+
+    <div class="content-inner">
+
+
+        <!-- =========================
+             제목
+        ========================= -->
+
+        <div class="main-title">
+
+            <h1>
+                외부 콘텐츠
+            </h1>
+
+        </div>
+
+
+        <!-- =========================
+             카테고리
+             
+             나중에 추가
+        ========================= -->
+
+        <div class="category-list">
+
+            <button
+                type="button"
+                class="category active"
+            >
+                전체
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+             검색
+        ========================= -->
+
+        <div class="search-area">
+
+            <input
+                type="text"
+                placeholder="제목 검색"
+                disabled
+            >
+
+            <input
+                type="text"
+                placeholder="날짜 검색"
+                disabled
+            >
+
+        </div>
+
+
+        <!-- =========================
+             콘텐츠 영역
+        ========================= -->
+
+        <div class="content-area">
+
+            <div class="empty">
+                등록된 콘텐츠가 없습니다.
+            </div>
+
+        </div>
+
+
+    </div>
+
+</main>
+
+
+<script>
+
+/*
+   외부 콘텐츠 기능 추가 예정
+
+   나중에 카테고리와
+   영상 데이터를 추가하면
+   selfcontent.html과 같은 방식으로
+   확장하면 됩니다.
+*/
+
+</script>
+
+
+</body>
+</html>
