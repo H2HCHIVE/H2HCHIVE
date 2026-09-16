@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -93,7 +92,7 @@ body{
     display:flex;
     flex-direction:column;
 
-    max-height:126px;
+    max-height:260px;
 
     overflow-y:auto;
 
@@ -189,15 +188,25 @@ body{
 
 
 /* =========================
-   검색
+   검색 + 정렬
 ========================= */
 
-.search-area{
+.control-area{
     display:flex;
 
     gap:8px;
 
     margin-bottom:16px;
+}
+
+.search-area{
+    display:flex;
+
+    flex:1;
+
+    gap:8px;
+
+    min-width:0;
 }
 
 .search-area input{
@@ -231,10 +240,35 @@ body{
 
 
 /* =========================
-   영상 그리드
+   정렬 버튼
 ========================= */
 
-.video-grid{
+.sort-select{
+    flex-shrink:0;
+
+    padding:10px 10px;
+
+    border:1px solid #ddd;
+    border-radius:9px;
+
+    background:#fff;
+
+    color:#555;
+
+    font-family:inherit;
+    font-size:.75rem;
+
+    outline:none;
+
+    cursor:pointer;
+}
+
+
+/* =========================
+   영상 영역
+========================= */
+
+.video-area{
     display:grid;
 
     grid-template-columns:
@@ -263,45 +297,62 @@ body{
     box-shadow:
         0 2px 7px rgba(0,0,0,.05);
 
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+    transition:.15s;
 }
 
 .video-card:hover{
-    transform:translateY(-2px);
+    transform:translateY(-1px);
 
     box-shadow:
-        0 5px 14px rgba(0,0,0,.08);
+        0 4px 10px rgba(0,0,0,.07);
 }
 
-.video-thumbnail{
+
+/* =========================
+   썸네일
+========================= */
+
+.thumbnail{
+    position:relative;
+
     width:100%;
 
     aspect-ratio:16 / 9;
 
-    display:block;
-
-    object-fit:cover;
+    overflow:hidden;
 
     background:#eee;
 }
 
+.thumbnail img{
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+
+/* =========================
+   영상 정보
+========================= */
+
 .video-info{
-    padding:9px 10px 11px;
+    padding:12px 13px 13px;
 }
 
 .video-title{
-    margin-bottom:4px;
+    margin-bottom:5px;
 
-    font-size:.8rem;
+    font-size:.78rem;
     font-weight:600;
 
-    line-height:1.35;
+    line-height:1.4;
 
     display:-webkit-box;
-    -webkit-box-orient:vertical;
     -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
 
     overflow:hidden;
 }
@@ -309,12 +360,12 @@ body{
 .video-date{
     color:#999;
 
-    font-size:.7rem;
+    font-size:.68rem;
 }
 
 
 /* =========================
-   빈 결과
+   빈 상태
 ========================= */
 
 .empty{
@@ -331,8 +382,44 @@ body{
 
 
 /* =========================
+   오류
+========================= */
+
+.error{
+    grid-column:1 / -1;
+
+    padding:45px 10px;
+
+    color:#999;
+
+    font-size:.8rem;
+
+    line-height:1.5;
+
+    text-align:center;
+}
+
+
+/* =========================
    모바일
 ========================= */
+
+@media(max-width:600px){
+
+    .control-area{
+        flex-direction:column;
+    }
+
+    .search-area{
+        width:100%;
+    }
+
+    .sort-select{
+        width:100%;
+    }
+
+}
+
 
 @media(max-width:360px){
 
@@ -341,16 +428,20 @@ body{
         padding-right:12px;
     }
 
-    .video-grid{
+    .category-list{
+        max-height:240px;
+    }
+
+    .video-area{
         gap:8px;
     }
 
     .video-info{
-        padding:8px 9px 10px;
+        padding:11px 12px 12px;
     }
 
     .video-title{
-        font-size:.76rem;
+        font-size:.74rem;
     }
 
 }
@@ -359,7 +450,6 @@ body{
 
 
 <body>
-
 
 <main class="content">
 
@@ -388,6 +478,7 @@ body{
             <button
                 type="button"
                 class="category active"
+                data-category="전체"
             >
                 전체
             </button>
@@ -395,6 +486,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="S2cret Diary"
             >
                 S2cret Diary
             </button>
@@ -402,6 +494,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="Crunchy Hearts"
             >
                 Crunchy Hearts
             </button>
@@ -409,6 +502,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="Performances & Choreography"
             >
                 Performances & Choreography
             </button>
@@ -416,6 +510,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="Production BH2ND"
             >
                 Production BH2ND
             </button>
@@ -423,6 +518,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="Hearts Chase"
             >
                 Hearts Chase
             </button>
@@ -430,6 +526,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="Daily BH2ND"
             >
                 Daily BH2ND
             </button>
@@ -437,6 +534,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="2025 Holiday Vlogs"
             >
                 2025 Holiday Vlogs
             </button>
@@ -444,6 +542,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="2026 Holiday Vlog"
             >
                 2026 Holiday Vlog
             </button>
@@ -451,6 +550,7 @@ body{
             <button
                 type="button"
                 class="category"
+                data-category="둘셋하투하"
             >
                 둘셋하투하
             </button>
@@ -459,40 +559,61 @@ body{
 
 
         <!-- =========================
-             검색
+             검색 + 정렬
         ========================= -->
 
-        <div class="search-area">
+        <div class="control-area">
 
-            <input
-                type="text"
-                id="titleSearch"
-                placeholder="제목 검색"
+            <div class="search-area">
+
+                <input
+                    type="text"
+                    id="titleSearch"
+                    placeholder="제목 검색"
+                >
+
+                <input
+                    type="text"
+                    id="dateSearch"
+                    placeholder="날짜 검색"
+                >
+
+            </div>
+
+
+            <select
+                id="sortSelect"
+                class="sort-select"
             >
 
-            <input
-                type="text"
-                id="dateSearch"
-                placeholder="날짜 검색"
-            >
+                <option value="newest">
+                    최신순
+                </option>
+
+                <option value="oldest">
+                    오래된순
+                </option>
+
+            </select>
 
         </div>
 
 
         <!-- =========================
-             영상
+             영상 목록
         ========================= -->
 
         <div
-            class="video-grid"
-            id="videoGrid"
+            class="video-area"
+            id="videoArea"
         >
 
             <div class="empty">
-                등록된 콘텐츠가 없습니다.
+                콘텐츠를 불러오는 중입니다.
             </div>
 
         </div>
+
 
     </div>
 
@@ -501,27 +622,30 @@ body{
 
 <script>
 
-
 /* =========================
-   영상 데이터
+   설정
 ========================= */
 
-const videos = [
-
-    /*
-    {
-        title: "영상 제목",
-        date: "2026-09-16",
-        category: "Production BH2ND",
-        videoId: "유튜브영상ID"
-    }
-    */
-
-];
+const JSON_FILE = "selfcontent.json";
 
 
-const categoryButtons =
-    document.querySelectorAll(".category");
+/* =========================
+   상태
+========================= */
+
+let videos = [];
+
+let currentCategory = "전체";
+
+let currentSort = "newest";
+
+
+/* =========================
+   요소
+========================= */
+
+const videoArea =
+    document.getElementById("videoArea");
 
 const titleSearch =
     document.getElementById("titleSearch");
@@ -529,19 +653,148 @@ const titleSearch =
 const dateSearch =
     document.getElementById("dateSearch");
 
-const videoGrid =
-    document.getElementById("videoGrid");
+const sortSelect =
+    document.getElementById("sortSelect");
 
-
-let currentCategory =
-    "전체";
+const categoryButtons =
+    document.querySelectorAll(".category");
 
 
 /* =========================
-   영상 출력
+   영상 ID 정리
 ========================= */
 
-function render(){
+function getVideoId(value){
+
+    if(!value){
+        return "";
+    }
+
+    value = String(value).trim();
+
+
+    /*
+       이미 ID만 들어온 경우
+    */
+
+    if(
+        !value.includes("/") &&
+        !value.includes("?") &&
+        !value.includes("=")
+    ){
+        return value;
+    }
+
+
+    /*
+       youtu.be/ID
+    */
+
+    if(value.includes("youtu.be/")){
+
+        return value
+            .split("youtu.be/")[1]
+            .split("?")[0]
+            .split("&")[0];
+
+    }
+
+
+    /*
+       youtube.com/watch?v=ID
+    */
+
+    if(value.includes("v=")){
+
+        return value
+            .split("v=")[1]
+            .split("&")[0];
+
+    }
+
+
+    /*
+       youtube.com/embed/ID
+    */
+
+    if(value.includes("/embed/")){
+
+        return value
+            .split("/embed/")[1]
+            .split("?")[0];
+
+    }
+
+
+    return value;
+
+}
+
+
+/* =========================
+   JSON 불러오기
+========================= */
+
+async function loadVideos(){
+
+    try{
+
+        const response =
+            await fetch(JSON_FILE);
+
+
+        if(!response.ok){
+
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+
+        }
+
+
+        const data =
+            await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                "JSON 형식이 배열이 아닙니다."
+            );
+
+        }
+
+
+        videos = data;
+
+
+        renderVideos();
+
+    }catch(error){
+
+        console.error(
+            "selfcontent.json 로딩 실패:",
+            error
+        );
+
+
+        videoArea.innerHTML = `
+            <div class="error">
+                콘텐츠를 불러오지 못했습니다.<br>
+                selfcontent.json 파일을 확인해주세요.
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================
+   영상 렌더링
+========================= */
+
+function renderVideos(){
 
     const titleKeyword =
         titleSearch.value
@@ -555,29 +808,42 @@ function render(){
             .replace(/-/g,"");
 
 
-    const filtered =
+    let filteredVideos =
         videos.filter(video => {
+
+
+            /*
+               카테고리
+            */
 
             const categoryMatch =
                 currentCategory === "전체" ||
                 video.category === currentCategory;
 
 
+            /*
+               제목
+            */
+
             const titleMatch =
                 !titleKeyword ||
-                (video.title || "")
+                String(video.title || "")
                     .toLowerCase()
                     .includes(titleKeyword);
 
 
-            const videoDate =
-                (video.date || "")
+            /*
+               날짜
+            */
+
+            const rawDate =
+                String(video.date || "")
                     .replace(/-/g,"");
 
 
             const dateMatch =
                 !dateKeyword ||
-                videoDate.includes(dateKeyword);
+                rawDate.includes(dateKeyword);
 
 
             return (
@@ -589,58 +855,144 @@ function render(){
         });
 
 
-    /* -------------------------
+    /*
+       정렬
+
+       최신순:
+       날짜 내림차순
+
+       오래된순:
+       날짜 오름차순
+
+       날짜가 같으면
+       JSON에 작성된 순서를 유지
+    */
+
+    filteredVideos.sort((a,b) => {
+
+        const dateA =
+            String(a.date || "");
+
+        const dateB =
+            String(b.date || "");
+
+
+        if(dateA === dateB){
+            return 0;
+        }
+
+
+        if(currentSort === "newest"){
+
+            return dateB.localeCompare(
+                dateA
+            );
+
+        }
+
+
+        return dateA.localeCompare(
+            dateB
+        );
+
+    });
+
+
+    /*
        결과 없음
-    ------------------------- */
+    */
 
-    if(filtered.length === 0){
+    if(filteredVideos.length === 0){
 
-        videoGrid.innerHTML = `
+        videoArea.innerHTML = `
             <div class="empty">
-                등록된 콘텐츠가 없습니다.
+                해당하는 콘텐츠가 없습니다.
             </div>
         `;
 
         return;
+
     }
 
 
-    /* -------------------------
-       영상 출력
-    ------------------------- */
+    /*
+       카드 생성
+    */
 
-    videoGrid.innerHTML =
-        filtered.map(video => `
+    videoArea.innerHTML =
+        filteredVideos
+            .map(video => {
 
-            <a
-                class="video-card"
-                href="https://www.youtube.com/watch?v=${video.videoId}"
-                target="_blank"
-                rel="noopener noreferrer"
-            >
+                const videoId =
+                    getVideoId(video.videoId);
 
-                <img
-                    class="video-thumbnail"
-                    src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
-                    alt=""
-                    loading="lazy"
-                >
 
-                <div class="video-info">
+                const thumbnail =
+                    `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 
-                    <div class="video-title">
-                        ${video.title}
-                    </div>
 
-                    <div class="video-date">
-                        ${video.date || ""}
-                    </div>
+                const youtubeUrl =
+                    `https://www.youtube.com/watch?v=${videoId}`;
 
-                </div>
 
-            </a>
+                return `
 
-        `).join("");
+                    <a
+                        href="${youtubeUrl}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="video-card"
+                    >
+
+                        <div class="thumbnail">
+
+                            <img
+                                src="${thumbnail}"
+                                alt=""
+                                loading="lazy"
+                            >
+
+                        </div>
+
+
+                        <div class="video-info">
+
+                            <div class="video-title">
+                                ${escapeHtml(
+                                    video.title || ""
+                                )}
+                            </div>
+
+                            <div class="video-date">
+                                ${escapeHtml(
+                                    video.date || ""
+                                )}
+                            </div>
+
+                        </div>
+
+                    </a>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* =========================
+   HTML 특수문자 처리
+========================= */
+
+function escapeHtml(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
 
 }
 
@@ -670,10 +1022,10 @@ categoryButtons.forEach(button => {
 
 
             currentCategory =
-                button.textContent.trim();
+                button.dataset.category;
 
 
-            render();
+            renderVideos();
 
         }
     );
@@ -687,7 +1039,7 @@ categoryButtons.forEach(button => {
 
 titleSearch.addEventListener(
     "input",
-    render
+    renderVideos
 );
 
 
@@ -697,7 +1049,24 @@ titleSearch.addEventListener(
 
 dateSearch.addEventListener(
     "input",
-    render
+    renderVideos
+);
+
+
+/* =========================
+   정렬
+========================= */
+
+sortSelect.addEventListener(
+    "change",
+    () => {
+
+        currentSort =
+            sortSelect.value;
+
+        renderVideos();
+
+    }
 );
 
 
@@ -705,10 +1074,9 @@ dateSearch.addEventListener(
    시작
 ========================= */
 
-render();
+loadVideos();
 
 </script>
-
 
 </body>
 </html>
