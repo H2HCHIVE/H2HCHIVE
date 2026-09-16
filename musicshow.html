@@ -4,48 +4,83 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>H2HCHIVE 음방 직캠</title>
+<title>음방 직캠 | H2HCHIVE</title>
 
 <style>
 *{
-    margin:0;
-    padding:0;
     box-sizing:border-box;
 }
 
+html,
 body{
+    margin:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:#f5f6f8;
     color:#222;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 
 
 /* =========================
-   HEADER
+   콘텐츠
 ========================= */
 
-.header{
-    position:sticky;
-    top:0;
-    background:rgba(255,255,255,.96);
-    border-bottom:1px solid #e9e9e9;
-    padding:22px 16px 18px;
-    z-index:100;
-
-    backdrop-filter:blur(10px);
-    -webkit-backdrop-filter:blur(10px);
+.content{
+    width:100%;
+    min-height:100vh;
 }
 
-.header-inner{
-    max-width:720px;
+.content-inner{
+    width:100%;
+    max-width:900px;
+
     margin:0 auto;
+
+    padding:24px 16px 60px;
 }
 
-.header h1{
-    font-size:21px;
+
+/* =========================
+   상단 제목
+========================= */
+
+.main-title{
+    margin-bottom:14px;
+
+    padding-bottom:10px;
+
+    border-bottom:1px solid #ddd;
+}
+
+.main-title h1{
+    display:inline-block;
+
+    position:relative;
+
+    margin:0;
+
+    padding:0 0 10px;
+
+    font-size:1.1rem;
     font-weight:700;
-    letter-spacing:-.5px;
-    margin-bottom:18px;
+}
+
+.main-title h1::after{
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    right:0;
+    bottom:-11px;
+
+    height:2px;
+
+    background:#89CFF0;
 }
 
 
@@ -53,151 +88,190 @@ body{
    직캠 종류
 ========================= */
 
-.type-filter{
+.type-list{
     display:flex;
-    gap:22px;
-    border-bottom:1px solid #e5e5e5;
-}
+    flex-direction:column;
 
-.type-button{
-    position:relative;
-
-    padding:0 1px 11px;
-
-    border:0;
-    background:none;
-
-    color:#999;
-
-    font-family:inherit;
-    font-size:13px;
-    font-weight:500;
-
-    cursor:pointer;
-}
-
-.type-button.active{
-    color:#222;
-    font-weight:700;
-}
-
-.type-button.active::after{
-    content:"";
-
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:-1px;
-
-    height:2px;
-
-    background:#222;
-}
-
-
-/* =========================
-   세부 필터 영역
-========================= */
-
-.sub-filter{
-    display:none;
-
-    margin-top:14px;
-
-    border:1px solid #e8e8e8;
-    border-radius:12px;
-
-    background:#fafafa;
-
-    overflow:hidden;
-}
-
-.sub-filter.show{
-    display:block;
-}
-
-
-/* =========================
-   세부 필터 스크롤
-========================= */
-
-.sub-filter-list{
     max-height:126px;
 
     overflow-y:auto;
+
+    margin-bottom:14px;
+
+    border:1px solid #e1e1e1;
+    border-radius:10px;
+
+    background:#fff;
 
     scrollbar-width:thin;
     scrollbar-color:#d5d5d5 transparent;
 }
 
-.sub-filter-list::-webkit-scrollbar{
+.type-list::-webkit-scrollbar{
     width:4px;
 }
 
-.sub-filter-list::-webkit-scrollbar-track{
+.type-list::-webkit-scrollbar-track{
     background:transparent;
 }
 
-.sub-filter-list::-webkit-scrollbar-thumb{
+.type-list::-webkit-scrollbar-thumb{
     background:#d5d5d5;
     border-radius:999px;
 }
 
 
 /* =========================
-   세부 필터 항목
+   직캠 종류 버튼
 ========================= */
 
-.sub-filter-button{
+.type-button{
+    flex-shrink:0;
+
     width:100%;
 
-    display:flex;
-    align-items:center;
-
-    min-height:42px;
-
-    padding:0 14px;
+    padding:10px 12px;
 
     border:0;
-    border-bottom:1px solid #ededed;
+    border-bottom:1px solid #eee;
 
-    background:#fff;
+    background:none;
 
     color:#777;
 
     font-family:inherit;
-    font-size:13px;
+    font-size:.82rem;
     font-weight:500;
 
     text-align:left;
 
     cursor:pointer;
-
-    transition:.15s;
 }
 
-.sub-filter-button:last-child{
+.type-button:last-child{
     border-bottom:0;
 }
 
-.sub-filter-button:hover{
+.type-button:hover{
     background:#fafafa;
-    color:#222;
 }
 
-.sub-filter-button.active{
-    background:#f8fcff;
+.type-button.active{
     color:#222;
-    font-weight:700;
+    font-weight:600;
 }
 
-.sub-filter-button.active::before{
+.type-button.active::before{
     content:"";
+
+    display:inline-block;
 
     width:4px;
     height:4px;
 
-    margin-right:8px;
+    margin-right:7px;
+
+    vertical-align:middle;
+
+    border-radius:50%;
+
+    background:#89CFF0;
+}
+
+
+/* =========================
+   세부 카테고리
+========================= */
+
+.sub-category-list{
+    display:none;
+
+    flex-direction:column;
+
+    max-height:126px;
+
+    overflow-y:auto;
+
+    margin-bottom:14px;
+
+    border:1px solid #e1e1e1;
+    border-radius:10px;
+
+    background:#fff;
+
+    scrollbar-width:thin;
+    scrollbar-color:#d5d5d5 transparent;
+}
+
+.sub-category-list.show{
+    display:flex;
+}
+
+.sub-category-list::-webkit-scrollbar{
+    width:4px;
+}
+
+.sub-category-list::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+.sub-category-list::-webkit-scrollbar-thumb{
+    background:#d5d5d5;
+    border-radius:999px;
+}
+
+
+/* =========================
+   세부 카테고리 버튼
+========================= */
+
+.sub-category-button{
+    flex-shrink:0;
+
+    width:100%;
+
+    padding:10px 12px;
+
+    border:0;
+    border-bottom:1px solid #eee;
+
+    background:none;
+
+    color:#777;
+
+    font-family:inherit;
+    font-size:.82rem;
+    font-weight:500;
+
+    text-align:left;
+
+    cursor:pointer;
+}
+
+.sub-category-button:last-child{
+    border-bottom:0;
+}
+
+.sub-category-button:hover{
+    background:#fafafa;
+}
+
+.sub-category-button.active{
+    color:#222;
+    font-weight:600;
+}
+
+.sub-category-button.active::before{
+    content:"";
+
+    display:inline-block;
+
+    width:4px;
+    height:4px;
+
+    margin-right:7px;
+
+    vertical-align:middle;
 
     border-radius:50%;
 
@@ -209,195 +283,148 @@ body{
    날짜 검색
 ========================= */
 
-.date-search-wrap{
-    margin-top:12px;
+.search-area{
+    margin-bottom:16px;
 }
 
 #dateSearch{
     width:100%;
+    min-width:0;
 
-    padding:11px 14px;
+    padding:10px 11px;
 
-    border:1px solid #e3e3e3;
-    border-radius:10px;
+    border:1px solid #ddd;
+    border-radius:9px;
 
     background:#fff;
 
     color:#222;
 
     font-family:inherit;
-    font-size:12px;
+    font-size:.8rem;
 
     outline:none;
+}
 
-    transition:.2s;
+#dateSearch:focus{
+    border-color:#b9dff0;
 }
 
 #dateSearch::placeholder{
     color:#aaa;
 }
 
-#dateSearch:focus{
-    border-color:#bbb;
-}
-
 
 /* =========================
-   VIDEO GRID
+   영상 그리드
 ========================= */
 
-.archive-grid{
+.video-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
 
-    gap:14px;
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
 
-    padding:18px 16px 50px;
-
-    max-width:1200px;
-    margin:0 auto;
+    gap:10px;
 }
 
 
 /* =========================
-   VIDEO CARD
+   영상 카드
 ========================= */
 
-.archive-card{
+.video-card{
     display:block;
-
-    text-decoration:none;
-    color:inherit;
-
-    background:#fff;
-
-    border-radius:16px;
 
     overflow:hidden;
 
-    box-shadow:0 2px 10px rgba(0,0,0,.045);
+    background:#fff;
 
-    transition:
-        transform .2s ease,
-        box-shadow .2s ease;
+    border-radius:13px;
+
+    text-decoration:none;
+    color:#222;
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.05);
 }
 
-.archive-card:hover{
-    transform:translateY(-2px);
-
-    box-shadow:0 5px 16px rgba(0,0,0,.08);
-}
-
-.archive-thumb{
+.video-thumbnail{
     width:100%;
-    aspect-ratio:16/9;
 
-    object-fit:cover;
+    aspect-ratio:16 / 9;
 
     display:block;
+
+    object-fit:cover;
 
     background:#eee;
 }
 
-.archive-content{
-    padding:11px 12px 12px;
+.video-info{
+    padding:9px 10px 11px;
 }
 
-.archive-title{
-    font-size:13px;
-    font-weight:600;
-    line-height:1.4;
+.video-title{
+    margin-bottom:4px;
 
-    margin-bottom:6px;
+    font-size:.8rem;
+    font-weight:600;
+
+    line-height:1.35;
 
     display:-webkit-box;
-    -webkit-line-clamp:2;
     -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
 
     overflow:hidden;
 }
 
-.archive-date{
-    font-size:11px;
+.video-date{
     color:#999;
+
+    font-size:.7rem;
 }
 
 
 /* =========================
-   결과 없음
+   빈 결과
 ========================= */
 
-.empty-message{
+.empty{
     grid-column:1 / -1;
 
-    padding:70px 20px;
-
-    text-align:center;
+    padding:45px 10px;
 
     color:#999;
-    font-size:13px;
+
+    font-size:.8rem;
+
+    text-align:center;
 }
 
 
 /* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    .header{
-        padding:20px 14px 16px;
-    }
-
-    .header h1{
-        font-size:20px;
-    }
-
-    .type-filter{
-        gap:20px;
-    }
-
-    .archive-grid{
-        gap:10px;
-        padding:14px 10px 40px;
-    }
-
-    .archive-content{
-        padding:9px 10px 10px;
-    }
-
-    .archive-title{
-        font-size:12px;
-    }
-
-    .archive-date{
-        font-size:10px;
-    }
-
-}
-
-
-/* =========================
-   VERY SMALL
+   모바일
 ========================= */
 
 @media(max-width:360px){
 
-    .header{
+    .content-inner{
         padding-left:12px;
         padding-right:12px;
     }
 
-    .type-filter{
-        gap:16px;
+    .video-grid{
+        gap:8px;
     }
 
-    .type-button{
-        font-size:12px;
+    .video-info{
+        padding:8px 9px 10px;
     }
 
-    .sub-filter-list{
-        max-height:126px;
+    .video-title{
+        font-size:.76rem;
     }
 
 }
@@ -408,18 +435,29 @@ body{
 <body>
 
 
-<header class="header">
+<main class="content">
 
-    <div class="header-inner">
+    <div class="content-inner">
 
-        <h1>음방 직캠</h1>
+
+        <!-- =========================
+             제목
+        ========================= -->
+
+        <div class="main-title">
+
+            <h1>
+                음방 직캠
+            </h1>
+
+        </div>
 
 
         <!-- =========================
              직캠 종류
         ========================= -->
 
-        <div class="type-filter">
+        <div class="type-list">
 
             <button
                 type="button"
@@ -457,163 +495,155 @@ body{
 
         <div
             id="albumFilters"
-            class="sub-filter"
+            class="sub-category-list"
         >
 
-            <div class="sub-filter-list">
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="The Chase"
+                onclick="showAlbum('The Chase')"
+            >
+                The Chase
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-album="The Chase"
-                    onclick="showAlbum('The Chase')"
-                >
-                    The Chase
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="STYLE"
+                onclick="showAlbum('STYLE')"
+            >
+                STYLE
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-album="STYLE"
-                    onclick="showAlbum('STYLE')"
-                >
-                    STYLE
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="Pretty Please"
+                onclick="showAlbum('Pretty Please')"
+            >
+                Pretty Please
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-album="Pretty Please"
-                    onclick="showAlbum('Pretty Please')"
-                >
-                    Pretty Please
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="FOCUS"
+                onclick="showAlbum('FOCUS')"
+            >
+                FOCUS
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-album="FOCUS"
-                    onclick="showAlbum('FOCUS')"
-                >
-                    FOCUS
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="RUDE!"
+                onclick="showAlbum('RUDE!')"
+            >
+                RUDE!
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-album="RUDE"
-                    onclick="showAlbum('RUDE')"
-                >
-                    RUDE!
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="Lemon Tang"
+                onclick="showAlbum('Lemon Tang')"
+            >
+                Lemon Tang
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-album="Lemon Tang"
-                    onclick="showAlbum('Lemon Tang')"
-                >
-                    Lemon Tang
-                </button>
-
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-album="15-LOVE"
-                    onclick="showAlbum('15-LOVE')"
-                >
-                    15-LOVE
-                </button>
-
-            </div>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="15-LOVE"
+                onclick="showAlbum('15-LOVE')"
+            >
+                15-LOVE
+            </button>
 
         </div>
 
 
         <!-- =========================
-             멤버 → 멤버
+             멤버
         ========================= -->
 
         <div
             id="memberFilters"
-            class="sub-filter"
+            class="sub-category-list"
         >
 
-            <div class="sub-filter-list">
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="지우"
+                onclick="showMember('지우')"
+            >
+                지우
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="지우"
-                    onclick="showMember('지우')"
-                >
-                    지우
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="카르멘"
+                onclick="showMember('카르멘')"
+            >
+                카르멘
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="카르멘"
-                    onclick="showMember('카르멘')"
-                >
-                    카르멘
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="유하"
+                onclick="showMember('유하')"
+            >
+                유하
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="유하"
-                    onclick="showMember('유하')"
-                >
-                    유하
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="스텔라"
+                onclick="showMember('스텔라')"
+            >
+                스텔라
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="스텔라"
-                    onclick="showMember('스텔라')"
-                >
-                    스텔라
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="주은"
+                onclick="showMember('주은')"
+            >
+                주은
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="주은"
-                    onclick="showMember('주은')"
-                >
-                    주은
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="에이나"
+                onclick="showMember('에이나')"
+            >
+                에이나
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="에이나"
-                    onclick="showMember('에이나')"
-                >
-                    에이나
-                </button>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="이안"
+                onclick="showMember('이안')"
+            >
+                이안
+            </button>
 
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="이안"
-                    onclick="showMember('이안')"
-                >
-                    이안
-                </button>
-
-                <button
-                    type="button"
-                    class="sub-filter-button"
-                    data-member="예온"
-                    onclick="showMember('예온')"
-                >
-                    예온
-                </button>
-
-            </div>
+            <button
+                type="button"
+                class="sub-category-button"
+                data-member="예온"
+                onclick="showMember('예온')"
+            >
+                예온
+            </button>
 
         </div>
 
@@ -622,7 +652,7 @@ body{
              날짜 검색
         ========================= -->
 
-        <div class="date-search-wrap">
+        <div class="search-area">
 
             <input
                 id="dateSearch"
@@ -633,21 +663,26 @@ body{
 
         </div>
 
+
+        <!-- =========================
+             영상
+        ========================= -->
+
+        <div
+            class="video-grid"
+            id="videoGrid"
+        >
+
+            <div class="empty">
+                영상을 불러오는 중입니다.
+            </div>
+
+        </div>
+
+
     </div>
 
-</header>
-
-
-
-<!-- =========================
-     영상 목록
-========================= -->
-
-<div
-    id="archiveGrid"
-    class="archive-grid"
-></div>
-
+</main>
 
 
 <script>
@@ -676,7 +711,7 @@ let currentDate = "";
 function renderVideos(videos){
 
     const grid =
-        document.getElementById("archiveGrid");
+        document.getElementById("videoGrid");
 
     grid.innerHTML = "";
 
@@ -684,7 +719,7 @@ function renderVideos(videos){
     if(videos.length === 0){
 
         grid.innerHTML = `
-            <div class="empty-message">
+            <div class="empty">
                 해당하는 직캠이 없습니다.
             </div>
         `;
@@ -700,34 +735,37 @@ function renderVideos(videos){
 
 
         card.className =
-            "archive-card";
+            "video-card";
 
 
         card.href =
             `https://www.youtube.com/watch?v=${video.videoId}`;
 
 
-        card.target = "_blank";
+        card.target =
+            "_blank";
 
-        card.rel = "noopener noreferrer";
+
+        card.rel =
+            "noopener noreferrer";
 
 
         card.innerHTML = `
 
             <img
-                class="archive-thumb"
+                class="video-thumbnail"
                 src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
                 alt="${video.title}"
                 loading="lazy"
             >
 
-            <div class="archive-content">
+            <div class="video-info">
 
-                <div class="archive-title">
+                <div class="video-title">
                     ${video.title}
                 </div>
 
-                <div class="archive-date">
+                <div class="video-date">
                     ${video.date}
                 </div>
 
@@ -818,7 +856,7 @@ function applyFilters(){
             filtered.filter(video => {
 
                 const compactDate =
-                    video.date
+                    (video.date || "")
                         .replaceAll("-", "")
                         .slice(2);
 
@@ -838,7 +876,7 @@ function applyFilters(){
 
 
 /* =========================
-   상단 직캠 종류 버튼 상태
+   종류 버튼 상태
 ========================= */
 
 function updateTypeButtons(){
@@ -875,21 +913,11 @@ function updateFilterVisibility(){
         );
 
 
-    /*
-       그룹 직캠
-       → 앨범 목록 표시
-    */
-
     albumFilters.classList.toggle(
         "show",
         currentType === "group"
     );
 
-
-    /*
-       멤버 직캠
-       → 멤버 목록 표시
-    */
 
     memberFilters.classList.toggle(
         "show",
@@ -901,14 +929,14 @@ function updateFilterVisibility(){
 
 
 /* =========================
-   앨범 선택 상태
+   앨범 버튼 상태
 ========================= */
 
 function updateAlbumButtons(){
 
     document
         .querySelectorAll(
-            "#albumFilters .sub-filter-button"
+            "#albumFilters .sub-category-button"
         )
         .forEach(button => {
 
@@ -924,14 +952,14 @@ function updateAlbumButtons(){
 
 
 /* =========================
-   멤버 선택 상태
+   멤버 버튼 상태
 ========================= */
 
 function updateMemberButtons(){
 
     document
         .querySelectorAll(
-            "#memberFilters .sub-filter-button"
+            "#memberFilters .sub-category-button"
         )
         .forEach(button => {
 
@@ -956,13 +984,9 @@ function showType(type){
         type;
 
 
-    /*
-       종류 변경 시
-       기존 세부 필터 초기화
-    */
-
     currentAlbum =
         "all";
+
 
     currentMember =
         "all";
@@ -991,8 +1015,10 @@ function showAlbum(album){
     currentType =
         "group";
 
+
     currentAlbum =
         album;
+
 
     currentMember =
         "all";
@@ -1021,8 +1047,10 @@ function showMember(member){
     currentType =
         "member";
 
+
     currentMember =
         member;
+
 
     currentAlbum =
         "all";
@@ -1052,7 +1080,9 @@ function searchByDate(){
         document
             .getElementById("dateSearch")
             .value
-            .trim();
+            .trim()
+            .replace(/-/g,"");
+
 
     applyFilters();
 
@@ -1098,9 +1128,9 @@ async function loadVideos(){
 
 
         document.getElementById(
-            "archiveGrid"
+            "videoGrid"
         ).innerHTML = `
-            <div class="empty-message">
+            <div class="empty">
                 영상을 불러오지 못했습니다.
             </div>
         `;
