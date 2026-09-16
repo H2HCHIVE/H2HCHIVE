@@ -89,7 +89,9 @@ body{
 
 .menu-list{
     display:flex;
+
     flex-direction:column;
+
     gap:3px;
 }
 
@@ -97,6 +99,7 @@ body{
     display:flex;
 
     flex-direction:column;
+
     align-items:center;
     justify-content:center;
 
@@ -118,6 +121,9 @@ body{
     text-align:center;
 
     transition:
+        min-height .25s ease,
+        padding .25s ease,
+        gap .25s ease,
         background .2s ease,
         color .2s ease,
         box-shadow .2s ease;
@@ -127,6 +133,11 @@ body{
     background:#fff;
     color:#222;
 }
+
+
+/* =========================
+   기본 활성 상태
+========================= */
 
 .menu-link.active{
     background:#fff;
@@ -149,33 +160,50 @@ body{
 
     text-align:center;
 
-    font-size:15px;
+    font-size:18px;
 
     line-height:1;
 
     transition:
-        font-size .25s ease,
-        transform .25s ease;
+        font-size .25s ease;
 }
 
 
 /* =========================
-   선택된 메뉴 아이콘
+   선택된 메뉴 축소
 ========================= */
 
-.menu-link.active .menu-icon{
-    font-size:23px;
+.menu-link.active{
+    min-height:38px;
 
-    transform:scale(1.02);
+    padding:5px 3px;
+
+    gap:0;
+}
+
+.menu-link.active .menu-icon{
+    font-size:14px;
 }
 
 
 /* =========================
-   메뉴 이름
+   선택된 메뉴 글자 숨김
 ========================= */
 
 .menu-name{
     white-space:nowrap;
+
+    transition:
+        opacity .15s ease,
+        height .25s ease;
+}
+
+.menu-link.active .menu-name{
+    height:0;
+
+    opacity:0;
+
+    overflow:hidden;
 }
 
 
@@ -221,20 +249,28 @@ body{
 
     .sidebar-title{
         font-size:1rem;
+
         padding-bottom:18px;
     }
 
     .menu-link{
         min-height:58px;
+
         font-size:9px;
     }
 
+    .menu-link.active{
+        min-height:36px;
+
+        padding:5px 3px;
+    }
+
     .menu-icon{
-        font-size:14px;
+        font-size:17px;
     }
 
     .menu-link.active .menu-icon{
-        font-size:21px;
+        font-size:13px;
     }
 
 }
