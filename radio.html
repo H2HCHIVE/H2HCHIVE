@@ -191,12 +191,22 @@ body{
    검색 + 정렬
 ========================= */
 
-.search-area{
+.control-area{
     display:flex;
 
     gap:8px;
 
     margin-bottom:16px;
+}
+
+.search-area{
+    display:flex;
+
+    flex:1;
+
+    gap:8px;
+
+    min-width:0;
 }
 
 .search-area input{
@@ -233,27 +243,20 @@ body{
    정렬
 ========================= */
 
-.sort-area{
-    display:flex;
-
-    justify-content:flex-end;
-
-    margin-top:-6px;
-    margin-bottom:12px;
-}
-
 .sort-select{
-    padding:8px 10px;
+    flex-shrink:0;
+
+    padding:10px 10px;
 
     border:1px solid #ddd;
-    border-radius:8px;
+    border-radius:9px;
 
     background:#fff;
 
-    color:#666;
+    color:#555;
 
     font-family:inherit;
-    font-size:.72rem;
+    font-size:.75rem;
 
     outline:none;
 
@@ -262,10 +265,10 @@ body{
 
 
 /* =========================
-   콘텐츠 영역
+   영상 영역
 ========================= */
 
-.content-area{
+.video-area{
     display:grid;
 
     grid-template-columns:
@@ -276,15 +279,15 @@ body{
 
 
 /* =========================
-   콘텐츠 카드
+   영상 카드
 ========================= */
 
-.content-card{
+.video-card{
     display:block;
 
     overflow:hidden;
 
-    min-height:120px;
+    min-width:0;
 
     background:#fff;
 
@@ -296,54 +299,90 @@ body{
     box-shadow:
         0 2px 7px rgba(0,0,0,.05);
 
-    transition:
-        transform .15s ease,
-        box-shadow .15s ease;
+    transition:.15s;
 }
 
-.content-card:active{
-    transform:scale(.98);
-}
+.video-card:hover{
+    transform:translateY(-1px);
 
-.content-card-inner{
-    padding:14px;
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.07);
 }
 
 
 /* =========================
-   카테고리 표시
+   썸네일
 ========================= */
 
-.content-category{
-    margin-bottom:7px;
+.thumbnail{
+    position:relative;
+
+    width:100%;
+
+    aspect-ratio:16 / 9;
+
+    overflow:hidden;
+
+    background:#eee;
+}
+
+.thumbnail img{
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+
+/* =========================
+   영상 정보
+========================= */
+
+.video-info{
+    padding:12px 13px 13px;
+}
+
+.video-category{
+    margin-bottom:5px;
 
     color:#89CFF0;
 
     font-size:.64rem;
     font-weight:600;
+
+    line-height:1.3;
+
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
-.content-title{
-    margin-bottom:7px;
+.video-title{
+    margin-bottom:5px;
 
-    font-size:.8rem;
+    font-size:.78rem;
     font-weight:600;
 
     line-height:1.4;
 
-    word-break:keep-all;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+
+    overflow:hidden;
 }
 
-.content-date{
+.video-date{
     color:#999;
 
     font-size:.68rem;
-    line-height:1.4;
 }
 
 
 /* =========================
-   준비 중
+   빈 상태
 ========================= */
 
 .empty{
@@ -360,8 +399,44 @@ body{
 
 
 /* =========================
+   오류
+========================= */
+
+.error{
+    grid-column:1 / -1;
+
+    padding:45px 10px;
+
+    color:#999;
+
+    font-size:.8rem;
+
+    line-height:1.5;
+
+    text-align:center;
+}
+
+
+/* =========================
    모바일
 ========================= */
+
+@media(max-width:600px){
+
+    .control-area{
+        flex-direction:column;
+    }
+
+    .search-area{
+        width:100%;
+    }
+
+    .sort-select{
+        width:100%;
+    }
+
+}
+
 
 @media(max-width:360px){
 
@@ -370,28 +445,28 @@ body{
         padding-right:12px;
     }
 
-    .content-area{
+    .category-list{
+        max-height:240px;
+    }
+
+    .video-area{
         gap:8px;
     }
 
-    .content-card-inner{
-        padding:12px;
+    .video-info{
+        padding:11px 12px 12px;
     }
 
-    .content-title{
-        font-size:.76rem;
-    }
-
-    .content-category{
+    .video-category{
         font-size:.6rem;
     }
 
-    .content-date{
-        font-size:.64rem;
+    .video-title{
+        font-size:.74rem;
     }
 
-    .sort-select{
-        font-size:.68rem;
+    .video-date{
+        font-size:.64rem;
     }
 
 }
@@ -428,44 +503,46 @@ body{
             id="categoryList"
         >
 
-            <!-- JavaScript에서 자동 생성 -->
+            <button
+                type="button"
+                class="category active"
+                data-category="전체"
+            >
+                전체
+            </button>
 
         </div>
 
 
         <!-- =========================
-             검색
+             검색 + 정렬
         ========================= -->
 
-        <div class="search-area">
+        <div class="control-area">
 
-            <input
-                type="text"
-                id="titleSearch"
-                placeholder="제목 검색"
-            >
+            <div class="search-area">
 
-            <input
-                type="text"
-                id="dateSearch"
-                placeholder="날짜 검색"
-            >
+                <input
+                    type="text"
+                    id="titleSearch"
+                    placeholder="제목 검색"
+                >
 
-        </div>
+                <input
+                    type="text"
+                    id="dateSearch"
+                    placeholder="날짜 검색"
+                >
 
+            </div>
 
-        <!-- =========================
-             정렬
-        ========================= -->
-
-        <div class="sort-area">
 
             <select
                 id="sortSelect"
                 class="sort-select"
             >
 
-                <option value="latest">
+                <option value="newest">
                     최신순
                 </option>
 
@@ -479,12 +556,12 @@ body{
 
 
         <!-- =========================
-             콘텐츠 영역
+             영상 목록
         ========================= -->
 
         <div
-            class="content-area"
-            id="contentArea"
+            class="video-area"
+            id="videoArea"
         >
 
             <div class="empty">
@@ -505,18 +582,18 @@ body{
    설정
 ========================= */
 
-const JSON_URL = "radio.json";
+const JSON_FILE = "radio.json";
 
 
 /* =========================
-   데이터
+   상태
 ========================= */
 
-let radioData = [];
+let radios = [];
 
 let currentCategory = "전체";
 
-let currentSort = "latest";
+let currentSort = "newest";
 
 
 /* =========================
@@ -526,8 +603,8 @@ let currentSort = "latest";
 const categoryList =
     document.getElementById("categoryList");
 
-const contentArea =
-    document.getElementById("contentArea");
+const videoArea =
+    document.getElementById("videoArea");
 
 const titleSearch =
     document.getElementById("titleSearch");
@@ -540,49 +617,146 @@ const sortSelect =
 
 
 /* =========================
+   영상 ID 정리
+========================= */
+
+function getVideoId(value){
+
+    if(!value){
+        return "";
+    }
+
+    value = String(value).trim();
+
+
+    /*
+       이미 ID만 있는 경우
+    */
+
+    if(
+        !value.includes("/") &&
+        !value.includes("?") &&
+        !value.includes("=")
+    ){
+
+        return value;
+
+    }
+
+
+    /*
+       youtu.be/ID
+    */
+
+    if(value.includes("youtu.be/")){
+
+        return value
+            .split("youtu.be/")[1]
+            .split("?")[0]
+            .split("&")[0];
+
+    }
+
+
+    /*
+       youtube.com/watch?v=ID
+    */
+
+    if(value.includes("v=")){
+
+        return value
+            .split("v=")[1]
+            .split("&")[0];
+
+    }
+
+
+    /*
+       youtube.com/embed/ID
+    */
+
+    if(value.includes("/embed/")){
+
+        return value
+            .split("/embed/")[1]
+            .split("?")[0];
+
+    }
+
+
+    /*
+       youtube.com/live/ID
+    */
+
+    if(value.includes("/live/")){
+
+        return value
+            .split("/live/")[1]
+            .split("?")[0]
+            .split("&")[0];
+
+    }
+
+
+    return value;
+
+}
+
+
+/* =========================
    JSON 불러오기
 ========================= */
 
-async function loadRadioData(){
+async function loadRadios(){
 
     try{
 
         const response =
-            await fetch(JSON_URL);
+            await fetch(JSON_FILE);
+
 
         if(!response.ok){
+
             throw new Error(
-                "radio.json을 불러올 수 없습니다."
+                `HTTP ${response.status}`
             );
+
         }
 
-        radioData =
+
+        const data =
             await response.json();
 
 
-        /* =========================
-           날짜 기준 최신순 정렬
-        ========================= */
+        if(!Array.isArray(data)){
 
-        radioData.sort((a,b) => {
+            throw new Error(
+                "JSON 형식이 배열이 아닙니다."
+            );
 
-            return new Date(b.date) -
-                   new Date(a.date);
+        }
 
-        });
+
+        radios = data;
 
 
         createCategories();
 
-        renderContents();
+        renderRadios();
+
 
     }catch(error){
 
-        console.error(error);
+        console.error(
+            "radio.json 로딩 실패:",
+            error
+        );
 
-        contentArea.innerHTML = `
-            <div class="empty">
-                라디오 콘텐츠를 불러오지 못했습니다.
+
+        videoArea.innerHTML = `
+            <div class="error">
+                라디오 콘텐츠를 불러오지 못했습니다.<br>
+                radio.json 파일을 확인해주세요.
             </div>
         `;
 
@@ -600,147 +774,133 @@ function createCategories(){
     categoryList.innerHTML = "";
 
 
-    /* 전체 */
+    /*
+       전체
+    */
 
     const allButton =
         document.createElement("button");
 
-    allButton.type = "button";
+    allButton.type =
+        "button";
 
     allButton.className =
         "category active";
 
+    allButton.dataset.category =
+        "전체";
+
     allButton.textContent =
         "전체";
 
-    allButton.addEventListener(
-        "click",
-        () => {
-
-            currentCategory = "전체";
-
-            updateCategoryButtons(
-                allButton
-            );
-
-            renderContents();
-
-        }
-    );
 
     categoryList.appendChild(
         allButton
     );
 
 
-    /* =========================
-       JSON의 category 추출
-    ========================= */
+    /*
+       JSON에서 카테고리 추출
+
+       작성된 순서를 유지하면서
+       중복 제거
+    */
 
     const categories =
-        [...new Set(
-            radioData
-                .map(item => item.category)
-                .filter(category => category)
-        )];
+        [
+            ...new Set(
+                radios
+                    .map(
+                        radio =>
+                            radio.category
+                    )
+                    .filter(
+                        category =>
+                            category
+                    )
+            )
+        ];
 
 
-    categories.forEach(category => {
+    categories.forEach(
+        category => {
 
-        const button =
-            document.createElement("button");
-
-        button.type = "button";
-
-        button.className =
-            "category";
-
-        button.textContent =
-            category;
-
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                currentCategory =
-                    category;
-
-                updateCategoryButtons(
-                    button
+            const button =
+                document.createElement(
+                    "button"
                 );
 
-                renderContents();
 
-            }
-        );
+            button.type =
+                "button";
 
+            button.className =
+                "category";
 
-        categoryList.appendChild(
-            button
-        );
+            button.dataset.category =
+                category;
 
-    });
-
-}
-
-
-/* =========================
-   카테고리 활성화
-========================= */
-
-function updateCategoryButtons(
-    activeButton
-){
-
-    const buttons =
-        categoryList.querySelectorAll(
-            ".category"
-        );
-
-    buttons.forEach(button => {
-
-        button.classList.remove(
-            "active"
-        );
-
-    });
-
-    activeButton.classList.add(
-        "active"
-    );
-
-}
+            button.textContent =
+                category;
 
 
-/* =========================
-   콘텐츠 렌더링
-========================= */
-
-function renderContents(){
-
-    let filtered =
-        [...radioData];
-
-
-    /* =========================
-       카테고리 필터
-    ========================= */
-
-    if(currentCategory !== "전체"){
-
-        filtered =
-            filtered.filter(item =>
-                item.category ===
-                currentCategory
+            categoryList.appendChild(
+                button
             );
 
-    }
+        }
+    );
 
 
-    /* =========================
-       제목 검색
-    ========================= */
+    /*
+       이벤트 연결
+    */
+
+    categoryList
+        .querySelectorAll(".category")
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    categoryList
+                        .querySelectorAll(
+                            ".category"
+                        )
+                        .forEach(item => {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        });
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    currentCategory =
+                        button.dataset.category;
+
+
+                    renderRadios();
+
+                }
+            );
+
+        });
+
+}
+
+
+/* =========================
+   라디오 렌더링
+========================= */
+
+function renderRadios(){
 
     const titleKeyword =
         titleSearch.value
@@ -748,71 +908,126 @@ function renderContents(){
             .toLowerCase();
 
 
-    if(titleKeyword){
-
-        filtered =
-            filtered.filter(item =>
-                (item.title || "")
-                    .toLowerCase()
-                    .includes(titleKeyword)
-            );
-
-    }
-
-
-    /* =========================
-       날짜 검색
-    ========================= */
-
     const dateKeyword =
         dateSearch.value
-            .trim();
+            .trim()
+            .replace(/-/g,"");
 
 
-    if(dateKeyword){
+    /*
+       필터
+    */
 
-        filtered =
-            filtered.filter(item =>
-                (item.date || "")
-                    .includes(dateKeyword)
+    let filteredRadios =
+        radios.filter(radio => {
+
+
+            /*
+               카테고리
+            */
+
+            const categoryMatch =
+                currentCategory === "전체" ||
+                radio.category ===
+                    currentCategory;
+
+
+            /*
+               제목
+            */
+
+            const titleMatch =
+                !titleKeyword ||
+                String(
+                    radio.title || ""
+                )
+                .toLowerCase()
+                .includes(
+                    titleKeyword
+                );
+
+
+            /*
+               날짜
+            */
+
+            const rawDate =
+                String(
+                    radio.date || ""
+                )
+                .replace(/-/g,"");
+
+
+            const dateMatch =
+                !dateKeyword ||
+                rawDate.includes(
+                    dateKeyword
+                );
+
+
+            return (
+                categoryMatch &&
+                titleMatch &&
+                dateMatch
             );
 
-    }
+        });
 
 
-    /* =========================
+    /*
        정렬
-    ========================= */
+    */
 
-    filtered.sort((a,b) => {
+    filteredRadios.sort(
+        (a,b) => {
 
-        const dateA =
-            new Date(a.date);
+            const dateA =
+                String(
+                    a.date || ""
+                );
 
-        const dateB =
-            new Date(b.date);
+            const dateB =
+                String(
+                    b.date || ""
+                );
 
 
-        if(currentSort === "latest"){
+            if(dateA === dateB){
 
-            return dateB - dateA;
+                return 0;
 
-        }else{
+            }
 
-            return dateA - dateB;
+
+            if(
+                currentSort ===
+                "newest"
+            ){
+
+                return dateB.localeCompare(
+                    dateA
+                );
+
+            }
+
+
+            return dateA.localeCompare(
+                dateB
+            );
 
         }
+    );
 
-    });
 
+    /*
+       결과 없음
+    */
 
-    /* =========================
-       데이터 없음
-    ========================= */
+    if(
+        filteredRadios.length === 0
+    ){
 
-    if(filtered.length === 0){
-
-        contentArea.innerHTML = `
+        videoArea.innerHTML = `
             <div class="empty">
                 해당하는 라디오 콘텐츠가 없습니다.
             </div>
@@ -823,78 +1038,96 @@ function renderContents(){
     }
 
 
-    /* =========================
+    /*
        카드 생성
-    ========================= */
+    */
 
-    contentArea.innerHTML = "";
+    videoArea.innerHTML =
+        filteredRadios
+            .map(
+                radio => {
 
-
-    filtered.forEach(item => {
-
-        const card =
-            document.createElement("a");
-
-
-        card.className =
-            "content-card";
+                    const videoId =
+                        getVideoId(
+                            radio.videoId
+                        );
 
 
-        /*
-           유튜브 영상 연결
-        */
+                    const thumbnail =
+                        videoId
+                        ?
+                        `https://img.youtube.com/vi/${encodeURIComponent(videoId)}/hqdefault.jpg`
+                        :
+                        "";
 
-        if(item.videoId){
 
-            card.href =
-                "https://www.youtube.com/watch?v=" +
-                item.videoId;
+                    const youtubeUrl =
+                        videoId
+                        ?
+                        `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`
+                        :
+                        "#";
 
-            card.target = "_blank";
 
-            card.rel =
-                "noopener noreferrer";
+                    return `
 
-        }else{
+                        <a
+                            href="${youtubeUrl}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="video-card"
+                        >
 
-            card.href = "#";
+                            <div class="thumbnail">
 
-            card.addEventListener(
-                "click",
-                event => {
-                    event.preventDefault();
+                                ${
+                                    thumbnail
+                                    ?
+                                    `
+                                    <img
+                                        src="${thumbnail}"
+                                        alt=""
+                                        loading="lazy"
+                                    >
+                                    `
+                                    :
+                                    ""
+                                }
+
+                            </div>
+
+
+                            <div class="video-info">
+
+                                <div class="video-category">
+                                    ${escapeHtml(
+                                        radio.category || ""
+                                    )}
+                                </div>
+
+
+                                <div class="video-title">
+                                    ${escapeHtml(
+                                        radio.title || ""
+                                    )}
+                                </div>
+
+
+                                <div class="video-date">
+                                    ${escapeHtml(
+                                        radio.date || ""
+                                    )}
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    `;
+
                 }
-            );
-
-        }
-
-
-        card.innerHTML = `
-
-            <div class="content-card-inner">
-
-                <div class="content-category">
-                    ${escapeHTML(item.category || "")}
-                </div>
-
-                <div class="content-title">
-                    ${escapeHTML(item.title || "제목 없음")}
-                </div>
-
-                <div class="content-date">
-                    ${escapeHTML(item.date || "")}
-                </div>
-
-            </div>
-
-        `;
-
-
-        contentArea.appendChild(
-            card
-        );
-
-    });
+            )
+            .join("");
 
 }
 
@@ -903,35 +1136,50 @@ function renderContents(){
    HTML 특수문자 처리
 ========================= */
 
-function escapeHTML(value){
+function escapeHtml(value){
 
     return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
 
 /* =========================
-   검색 이벤트
+   검색
 ========================= */
 
 titleSearch.addEventListener(
     "input",
-    renderContents
+    renderRadios
 );
 
 dateSearch.addEventListener(
     "input",
-    renderContents
+    renderRadios
 );
 
 
 /* =========================
-   정렬 이벤트
+   정렬
 ========================= */
 
 sortSelect.addEventListener(
@@ -941,17 +1189,17 @@ sortSelect.addEventListener(
         currentSort =
             sortSelect.value;
 
-        renderContents();
+        renderRadios();
 
     }
 );
 
 
 /* =========================
-   실행
+   시작
 ========================= */
 
-loadRadioData();
+loadRadios();
 
 </script>
 
