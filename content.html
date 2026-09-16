@@ -44,35 +44,6 @@ body{
 
     background:#f5f6f8;
     border-right:1px solid #e5e5e5;
-
-    transition:
-        width .25s ease,
-        padding .25s ease;
-}
-
-
-/* =========================
-   사이드바 접힘
-========================= */
-
-.sidebar.collapsed{
-    width:58px;
-    padding:24px 5px;
-}
-
-
-/* =========================
-   상단 영역
-========================= */
-
-.sidebar-top{
-    position:relative;
-
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-
-    margin-bottom:20px;
 }
 
 
@@ -85,7 +56,7 @@ body{
 
     width:100%;
 
-    margin:0 0 16px;
+    margin:0 0 20px;
 
     text-align:center;
 
@@ -95,45 +66,6 @@ body{
 
     font-size:1.5rem;
     line-height:1;
-}
-
-
-/* =========================
-   접기 버튼
-========================= */
-
-.toggle-btn{
-    display:flex;
-
-    align-items:center;
-    justify-content:center;
-
-    width:32px;
-    height:32px;
-
-    margin:0 auto;
-
-    padding:0;
-
-    border:0;
-    border-radius:9px;
-
-    background:#fff;
-    color:#555;
-
-    font-size:16px;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 2px 7px rgba(0,0,0,.05);
-
-    transition:.2s;
-}
-
-.toggle-btn:hover{
-    color:#222;
-    transform:scale(1.04);
 }
 
 
@@ -148,28 +80,6 @@ body{
 
     font-size:1.1rem;
     font-weight:700;
-
-    white-space:nowrap;
-
-    overflow:hidden;
-
-    transition:
-        opacity .15s ease,
-        height .25s ease,
-        padding .25s ease;
-}
-
-
-/* =========================
-   접혔을 때 제목 숨김
-========================= */
-
-.sidebar.collapsed .sidebar-title{
-    height:0;
-
-    padding:0;
-
-    opacity:0;
 }
 
 
@@ -179,9 +89,7 @@ body{
 
 .menu-list{
     display:flex;
-
     flex-direction:column;
-
     gap:3px;
 }
 
@@ -189,7 +97,6 @@ body{
     display:flex;
 
     flex-direction:column;
-
     align-items:center;
     justify-content:center;
 
@@ -210,7 +117,10 @@ body{
 
     text-align:center;
 
-    transition:.2s;
+    transition:
+        background .2s ease,
+        color .2s ease,
+        box-shadow .2s ease;
 }
 
 .menu-link:hover{
@@ -231,7 +141,7 @@ body{
 
 
 /* =========================
-   아이콘
+   메뉴 아이콘
 ========================= */
 
 .menu-icon{
@@ -239,9 +149,24 @@ body{
 
     text-align:center;
 
-    font-size:18px;
+    font-size:15px;
 
     line-height:1;
+
+    transition:
+        font-size .25s ease,
+        transform .25s ease;
+}
+
+
+/* =========================
+   선택된 메뉴 아이콘
+========================= */
+
+.menu-link.active .menu-icon{
+    font-size:23px;
+
+    transform:scale(1.02);
 }
 
 
@@ -251,41 +176,6 @@ body{
 
 .menu-name{
     white-space:nowrap;
-
-    overflow:hidden;
-
-    max-width:100%;
-
-    transition:
-        opacity .15s ease,
-        max-width .25s ease;
-}
-
-
-/* =========================
-   접혔을 때
-========================= */
-
-.sidebar.collapsed .menu-link{
-    min-height:52px;
-
-    padding:7px 2px;
-}
-
-.sidebar.collapsed .menu-name{
-    opacity:0;
-
-    max-width:0;
-
-    height:0;
-}
-
-.sidebar.collapsed .menu-link{
-    gap:0;
-}
-
-.sidebar.collapsed .menu-icon{
-    font-size:19px;
 }
 
 
@@ -322,15 +212,9 @@ body{
         padding:22px 4px;
     }
 
-    .sidebar.collapsed{
-        width:56px;
-
-        padding:22px 4px;
-    }
-
     .back-btn{
         margin-left:2px;
-        margin-bottom:14px;
+        margin-bottom:18px;
 
         font-size:1.4rem;
     }
@@ -346,11 +230,11 @@ body{
     }
 
     .menu-icon{
-        font-size:17px;
+        font-size:14px;
     }
 
-    .sidebar.collapsed .menu-link{
-        min-height:52px;
+    .menu-link.active .menu-icon{
+        font-size:21px;
     }
 
 }
@@ -367,54 +251,28 @@ body{
          사이드바
     ========================= -->
 
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar">
 
 
-        <!-- =========================
-             상단
-        ========================= -->
+        <!-- 뒤로가기 -->
 
-        <div class="sidebar-top">
-
-
-            <!-- 뒤로가기 -->
-
-            <a
-                href="index.html"
-                class="back-btn"
-                aria-label="홈으로 돌아가기"
-            >
-                ←
-            </a>
+        <a
+            href="index.html"
+            class="back-btn"
+            aria-label="홈으로 돌아가기"
+        >
+            ←
+        </a>
 
 
-            <!-- 접기 / 펼치기 -->
-
-            <button
-                type="button"
-                class="toggle-btn"
-                id="toggle-btn"
-                aria-label="메뉴 접기"
-                aria-expanded="true"
-            >
-                ☰
-            </button>
-
-        </div>
-
-
-        <!-- =========================
-             제목
-        ========================= -->
+        <!-- 제목 -->
 
         <div class="sidebar-title">
             콘텐츠
         </div>
 
 
-        <!-- =========================
-             메뉴
-        ========================= -->
+        <!-- 메뉴 -->
 
         <nav class="menu-list">
 
@@ -495,12 +353,9 @@ body{
 
 <script>
 
-/* =========================
-   메뉴 활성화
-========================= */
-
 const menuLinks =
     document.querySelectorAll(".menu-link");
+
 
 menuLinks.forEach(link => {
 
@@ -513,56 +368,6 @@ menuLinks.forEach(link => {
         link.classList.add("active");
 
     });
-
-});
-
-
-/* =========================
-   사이드바 접기 / 펼치기
-========================= */
-
-const sidebar =
-    document.getElementById("sidebar");
-
-const toggleBtn =
-    document.getElementById("toggle-btn");
-
-
-toggleBtn.addEventListener("click", () => {
-
-    const isCollapsed =
-        sidebar.classList.toggle("collapsed");
-
-
-    if(isCollapsed){
-
-        toggleBtn.textContent = "☰";
-
-        toggleBtn.setAttribute(
-            "aria-label",
-            "메뉴 펼치기"
-        );
-
-        toggleBtn.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-    }else{
-
-        toggleBtn.textContent = "☰";
-
-        toggleBtn.setAttribute(
-            "aria-label",
-            "메뉴 접기"
-        );
-
-        toggleBtn.setAttribute(
-            "aria-expanded",
-            "true"
-        );
-
-    }
 
 });
 
