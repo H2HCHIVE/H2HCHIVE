@@ -570,18 +570,25 @@ body{
 
 const JSON_URL = "weverse.json";
 
+const WEVERSE_BASE_URL =
+    "https://weverse.io/hearts2hearts/live/";
+
 
 /* =========================
    DOM
 ========================= */
 
-const contentArea = document.getElementById("contentArea");
+const contentArea =
+    document.getElementById("contentArea");
 
-const titleSearch = document.getElementById("titleSearch");
+const titleSearch =
+    document.getElementById("titleSearch");
 
-const dateSearch = document.getElementById("dateSearch");
+const dateSearch =
+    document.getElementById("dateSearch");
 
-const sortSelect = document.getElementById("sortSelect");
+const sortSelect =
+    document.getElementById("sortSelect");
 
 const categoryButtons =
     document.querySelectorAll(".category");
@@ -605,7 +612,11 @@ fetch(JSON_URL)
     .then(response => {
 
         if(!response.ok){
-            throw new Error("JSON 불러오기 실패");
+
+            throw new Error(
+                "JSON 불러오기 실패"
+            );
+
         }
 
         return response.json();
@@ -615,7 +626,11 @@ fetch(JSON_URL)
     .then(data => {
 
         if(!Array.isArray(data)){
-            throw new Error("JSON 형식이 올바르지 않습니다.");
+
+            throw new Error(
+                "JSON 형식이 올바르지 않습니다."
+            );
+
         }
 
         contentData = data;
@@ -629,9 +644,11 @@ fetch(JSON_URL)
         console.error(error);
 
         contentArea.innerHTML = `
+
             <div class="empty">
                 콘텐츠를 불러오지 못했습니다.
             </div>
+
         `;
 
     });
@@ -646,7 +663,9 @@ categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
 
         categoryButtons.forEach(item => {
+
             item.classList.remove("active");
+
         });
 
         button.classList.add("active");
@@ -665,16 +684,25 @@ categoryButtons.forEach(button => {
    검색
 ========================= */
 
-titleSearch.addEventListener("input", render);
+titleSearch.addEventListener(
+    "input",
+    render
+);
 
-dateSearch.addEventListener("input", render);
+dateSearch.addEventListener(
+    "input",
+    render
+);
 
 
 /* =========================
    정렬
 ========================= */
 
-sortSelect.addEventListener("change", render);
+sortSelect.addEventListener(
+    "change",
+    render
+);
 
 
 /* =========================
@@ -696,7 +724,9 @@ function render(){
         filtered = filtered.filter(item => {
 
             if(!Array.isArray(item.category)){
+
                 return false;
+
             }
 
             return item.category.includes(
@@ -725,7 +755,9 @@ function render(){
                 String(item.title || "")
                     .toLowerCase();
 
-            return title.includes(titleKeyword);
+            return title.includes(
+                titleKeyword
+            );
 
         });
 
@@ -749,7 +781,9 @@ function render(){
                 String(item.date || "")
                     .toLowerCase();
 
-            return date.includes(dateKeyword);
+            return date.includes(
+                dateKeyword
+            );
 
         });
 
@@ -757,7 +791,7 @@ function render(){
 
 
     /* =========================
-       정렬
+       날짜 정렬
     ========================= */
 
     filtered.sort((a,b) => {
@@ -786,9 +820,11 @@ function render(){
     if(filtered.length === 0){
 
         contentArea.innerHTML = `
+
             <div class="empty">
                 해당 콘텐츠가 없습니다.
             </div>
+
         `;
 
         return;
@@ -801,19 +837,48 @@ function render(){
     ========================= */
 
     contentArea.innerHTML =
+
         filtered.map(item => {
 
+
+            /* =========================
+               기본 데이터
+            ========================= */
+
             const title =
-                escapeHtml(item.title || "");
+                escapeHtml(
+                    item.title || ""
+                );
 
             const date =
-                escapeHtml(item.date || "");
+                escapeHtml(
+                    item.date || ""
+                );
+
+
+            /* =========================
+               위버스 URL 자동 생성
+            ========================= */
+
+            const liveId =
+                String(
+                    item.id || ""
+                ).trim();
 
             const url =
-                escapeHtml(item.url || "#");
+                WEVERSE_BASE_URL +
+                encodeURIComponent(liveId);
+
+
+            /* =========================
+               썸네일
+            ========================= */
 
             const thumbnail =
-                escapeHtml(item.thumbnail || "");
+                escapeHtml(
+                    item.thumbnail || ""
+                );
+
 
             return `
 
@@ -865,11 +930,30 @@ function escapeHtml(value){
 
     return String(value)
 
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
 }
 
