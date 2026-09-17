@@ -401,87 +401,6 @@ function escapeHtml(value){
 
 
 /* =========================
-   YOUTUBE ID
-========================= */
-
-function getYouTubeId(url){
-
-    if(!url) return "";
-
-    const value = String(url).trim();
-
-    // 이미 영상 ID만 입력한 경우
-    if(/^[a-zA-Z0-9_-]{11}$/.test(value)){
-        return value;
-    }
-
-    try{
-
-        const parsed = new URL(value);
-
-        // youtube.com/watch?v=
-        if(parsed.hostname.includes("youtube.com")){
-
-            const videoId = parsed.searchParams.get("v");
-
-            if(videoId){
-                return videoId;
-            }
-
-            // /shorts/ID
-            const shortsMatch =
-                parsed.pathname.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
-
-            if(shortsMatch){
-                return shortsMatch[1];
-            }
-
-            // /embed/ID
-            const embedMatch =
-                parsed.pathname.match(/\/embed\/([a-zA-Z0-9_-]{11})/);
-
-            if(embedMatch){
-                return embedMatch[1];
-            }
-
-            // /live/ID
-            const liveMatch =
-                parsed.pathname.match(/\/live\/([a-zA-Z0-9_-]{11})/);
-
-            if(liveMatch){
-                return liveMatch[1];
-            }
-        }
-
-        // youtu.be/ID
-        if(parsed.hostname === "youtu.be"){
-
-            const id =
-                parsed.pathname.replace("/","").trim();
-
-            if(/^[a-zA-Z0-9_-]{11}$/.test(id)){
-                return id;
-            }
-        }
-
-    }catch(error){
-
-        // URL 형식이 아니더라도 ID 추출 시도
-        const match =
-            value.match(/[a-zA-Z0-9_-]{11}/);
-
-        if(match){
-            return match[0];
-        }
-
-    }
-
-    return "";
-
-}
-
-
-/* =========================
    CATEGORY
 ========================= */
 
@@ -606,15 +525,21 @@ function renderContents(){
             const date =
                 escapeHtml(item.date);
 
-            const url =
-                String(item.url || "").trim();
-
+            /*
+             * external.json에는
+             * 유튜브 영상 ID만 입력
+             */
             const videoId =
-                getYouTubeId(url);
+                String(item.id || "").trim();
+
+            const url =
+                videoId
+                    ? `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`
+                    : "#";
 
             const thumbnail =
                 videoId
-                    ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+                    ? `https://img.youtube.com/vi/${encodeURIComponent(videoId)}/hqdefault.jpg`
                     : "";
 
 
@@ -774,6 +699,5 @@ async function loadContents(){
 loadContents();
 
 </script>
-
 </body>
 </html>
