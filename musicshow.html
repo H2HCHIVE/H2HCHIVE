@@ -88,7 +88,7 @@ body{
    직캠 종류
 ========================= */
 
-.type-list{
+.category-list{
     display:flex;
     flex-direction:column;
 
@@ -107,25 +107,25 @@ body{
     scrollbar-color:#d5d5d5 transparent;
 }
 
-.type-list::-webkit-scrollbar{
+.category-list::-webkit-scrollbar{
     width:4px;
 }
 
-.type-list::-webkit-scrollbar-track{
+.category-list::-webkit-scrollbar-track{
     background:transparent;
 }
 
-.type-list::-webkit-scrollbar-thumb{
+.category-list::-webkit-scrollbar-thumb{
     background:#d5d5d5;
     border-radius:999px;
 }
 
 
 /* =========================
-   직캠 종류 버튼
+   카테고리 버튼
 ========================= */
 
-.type-button{
+.category{
     flex-shrink:0;
 
     width:100%;
@@ -148,20 +148,20 @@ body{
     cursor:pointer;
 }
 
-.type-button:last-child{
+.category:last-child{
     border-bottom:0;
 }
 
-.type-button:hover{
+.category:hover{
     background:#fafafa;
 }
 
-.type-button.active{
+.category.active{
     color:#222;
     font-weight:600;
 }
 
-.type-button.active::before{
+.category.active::before{
     content:"";
 
     display:inline-block;
@@ -280,14 +280,28 @@ body{
 
 
 /* =========================
-   날짜 검색
+   검색
 ========================= */
 
-.search-area{
+.control-area{
+    display:flex;
+
+    gap:8px;
+
     margin-bottom:16px;
 }
 
-#dateSearch{
+.search-area{
+    display:flex;
+
+    flex:1;
+
+    gap:8px;
+
+    min-width:0;
+}
+
+.search-input{
     width:100%;
     min-width:0;
 
@@ -306,12 +320,37 @@ body{
     outline:none;
 }
 
-#dateSearch:focus{
+.search-input:focus{
     border-color:#b9dff0;
 }
 
-#dateSearch::placeholder{
+.search-input::placeholder{
     color:#aaa;
+}
+
+
+/* =========================
+   정렬
+========================= */
+
+.sort-select{
+    flex-shrink:0;
+
+    padding:10px 10px;
+
+    border:1px solid #ddd;
+    border-radius:9px;
+
+    background:#fff;
+
+    color:#555;
+
+    font-family:inherit;
+    font-size:.75rem;
+
+    outline:none;
+
+    cursor:pointer;
 }
 
 
@@ -319,7 +358,7 @@ body{
    영상 그리드
 ========================= */
 
-.video-grid{
+.video-area{
     display:grid;
 
     grid-template-columns:
@@ -347,35 +386,64 @@ body{
 
     box-shadow:
         0 2px 7px rgba(0,0,0,.05);
+
+    transition:.15s;
 }
 
-.video-thumbnail{
+.video-card:hover{
+    transform:translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(0,0,0,.07);
+}
+
+
+/* =========================
+   썸네일
+========================= */
+
+.thumbnail{
+    position:relative;
+
     width:100%;
 
     aspect-ratio:16 / 9;
 
-    display:block;
-
-    object-fit:cover;
+    overflow:hidden;
 
     background:#eee;
 }
 
+.thumbnail img{
+    display:block;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+
+/* =========================
+   영상 정보
+========================= */
+
 .video-info{
-    padding:9px 10px 11px;
+    padding:12px 13px 13px;
 }
 
 .video-title{
-    margin-bottom:4px;
+    margin-bottom:5px;
 
-    font-size:.8rem;
+    font-size:.78rem;
     font-weight:600;
 
-    line-height:1.35;
+    line-height:1.4;
 
     display:-webkit-box;
-    -webkit-box-orient:vertical;
+
     -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
 
     overflow:hidden;
 }
@@ -383,7 +451,7 @@ body{
 .video-date{
     color:#999;
 
-    font-size:.7rem;
+    font-size:.68rem;
 }
 
 
@@ -408,6 +476,27 @@ body{
    모바일
 ========================= */
 
+@media(max-width:600px){
+
+    .control-area{
+        flex-direction:column;
+    }
+
+    .search-area{
+        width:100%;
+    }
+
+    .sort-select{
+        width:100%;
+    }
+
+}
+
+
+/* =========================
+   작은 화면
+========================= */
+
 @media(max-width:360px){
 
     .content-inner{
@@ -415,16 +504,21 @@ body{
         padding-right:12px;
     }
 
-    .video-grid{
+    .category-list,
+    .sub-category-list{
+        max-height:240px;
+    }
+
+    .video-area{
         gap:8px;
     }
 
     .video-info{
-        padding:8px 9px 10px;
+        padding:11px 12px 12px;
     }
 
     .video-title{
-        font-size:.76rem;
+        font-size:.74rem;
     }
 
 }
@@ -457,11 +551,11 @@ body{
              직캠 종류
         ========================= -->
 
-        <div class="type-list">
+        <div class="category-list">
 
             <button
                 type="button"
-                class="type-button active"
+                class="category active"
                 data-type="all"
                 onclick="showType('all')"
             >
@@ -470,7 +564,7 @@ body{
 
             <button
                 type="button"
-                class="type-button"
+                class="category"
                 data-type="group"
                 onclick="showType('group')"
             >
@@ -479,7 +573,7 @@ body{
 
             <button
                 type="button"
-                class="type-button"
+                class="category"
                 data-type="member"
                 onclick="showType('member')"
             >
@@ -538,7 +632,7 @@ body{
                 type="button"
                 class="sub-category-button"
                 data-album="RUDE"
-                onclick="showAlbum('RUDE')"
+                onclick="showAlbum('RUDE')
             >
                 RUDE!
             </button>
@@ -649,17 +743,47 @@ body{
 
 
         <!-- =========================
-             날짜 검색
+             검색 + 정렬
         ========================= -->
 
-        <div class="search-area">
+        <div class="control-area">
 
-            <input
-                id="dateSearch"
-                type="text"
-                placeholder="날짜 검색  ·  예: 250224"
-                oninput="searchByDate()"
+            <div class="search-area">
+
+                <input
+                    id="titleSearch"
+                    class="search-input"
+                    type="text"
+                    placeholder="제목 검색"
+                    oninput="applyFilters()"
+                >
+
+                <input
+                    id="dateSearch"
+                    class="search-input"
+                    type="text"
+                    placeholder="날짜 검색"
+                    oninput="applyFilters()"
+                >
+
+            </div>
+
+
+            <select
+                id="sortSelect"
+                class="sort-select"
+                onchange="applyFilters()"
             >
+
+                <option value="newest">
+                    최신순
+                </option>
+
+                <option value="oldest">
+                    오래된순
+                </option>
+
+            </select>
 
         </div>
 
@@ -669,8 +793,8 @@ body{
         ========================= -->
 
         <div
-            class="video-grid"
-            id="videoGrid"
+            class="video-area"
+            id="videoArea"
         >
 
             <div class="empty">
@@ -700,7 +824,22 @@ let currentAlbum = "all";
 
 let currentMember = "all";
 
-let currentDate = "";
+
+
+/* =========================
+   HTML 이스케이프
+========================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
 
 
 
@@ -710,15 +849,15 @@ let currentDate = "";
 
 function renderVideos(videos){
 
-    const grid =
-        document.getElementById("videoGrid");
+    const area =
+        document.getElementById("videoArea");
 
-    grid.innerHTML = "";
+    area.innerHTML = "";
 
 
     if(videos.length === 0){
 
-        grid.innerHTML = `
+        area.innerHTML = `
             <div class="empty">
                 해당하는 직캠이 없습니다.
             </div>
@@ -730,6 +869,28 @@ function renderVideos(videos){
 
     videos.forEach(video => {
 
+        const videoId =
+            String(
+                video.videoId ||
+                video.id ||
+                ""
+            ).trim();
+
+
+        const title =
+            escapeHtml(video.title);
+
+
+        const date =
+            escapeHtml(video.date);
+
+
+        if(!videoId){
+
+            return;
+        }
+
+
         const card =
             document.createElement("a");
 
@@ -739,7 +900,7 @@ function renderVideos(videos){
 
 
         card.href =
-            `https://www.youtube.com/watch?v=${video.videoId}`;
+            `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
 
 
         card.target =
@@ -752,21 +913,24 @@ function renderVideos(videos){
 
         card.innerHTML = `
 
-            <img
-                class="video-thumbnail"
-                src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
-                alt="${video.title}"
-                loading="lazy"
-            >
+            <div class="thumbnail">
+
+                <img
+                    src="https://img.youtube.com/vi/${encodeURIComponent(videoId)}/hqdefault.jpg"
+                    alt="${title}"
+                    loading="lazy"
+                >
+
+            </div>
 
             <div class="video-info">
 
                 <div class="video-title">
-                    ${video.title}
+                    ${title}
                 </div>
 
                 <div class="video-date">
-                    ${video.date}
+                    ${date}
                 </div>
 
             </div>
@@ -774,7 +938,7 @@ function renderVideos(videos){
         `;
 
 
-        grid.appendChild(card);
+        area.appendChild(card);
 
     });
 
@@ -789,11 +953,11 @@ function renderVideos(videos){
 function applyFilters(){
 
     let filtered =
-        allVideos;
+        [...allVideos];
 
 
     /* -------------------------
-       직캠 종류
+       종류
     ------------------------- */
 
     if(currentType === "group"){
@@ -810,7 +974,7 @@ function applyFilters(){
 
         filtered =
             filtered.filter(
-                video => video.member
+                video => !!video.member
             );
 
     }
@@ -847,26 +1011,92 @@ function applyFilters(){
 
 
     /* -------------------------
-       날짜
+       제목 검색
     ------------------------- */
 
-    if(currentDate !== ""){
+    const titleSearch =
+        document
+            .getElementById("titleSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    if(titleSearch !== ""){
+
+        filtered =
+            filtered.filter(video =>
+                String(video.title || "")
+                    .toLowerCase()
+                    .includes(titleSearch)
+            );
+
+    }
+
+
+    /* -------------------------
+       날짜 검색
+    ------------------------- */
+
+    const dateSearch =
+        document
+            .getElementById("dateSearch")
+            .value
+            .trim()
+            .replace(/-/g,"");
+
+
+    if(dateSearch !== ""){
 
         filtered =
             filtered.filter(video => {
 
                 const compactDate =
-                    (video.date || "")
-                        .replaceAll("-", "")
-                        .slice(2);
+                    String(video.date || "")
+                        .replace(/-/g,"");
 
                 return compactDate.includes(
-                    currentDate
+                    dateSearch
                 );
 
             });
 
     }
+
+
+    /* -------------------------
+       정렬
+    ------------------------- */
+
+    const sort =
+        document
+            .getElementById("sortSelect")
+            .value;
+
+
+    filtered.sort((a,b) => {
+
+        const dateA =
+            String(a.date || "");
+
+        const dateB =
+            String(b.date || "");
+
+
+        if(sort === "oldest"){
+
+            return dateA.localeCompare(
+                dateB
+            );
+
+        }
+
+
+        return dateB.localeCompare(
+            dateA
+        );
+
+    });
 
 
     renderVideos(filtered);
@@ -882,7 +1112,7 @@ function applyFilters(){
 function updateTypeButtons(){
 
     document
-        .querySelectorAll(".type-button")
+        .querySelectorAll(".category")
         .forEach(button => {
 
             button.classList.toggle(
@@ -1071,26 +1301,6 @@ function showMember(member){
 
 
 /* =========================
-   날짜 검색
-========================= */
-
-function searchByDate(){
-
-    currentDate =
-        document
-            .getElementById("dateSearch")
-            .value
-            .trim()
-            .replace(/-/g,"");
-
-
-    applyFilters();
-
-}
-
-
-
-/* =========================
    video.json 불러오기
 ========================= */
 
@@ -1111,8 +1321,21 @@ async function loadVideos(){
         }
 
 
-        allVideos =
+        const data =
             await response.json();
+
+
+        if(!Array.isArray(data)){
+
+            throw new Error(
+                "video.json은 배열 형식이어야 합니다."
+            );
+
+        }
+
+
+        allVideos =
+            data;
 
 
         applyFilters();
@@ -1128,7 +1351,7 @@ async function loadVideos(){
 
 
         document.getElementById(
-            "videoGrid"
+            "videoArea"
         ).innerHTML = `
             <div class="empty">
                 영상을 불러오지 못했습니다.
