@@ -376,7 +376,7 @@ body{
 
 
 /* =========================
-   방송사
+   방송사 / 멤버
 ========================= */
 
 .video-broadcaster{
@@ -922,7 +922,33 @@ function renderVideos(videos){
 
 
         /* =========================
+           멤버 직캠 여부
+        ========================= */
+
+        const isMemberVideo =
+            Boolean(video.member);
+
+
+        /* =========================
+           첫 번째 정보
+           
+           멤버 직캠
+           → 멤버명
+
+           그룹 / 기타
+           → 방송사
+        ========================= */
+
+        const topInfo =
+            isMemberVideo
+                ? video.member
+                : video.broadcaster;
+
+
+        /* =========================
            프로그램 + 영상 종류
+           
+           멤버 직캠에서는 숨김
         ========================= */
 
         const programInfo = [
@@ -936,6 +962,11 @@ function renderVideos(videos){
             .filter(Boolean)
 
             .join(" ");
+
+
+        const showProgram =
+            !isMemberVideo &&
+            programInfo;
 
 
         /* =========================
@@ -956,11 +987,11 @@ function renderVideos(videos){
 
 
                 ${
-                    video.broadcaster
+                    topInfo
                         ? `
 
                             <div class="video-broadcaster">
-                                ${video.broadcaster}
+                                ${topInfo}
                             </div>
 
                           `
@@ -974,11 +1005,11 @@ function renderVideos(videos){
 
 
                 ${
-                    programInfo
+                    showProgram
                         ? `
 
                             <div class="video-program">
-                                ${programInfo}
+                                ${showProgram}
                             </div>
 
                           `
