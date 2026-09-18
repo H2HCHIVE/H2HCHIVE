@@ -1003,7 +1003,14 @@ function renderVideos(videos){
          =====================================================
          기타 직캠
 
-         기존 방식 유지
+         출력 순서:
+
+         방송사
+         제목
+         앨범
+         날짜
+
+         기존 기타 직캠 데이터 구조 유지
          =====================================================
         */
 
@@ -1022,7 +1029,12 @@ function renderVideos(videos){
                 <div class="video-info">
 
                     <div class="video-broadcaster">
-                        ${video.broadcaster || "기타"}
+                        ${video.broadcaster || ""}
+                    </div>
+
+
+                    <div class="video-title">
+                        ${video.title || ""}
                     </div>
 
 
@@ -1032,24 +1044,6 @@ function renderVideos(videos){
 
                                 <div class="video-album">
                                     ${video.album}
-                                </div>
-
-                              `
-                            : ""
-                    }
-
-
-                    <div class="video-title">
-                        ${video.title || ""}
-                    </div>
-
-
-                    ${
-                        video.program
-                            ? `
-
-                                <div class="video-program">
-                                    ${video.program}
                                 </div>
 
                               `
