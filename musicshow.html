@@ -6,30 +6,18 @@
 <title>음악방송 | H2HCHIVE</title>
 
 <style>
-*{
-    box-sizing:border-box;
-}
-
-html,
 body{
     margin:0;
-    width:100%;
-    min-height:100%;
-}
-
-body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     background:#f5f6f8;
     color:#222;
 }
 
 .container{
-    width:100%;
-    max-width:900px;
+    max-width:420px;
     margin:0 auto;
-    padding:24px 16px 60px;
+    padding:18px 14px 30px;
 }
-
 
 /* =========================
    HEADER
@@ -40,10 +28,9 @@ body{
 }
 
 .header-title{
-    margin:0 0 4px;
-
-    font-size:1.1rem;
+    font-size:1.25rem;
     font-weight:700;
+    margin-bottom:4px;
 }
 
 .header-sub{
@@ -51,157 +38,76 @@ body{
     font-size:.7rem;
 }
 
-
 /* =========================
    FILTER
 ========================= */
 
 .filter-card{
     background:#fff;
-
-    border-radius:13px;
-
+    border-radius:18px;
     padding:12px;
-
     margin-bottom:14px;
-
-    box-shadow:
-        0 2px 7px rgba(0,0,0,.05);
+    box-shadow:0 3px 12px rgba(0,0,0,.04);
 }
 
 .filter-title{
     font-size:.72rem;
     font-weight:700;
-
     margin-bottom:8px;
 }
 
-
-/* =========================
-   FILTER LIST
-========================= */
-
 .filter-list{
     display:flex;
-    flex-direction:column;
-
     gap:6px;
-
-    max-height:126px;
-
-    overflow-y:auto;
-
-    margin-bottom:12px;
-
-    padding:8px;
-
-    background:#fff;
-
-    border:1px solid #e5e5e5;
-
-    border-radius:10px;
-
-    scrollbar-width:thin;
-    scrollbar-color:#d5d5d5 transparent;
-}
-
-.filter-list:last-child{
-    margin-bottom:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+    padding-bottom:2px;
 }
 
 .filter-list::-webkit-scrollbar{
-    width:4px;
+    display:none;
 }
-
-.filter-list::-webkit-scrollbar-track{
-    background:transparent;
-}
-
-.filter-list::-webkit-scrollbar-thumb{
-    background:#d5d5d5;
-    border-radius:999px;
-}
-
-
-/* =========================
-   FILTER BUTTON
-========================= */
 
 .filter-btn{
-    flex-shrink:0;
-
-    width:100%;
-
-    padding:8px 10px;
-
+    flex:0 0 auto;
     border:0;
-
-    border-radius:8px;
-
-    background:#fff;
-
-    color:#666;
-
-    font-family:inherit;
-
-    font-size:.75rem;
-
-    text-align:left;
-
+    background:#f1f2f4;
+    color:#777;
+    border-radius:999px;
+    padding:7px 11px;
+    font-size:.68rem;
     cursor:pointer;
 }
 
-.filter-btn:hover{
-    background:#f5f6f8;
-}
-
 .filter-btn.active{
-    background:#eaf7fd;
-
-    color:#4aa8d5;
-
-    font-weight:600;
+    background:#89CFF0;
+    color:#fff;
+    font-weight:700;
 }
-
 
 /* =========================
    DATE SEARCH
 ========================= */
 
 .search-wrap{
-    margin-top:4px;
+    margin-top:10px;
 }
 
 .search-input{
     width:100%;
-
-    padding:10px 11px;
-
-    border:1px solid #ddd;
-
-    border-radius:9px;
-
-    background:#fff;
-
-    color:#222;
-
-    font-family:inherit;
-
-    font-size:.8rem;
-
+    box-sizing:border-box;
+    border:0;
     outline:none;
-
-    transition:.2s;
-}
-
-.search-input:focus{
-    border-color:#b9dff0;
+    background:#f5f6f8;
+    border-radius:11px;
+    padding:9px 11px;
+    font-size:.7rem;
+    color:#333;
 }
 
 .search-input::placeholder{
     color:#aaa;
 }
-
 
 /* =========================
    SORT
@@ -209,32 +115,23 @@ body{
 
 .sort-wrap{
     display:flex;
-
     justify-content:flex-end;
-
     margin:10px 2px 12px;
 }
 
 .sort-btn{
     border:0;
-
     background:transparent;
-
     color:#999;
-
     font-size:.68rem;
-
     padding:3px 0;
-
     cursor:pointer;
 }
 
 .sort-btn.active{
     color:#70b9d8;
-
     font-weight:700;
 }
-
 
 /* =========================
    VIDEO GRID
@@ -242,72 +139,30 @@ body{
 
 .video-grid{
     display:grid;
-
-    grid-template-columns:
-        repeat(2,minmax(0,1fr));
-
-    gap:10px;
+    grid-template-columns:repeat(2,1fr);
+    gap:11px;
 }
-
-
-/* =========================
-   VIDEO CARD
-========================= */
 
 .video-card{
-    display:block;
-
-    overflow:hidden;
-
-    min-width:0;
-
     background:#fff;
-
-    border-radius:13px;
-
-    box-shadow:
-        0 2px 7px rgba(0,0,0,.05);
-
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 3px 12px rgba(0,0,0,.04);
     cursor:pointer;
-
-    transition:.15s;
 }
-
-.video-card:hover{
-    transform:translateY(-1px);
-
-    box-shadow:
-        0 4px 10px rgba(0,0,0,.07);
-}
-
-
-/* =========================
-   THUMBNAIL
-========================= */
 
 .video-thumbnail{
     width:100%;
-
-    aspect-ratio:16 / 9;
-
+    aspect-ratio:16/9;
     object-fit:cover;
-
     display:block;
-
     background:#eee;
 }
 
-
-/* =========================
-   VIDEO INFO
-========================= */
-
 .video-info{
-    padding:12px 13px 13px;
-
+    padding:9px 10px 11px;
     min-width:0;
 }
-
 
 /* =========================
    TEXT
@@ -315,66 +170,42 @@ body{
 
 .video-broadcaster{
     margin-bottom:5px;
-
     color:#70b9d8;
-
     font-size:.65rem;
-
-    font-weight:700;
-
+    font-weight:600;
     line-height:1.3;
-
     white-space:nowrap;
-
     overflow:hidden;
-
     text-overflow:ellipsis;
 }
 
 .video-album{
     margin-bottom:4px;
-
     color:#777;
-
     font-size:.68rem;
-
-    font-weight:400;
-
+    font-weight:600;
     line-height:1.3;
-
     white-space:nowrap;
-
     overflow:hidden;
-
     text-overflow:ellipsis;
 }
 
 .video-title{
     margin-bottom:4px;
-
     font-size:.8rem;
-
-    font-weight:700;
-
+    font-weight:400;
     line-height:1.35;
-
     display:-webkit-box;
-
     -webkit-box-orient:vertical;
-
     -webkit-line-clamp:2;
-
     overflow:hidden;
 }
 
 .video-date{
     color:#999;
-
     font-size:.7rem;
-
     font-weight:400;
 }
-
 
 /* =========================
    EMPTY
@@ -382,16 +213,11 @@ body{
 
 .empty{
     grid-column:1 / -1;
-
-    padding:45px 10px;
-
-    color:#999;
-
-    font-size:.8rem;
-
     text-align:center;
+    padding:50px 10px;
+    color:#aaa;
+    font-size:.75rem;
 }
-
 
 /* =========================
    MODAL
@@ -399,21 +225,13 @@ body{
 
 .modal{
     position:fixed;
-
     inset:0;
-
     background:rgba(0,0,0,.65);
-
     display:none;
-
     align-items:center;
-
     justify-content:center;
-
     z-index:1000;
-
     padding:15px;
-
     box-sizing:border-box;
 }
 
@@ -423,49 +241,32 @@ body{
 
 .modal-box{
     width:100%;
-
     max-width:420px;
-
     background:#fff;
-
     border-radius:18px;
-
     overflow:hidden;
-
     position:relative;
 }
 
 .modal-video{
     width:100%;
-
     aspect-ratio:16/9;
-
     border:0;
-
     display:block;
 }
 
 .modal-close{
     position:absolute;
-
     top:8px;
     right:8px;
-
     width:30px;
     height:30px;
-
     border:0;
-
     border-radius:50%;
-
     background:rgba(0,0,0,.6);
-
     color:#fff;
-
     font-size:17px;
-
     cursor:pointer;
-
     z-index:2;
 }
 
@@ -475,84 +276,21 @@ body{
 
 .modal-member{
     color:#70b9d8;
-
     font-size:.7rem;
-
     font-weight:700;
-
     margin-bottom:5px;
 }
 
 .modal-title{
     font-size:.9rem;
-
     font-weight:700;
-
     line-height:1.4;
 }
 
 .modal-date{
     color:#999;
-
     font-size:.7rem;
-
     margin-top:5px;
-}
-
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:600px){
-
-    .container{
-        padding:
-            24px 16px 60px;
-    }
-
-}
-
-
-/* =========================
-   SMALL MOBILE
-========================= */
-
-@media(max-width:360px){
-
-    .container{
-        padding-left:12px;
-        padding-right:12px;
-    }
-
-    .filter-list{
-        max-height:126px;
-    }
-
-    .video-grid{
-        gap:8px;
-    }
-
-    .video-info{
-        padding:11px 12px 12px;
-    }
-
-    .video-broadcaster{
-        font-size:.6rem;
-    }
-
-    .video-album{
-        font-size:.64rem;
-    }
-
-    .video-title{
-        font-size:.74rem;
-    }
-
-    .video-date{
-        font-size:.64rem;
-    }
-
 }
 </style>
 </head>
@@ -566,182 +304,100 @@ body{
         <div class="header-sub">H2HCHIVE MUSIC SHOW ARCHIVE</div>
     </div>
 
-
     <div class="filter-card">
 
+        <div class="filter-title">앨범</div>
 
-        <!-- =========================
-             앨범
-        ========================= -->
+        <div class="filter-list" id="albumFilters">
 
-        <div class="filter-title">
-            앨범
-        </div>
-
-        <div
-            class="filter-list"
-            id="albumFilters"
-        >
-
-            <button
-                class="filter-btn active"
-                data-album="전체"
-            >
+            <button class="filter-btn active" data-album="전체">
                 전체
             </button>
 
-            <button
-                class="filter-btn"
-                data-album="The Chase"
-            >
+            <button class="filter-btn" data-album="The Chase">
                 The Chase
             </button>
 
-            <button
-                class="filter-btn"
-                data-album="STYLE"
-            >
+            <button class="filter-btn" data-album="STYLE">
                 STYLE
             </button>
 
-            <button
-                class="filter-btn"
-                data-album="Pretty Please"
-            >
+            <button class="filter-btn" data-album="Pretty Please">
                 Pretty Please
             </button>
 
-            <button
-                class="filter-btn"
-                data-album="FOCUS"
-            >
+            <button class="filter-btn" data-album="FOCUS">
                 FOCUS
             </button>
 
-            <button
-                class="filter-btn"
-                data-album="RUDE!"
-            >
+            <button class="filter-btn" data-album="RUDE!">
                 RUDE!
             </button>
 
-            <button
-                class="filter-btn"
-                data-album="Lemon Tang"
-            >
+            <button class="filter-btn" data-album="Lemon Tang">
                 Lemon Tang
             </button>
 
-            <button
-                class="filter-btn"
-                data-album="15-LOVE"
-            >
+            <button class="filter-btn" data-album="15-LOVE">
                 15-LOVE
             </button>
 
         </div>
 
-
-        <!-- =========================
-             멤버
-        ========================= -->
-
-        <div class="filter-title">
+        <div class="filter-title" style="margin-top:12px;">
             멤버
         </div>
 
-        <div
-            class="filter-list"
-            id="memberFilters"
-        >
+        <div class="filter-list" id="memberFilters">
 
-            <button
-                class="filter-btn active"
-                data-member="전체"
-            >
+            <button class="filter-btn active" data-member="전체">
                 전체
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="지우"
-            >
+            <button class="filter-btn" data-member="지우">
                 지우
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="카르멘"
-            >
+            <button class="filter-btn" data-member="카르멘">
                 카르멘
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="유하"
-            >
+            <button class="filter-btn" data-member="유하">
                 유하
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="스텔라"
-            >
+            <button class="filter-btn" data-member="스텔라">
                 스텔라
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="주은"
-            >
+            <button class="filter-btn" data-member="주은">
                 주은
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="에이나"
-            >
+            <button class="filter-btn" data-member="에이나">
                 에이나
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="이안"
-            >
+            <button class="filter-btn" data-member="이안">
                 이안
             </button>
 
-            <button
-                class="filter-btn"
-                data-member="예온"
-            >
+            <button class="filter-btn" data-member="예온">
                 예온
             </button>
 
         </div>
 
-
-        <!-- =========================
-             날짜 검색
-        ========================= -->
-
         <div class="search-wrap">
-
             <input
                 type="text"
                 id="dateSearch"
                 class="search-input"
                 placeholder="날짜 검색 · 예: 250224"
             >
-
         </div>
 
     </div>
-
-
-    <!-- =========================
-         SORT
-    ========================= -->
 
     <div class="sort-wrap">
 
@@ -752,15 +408,7 @@ body{
             최신순
         </button>
 
-        <span
-            style="
-                color:#ddd;
-                font-size:.65rem;
-                margin:0 6px;
-            "
-        >
-            |
-        </span>
+        <span style="color:#ddd;font-size:.65rem;margin:0 6px;">|</span>
 
         <button
             class="sort-btn"
@@ -771,27 +419,15 @@ body{
 
     </div>
 
-
-    <!-- =========================
-         VIDEO GRID
-    ========================= -->
-
-    <div
-        class="video-grid"
-        id="videoGrid"
-    ></div>
+    <div class="video-grid" id="videoGrid"></div>
 
 </div>
-
 
 <!-- =========================
      MODAL
 ========================= -->
 
-<div
-    class="modal"
-    id="modal"
->
+<div class="modal" id="modal">
 
     <div class="modal-box">
 
@@ -831,7 +467,6 @@ body{
     </div>
 
 </div>
-
 
 <script>
 
@@ -897,8 +532,7 @@ async function loadJSON(url){
 
     try{
 
-        const response =
-            await fetch(url);
+        const response = await fetch(url);
 
         if(!response.ok){
             throw new Error(url);
@@ -908,11 +542,7 @@ async function loadJSON(url){
 
     }catch(error){
 
-        console.error(
-            "JSON 로드 실패:",
-            url,
-            error
-        );
+        console.error("JSON 로드 실패:", url, error);
 
         return [];
 
@@ -937,44 +567,36 @@ async function loadVideos(){
         Object.entries(DATA_FILES.members);
 
     const memberPromises =
-        memberEntries.map(
-            async ([member, file]) => {
+        memberEntries.map(async ([member, file]) => {
 
-                const data =
-                    await loadJSON(file);
+            const data = await loadJSON(file);
 
-                return data.map(video => ({
+            return data.map(video => ({
 
-                    ...video,
+                ...video,
 
-                    album:
-                        video.album ||
-                        getAlbumByDate(
-                            video.date
-                        ),
+                album:
+                    video.album ||
+                    getAlbumByDate(video.date),
 
-                    member:member,
+                member: member,
 
-                    dataType:"member"
+                dataType: "member"
 
-                }));
+            }));
 
-            }
-        );
+        });
 
 
     const [
         groupData,
         etcData,
         ...memberData
-    ] =
-        await Promise.all([
-
-            groupPromise,
-            etcPromise,
-            ...memberPromises
-
-        ]);
+    ] = await Promise.all([
+        groupPromise,
+        etcPromise,
+        ...memberPromises
+    ]);
 
 
     const groupVideos =
@@ -982,7 +604,7 @@ async function loadVideos(){
 
             ...video,
 
-            dataType:"group"
+            dataType: "group"
 
         }));
 
@@ -992,7 +614,7 @@ async function loadVideos(){
 
             ...video,
 
-            dataType:"etc"
+            dataType: "etc"
 
         }));
 
@@ -1019,60 +641,40 @@ async function loadVideos(){
 
 function filterVideos(){
 
-    let filtered =
-        [...allVideos];
+    let filtered = [...allVideos];
 
 
     /* 앨범 */
 
-    if(
-        currentAlbum !== "전체"
-    ){
+    if(currentAlbum !== "전체"){
 
         filtered =
-            filtered.filter(
-                video => {
+            filtered.filter(video => {
 
-                    if(
-                        video.dataType ===
-                        "member"
-                    ){
+                if(video.dataType === "member"){
 
-                        const album =
-                            video.album ||
-                            getAlbumByDate(
-                                video.date
-                            );
+                    const album =
+                        video.album ||
+                        getAlbumByDate(video.date);
 
-                        return (
-                            album ===
-                            currentAlbum
-                        );
-
-                    }
-
-                    return (
-                        video.album ===
-                        currentAlbum
-                    );
+                    return album === currentAlbum;
 
                 }
-            );
+
+                return video.album === currentAlbum;
+
+            });
 
     }
 
 
     /* 멤버 */
 
-    if(
-        currentMember !== "전체"
-    ){
+    if(currentMember !== "전체"){
 
         filtered =
-            filtered.filter(
-                video =>
-                    video.member ===
-                    currentMember
+            filtered.filter(video =>
+                video.member === currentMember
             );
 
     }
@@ -1083,60 +685,39 @@ function filterVideos(){
     if(currentSearch){
 
         filtered =
-            filtered.filter(
-                video => {
+            filtered.filter(video => {
 
-                    const date =
-                        String(
-                            video.date || ""
-                        )
-                        .replaceAll(
-                            "-",
-                            ""
-                        );
+                const date =
+                    String(video.date || "")
+                    .replaceAll("-", "");
 
-                    return date.includes(
-                        currentSearch
-                    );
+                return date.includes(currentSearch);
 
-                }
-            );
+            });
 
     }
 
 
     /* 정렬 */
 
-    filtered.sort(
-        (a,b) => {
+    filtered.sort((a,b) => {
 
-            const dateA =
-                new Date(
-                    a.date ||
-                    "1900-01-01"
-                );
+        const dateA =
+            new Date(a.date || "1900-01-01");
 
-            const dateB =
-                new Date(
-                    b.date ||
-                    "1900-01-01"
-                );
+        const dateB =
+            new Date(b.date || "1900-01-01");
 
 
-            if(
-                currentSort ===
-                "latest"
-            ){
+        if(currentSort === "latest"){
 
-                return dateB - dateA;
-
-            }
-
-
-            return dateA - dateB;
+            return dateB - dateA;
 
         }
-    );
+
+        return dateA - dateB;
+
+    });
 
 
     return filtered;
@@ -1151,9 +732,7 @@ function filterVideos(){
 function renderVideos(){
 
     const grid =
-        document.getElementById(
-            "videoGrid"
-        );
+        document.getElementById("videoGrid");
 
     const filtered =
         filterVideos();
@@ -1175,208 +754,184 @@ function renderVideos(){
     }
 
 
-    filtered.forEach(
-        video => {
+    filtered.forEach(video => {
 
-            const card =
-                document.createElement(
-                    "div"
-                );
+        const card =
+            document.createElement("div");
 
-            card.className =
-                "video-card";
+        card.className =
+            "video-card";
 
 
-            /* =========================
-               GROUP
-            ========================= */
+        /* =========================
+           GROUP
+        ========================= */
 
-            if(
-                video.dataType ===
-                "group"
-            ){
+        if(video.dataType === "group"){
 
-                card.innerHTML = `
+            card.innerHTML = `
 
-                    <img
-                        class="video-thumbnail"
-                        src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
-                        alt="${video.title || ""}"
-                        loading="lazy"
-                    >
+                <img
+                    class="video-thumbnail"
+                    src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
+                    alt="${video.title || ""}"
+                    loading="lazy"
+                >
 
-                    <div class="video-info">
+                <div class="video-info">
 
-                        <div class="video-broadcaster">
-                            ${video.broadcaster || ""}
-                        </div>
-
-                        <div class="video-album">
-                            ${
-                                video.album ||
-                                getAlbumByDate(
-                                    video.date
-                                )
-                            }
-                        </div>
-
-                        <div class="video-title">
-                            ${
-                                [
-                                    video.program,
-                                    video.type
-                                ]
-                                .filter(Boolean)
-                                .join(" ")
-                            }
-                        </div>
-
-                        <div class="video-date">
-                            ${video.date || ""}
-                        </div>
-
+                    <div class="video-broadcaster">
+                        ${video.broadcaster || ""}
                     </div>
 
-                `;
-
-            }
-
-
-            /* =========================
-               MEMBER
-            ========================= */
-
-            else if(
-                video.dataType ===
-                "member"
-            ){
-
-                card.innerHTML = `
-
-                    <img
-                        class="video-thumbnail"
-                        src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
-                        alt="${video.title || ""}"
-                        loading="lazy"
-                    >
-
-                    <div class="video-info">
-
-                        <div class="video-broadcaster">
-                            ${video.member || ""}
-                        </div>
-
-                        ${
-                            video.content
-                                ? `
-
-                                    <div class="video-title">
-                                        ${video.title || ""}
-                                    </div>
-
-                                    <div class="video-album">
-                                        ${video.content || ""}
-                                    </div>
-
-                                  `
-                                : `
-
-                                    ${
-                                        video.album
-                                            ? `
-
-                                                <div class="video-album">
-                                                    ${video.album}
-                                                </div>
-
-                                              `
-                                            : ""
-                                    }
-
-                                    <div class="video-title">
-                                        ${video.title || ""}
-                                    </div>
-
-                                  `
-                        }
-
-                        <div class="video-date">
-                            ${video.date || ""}
-                        </div>
-
+                    <div class="video-album">
+                        ${video.album || getAlbumByDate(video.date)}
                     </div>
 
-                `;
-
-            }
-
-
-            /* =========================
-               ETC
-            ========================= */
-
-            else{
-
-                card.innerHTML = `
-
-                    <img
-                        class="video-thumbnail"
-                        src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
-                        alt="${video.title || ""}"
-                        loading="lazy"
-                    >
-
-                    <div class="video-info">
-
-                        <div class="video-broadcaster">
-                            ${video.broadcaster || ""}
-                        </div>
-
-                        ${
-                            video.album
-                                ? `
-
-                                    <div class="video-album">
-                                        ${video.album}
-                                    </div>
-
-                                  `
-                                : ""
-                        }
-
-                        <div class="video-title">
-                            ${video.title || ""}
-                        </div>
-
-                        <div class="video-date">
-                            ${video.date || ""}
-                        </div>
-
+                    <div class="video-title">
+                        ${[
+                            video.program,
+                            video.type
+                        ].filter(Boolean).join(" ")}
                     </div>
 
-                `;
+                    <div class="video-date">
+                        ${video.date || ""}
+                    </div>
 
-            }
+                </div>
 
-
-            /* =========================
-               CLICK
-            ========================= */
-
-            card.addEventListener(
-                "click",
-                () => {
-
-                    openModal(video);
-
-                }
-            );
-
-
-            grid.appendChild(card);
+            `;
 
         }
-    );
+
+
+        /* =========================
+           MEMBER
+        ========================= */
+
+        else if(video.dataType === "member"){
+
+            card.innerHTML = `
+
+                <img
+                    class="video-thumbnail"
+                    src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
+                    alt="${video.title || ""}"
+                    loading="lazy"
+                >
+
+                <div class="video-info">
+
+                    <div class="video-broadcaster">
+                        ${video.member || ""}
+                    </div>
+
+                    ${
+                        video.content
+                            ? `
+
+                                <div class="video-title">
+                                    ${video.title || ""}
+                                </div>
+
+                                <div class="video-album">
+                                    ${video.content || ""}
+                                </div>
+
+                              `
+                            : `
+
+                                ${
+                                    video.album
+                                        ? `
+
+                                            <div class="video-album">
+                                                ${video.album}
+                                            </div>
+
+                                          `
+                                        : ""
+                                }
+
+                                <div class="video-title">
+                                    ${video.title || ""}
+                                </div>
+
+                              `
+                    }
+
+                    <div class="video-date">
+                        ${video.date || ""}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =========================
+           ETC
+        ========================= */
+
+        else{
+
+            card.innerHTML = `
+
+                <img
+                    class="video-thumbnail"
+                    src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
+                    alt="${video.title || ""}"
+                    loading="lazy"
+                >
+
+                <div class="video-info">
+
+                    <div class="video-broadcaster">
+                        ${video.broadcaster || ""}
+                    </div>
+
+                    ${
+                        video.album
+                            ? `
+                                <div class="video-album">
+                                    ${video.album}
+                                </div>
+                              `
+                            : ""
+                    }
+
+                    <div class="video-title">
+                        ${video.title || ""}
+                    </div>
+
+                    <div class="video-date">
+                        ${video.date || ""}
+                    </div>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =========================
+           CLICK
+        ========================= */
+
+        card.addEventListener("click", () => {
+
+            openModal(video);
+
+        });
+
+
+        grid.appendChild(card);
+
+    });
 
 }
 
@@ -1388,29 +943,19 @@ function renderVideos(){
 function openModal(video){
 
     const modal =
-        document.getElementById(
-            "modal"
-        );
+        document.getElementById("modal");
 
     const modalVideo =
-        document.getElementById(
-            "modalVideo"
-        );
+        document.getElementById("modalVideo");
 
     const modalMember =
-        document.getElementById(
-            "modalMember"
-        );
+        document.getElementById("modalMember");
 
     const modalTitle =
-        document.getElementById(
-            "modalTitle"
-        );
+        document.getElementById("modalTitle");
 
     const modalDate =
-        document.getElementById(
-            "modalDate"
-        );
+        document.getElementById("modalDate");
 
 
     modalVideo.src =
@@ -1433,9 +978,7 @@ function openModal(video){
         "";
 
 
-    modal.classList.add(
-        "active"
-    );
+    modal.classList.add("active");
 
 }
 
@@ -1447,19 +990,13 @@ function openModal(video){
 function closeModal(){
 
     const modal =
-        document.getElementById(
-            "modal"
-        );
+        document.getElementById("modal");
 
     const modalVideo =
-        document.getElementById(
-            "modalVideo"
-        );
+        document.getElementById("modalVideo");
 
 
-    modal.classList.remove(
-        "active"
-    );
+    modal.classList.remove("active");
 
     modalVideo.src = "";
 
@@ -1467,9 +1004,7 @@ function closeModal(){
 
 
 document
-    .getElementById(
-        "modalClose"
-    )
+    .getElementById("modalClose")
     .addEventListener(
         "click",
         closeModal
@@ -1477,16 +1012,13 @@ document
 
 
 document
-    .getElementById(
-        "modal"
-    )
+    .getElementById("modal")
     .addEventListener(
         "click",
         event => {
 
             if(
-                event.target.id ===
-                "modal"
+                event.target.id === "modal"
             ){
 
                 closeModal();
@@ -1502,9 +1034,7 @@ document
 ========================= */
 
 document
-    .getElementById(
-        "albumFilters"
-    )
+    .getElementById("albumFilters")
     .addEventListener(
         "click",
         event => {
@@ -1521,17 +1051,12 @@ document
                 .querySelectorAll(
                     "#albumFilters .filter-btn"
                 )
-                .forEach(
-                    btn =>
-                        btn.classList.remove(
-                            "active"
-                        )
+                .forEach(btn =>
+                    btn.classList.remove("active")
                 );
 
 
-            button.classList.add(
-                "active"
-            );
+            button.classList.add("active");
 
 
             currentAlbum =
@@ -1549,9 +1074,7 @@ document
 ========================= */
 
 document
-    .getElementById(
-        "memberFilters"
-    )
+    .getElementById("memberFilters")
     .addEventListener(
         "click",
         event => {
@@ -1568,17 +1091,12 @@ document
                 .querySelectorAll(
                     "#memberFilters .filter-btn"
                 )
-                .forEach(
-                    btn =>
-                        btn.classList.remove(
-                            "active"
-                        )
+                .forEach(btn =>
+                    btn.classList.remove("active")
                 );
 
 
-            button.classList.add(
-                "active"
-            );
+            button.classList.add("active");
 
 
             currentMember =
@@ -1596,23 +1114,15 @@ document
 ========================= */
 
 document
-    .getElementById(
-        "dateSearch"
-    )
+    .getElementById("dateSearch")
     .addEventListener(
         "input",
         event => {
 
             currentSearch =
                 event.target.value
-                    .replace(
-                        /\D/g,
-                        ""
-                    )
-                    .slice(
-                        0,
-                        8
-                    );
+                    .replace(/\D/g,"")
+                    .slice(0,8);
 
             renderVideos();
 
@@ -1625,34 +1135,20 @@ document
 ========================= */
 
 document
-    .getElementById(
-        "latestBtn"
-    )
+    .getElementById("latestBtn")
     .addEventListener(
         "click",
         () => {
 
-            currentSort =
-                "latest";
-
+            currentSort = "latest";
 
             document
-                .getElementById(
-                    "latestBtn"
-                )
-                .classList.add(
-                    "active"
-                );
-
+                .getElementById("latestBtn")
+                .classList.add("active");
 
             document
-                .getElementById(
-                    "oldestBtn"
-                )
-                .classList.remove(
-                    "active"
-                );
-
+                .getElementById("oldestBtn")
+                .classList.remove("active");
 
             renderVideos();
 
@@ -1661,34 +1157,20 @@ document
 
 
 document
-    .getElementById(
-        "oldestBtn"
-    )
+    .getElementById("oldestBtn")
     .addEventListener(
         "click",
         () => {
 
-            currentSort =
-                "oldest";
-
+            currentSort = "oldest";
 
             document
-                .getElementById(
-                    "oldestBtn"
-                )
-                .classList.add(
-                    "active"
-                );
-
+                .getElementById("oldestBtn")
+                .classList.add("active");
 
             document
-                .getElementById(
-                    "latestBtn"
-                )
-                .classList.remove(
-                    "active"
-                );
-
+                .getElementById("latestBtn")
+                .classList.remove("active");
 
             renderVideos();
 
