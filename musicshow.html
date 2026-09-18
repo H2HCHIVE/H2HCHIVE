@@ -225,7 +225,7 @@ body{
 
 /* =========================
    세부 카테고리 버튼
-   external.html .category와 동일
+   external.html과 동일
 ========================= */
 
 .sub-category-button{
@@ -349,6 +349,34 @@ body{
     padding:9px 10px 11px;
 }
 
+
+/* =========================
+   음방명
+========================= */
+
+.video-category{
+    margin-bottom:5px;
+
+    color:#70b9d8;
+
+    font-size:.65rem;
+
+    font-weight:600;
+
+    line-height:1.3;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+/* =========================
+   제목
+========================= */
+
 .video-title{
     margin-bottom:4px;
 
@@ -363,6 +391,11 @@ body{
 
     overflow:hidden;
 }
+
+
+/* =========================
+   날짜
+========================= */
 
 .video-date{
     color:#999;
@@ -407,8 +440,16 @@ body{
         padding:8px 9px 10px;
     }
 
+    .video-category{
+        font-size:.62rem;
+    }
+
     .video-title{
         font-size:.76rem;
+    }
+
+    .video-date{
+        font-size:.65rem;
     }
 
 }
@@ -689,6 +730,89 @@ let currentDate = "";
 
 
 /* =========================
+   음방명 판별
+========================= */
+
+function getMusicShow(title){
+
+    const text =
+        String(title || "")
+            .toLowerCase();
+
+
+    /* -------------------------
+       엠카운트다운
+    ------------------------- */
+
+    if(
+        text.includes("엠카운트다운") ||
+        text.includes("m countdown") ||
+        text.includes("mcountdown")
+    ){
+
+        return "엠카운트다운";
+
+    }
+
+
+    /* -------------------------
+       뮤직뱅크
+    ------------------------- */
+
+    if(
+        text.includes("뮤직뱅크") ||
+        text.includes("music bank") ||
+        text.includes("musicbank")
+    ){
+
+        return "뮤직뱅크";
+
+    }
+
+
+    /* -------------------------
+       음악중심
+    ------------------------- */
+
+    if(
+        text.includes("음악중심") ||
+        text.includes("쇼! 음악중심") ||
+        text.includes("show! music core") ||
+        text.includes("show music core") ||
+        text.includes("music core")
+    ){
+
+        return "음악중심";
+
+    }
+
+
+    /* -------------------------
+       인기가요
+    ------------------------- */
+
+    if(
+        text.includes("인기가요") ||
+        text.includes("inkigayo") ||
+        text.includes("inkigayo")
+    ){
+
+        return "인기가요";
+
+    }
+
+
+    /* -------------------------
+       판별 불가
+    ------------------------- */
+
+    return "";
+
+}
+
+
+
+/* =========================
    영상 출력
 ========================= */
 
@@ -734,6 +858,20 @@ function renderVideos(videos){
             "noopener noreferrer";
 
 
+        /* =========================
+           음방명
+        ========================= */
+
+        const musicShow =
+            getMusicShow(
+                video.title
+            );
+
+
+        /* =========================
+           HTML 생성
+        ========================= */
+
         card.innerHTML = `
 
             <img
@@ -744,6 +882,16 @@ function renderVideos(videos){
             >
 
             <div class="video-info">
+
+                ${
+                    musicShow
+                        ? `
+                            <div class="video-category">
+                                ${musicShow}
+                            </div>
+                          `
+                        : ""
+                }
 
                 <div class="video-title">
                     ${video.title}
