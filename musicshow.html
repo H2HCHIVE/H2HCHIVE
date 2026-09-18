@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>음방 직캠 | H2HCHIVE</title>
+
 
 <style>
 
@@ -20,8 +26,14 @@ body{
 }
 
 body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
     background:#f5f6f8;
+
     color:#222;
 }
 
@@ -67,6 +79,7 @@ body{
     padding:0 0 10px;
 
     font-size:1.1rem;
+
     font-weight:700;
 }
 
@@ -77,6 +90,7 @@ body{
 
     left:0;
     right:0;
+
     bottom:-11px;
 
     height:2px;
@@ -91,6 +105,7 @@ body{
 
 .type-list{
     display:flex;
+
     flex-direction:column;
 
     gap:6px;
@@ -108,8 +123,6 @@ body{
     border:1px solid #e5e5e5;
 
     border-radius:10px;
-
-    box-sizing:border-box;
 }
 
 .type-list::-webkit-scrollbar{
@@ -122,12 +135,16 @@ body{
 
 .type-list::-webkit-scrollbar-thumb{
     background:#d5d5d5;
+
     border-radius:999px;
 }
 
 .type-list{
     scrollbar-width:thin;
-    scrollbar-color:#d5d5d5 transparent;
+
+    scrollbar-color:
+        #d5d5d5
+        transparent;
 }
 
 
@@ -194,8 +211,6 @@ body{
     border:1px solid #e5e5e5;
 
     border-radius:10px;
-
-    box-sizing:border-box;
 }
 
 .sub-category-list.show{
@@ -212,12 +227,16 @@ body{
 
 .sub-category-list::-webkit-scrollbar-thumb{
     background:#d5d5d5;
+
     border-radius:999px;
 }
 
 .sub-category-list{
     scrollbar-width:thin;
-    scrollbar-color:#d5d5d5 transparent;
+
+    scrollbar-color:
+        #d5d5d5
+        transparent;
 }
 
 
@@ -270,11 +289,13 @@ body{
 
 #dateSearch{
     width:100%;
+
     min-width:0;
 
     padding:10px 11px;
 
     border:1px solid #ddd;
+
     border-radius:9px;
 
     background:#fff;
@@ -325,6 +346,7 @@ body{
     border-radius:13px;
 
     text-decoration:none;
+
     color:#222;
 
     box-shadow:
@@ -384,12 +406,15 @@ body{
     margin-bottom:4px;
 
     font-size:.8rem;
+
     font-weight:600;
 
     line-height:1.35;
 
     display:-webkit-box;
+
     -webkit-box-orient:vertical;
+
     -webkit-line-clamp:2;
 
     overflow:hidden;
@@ -453,6 +478,7 @@ body{
 
     .content-inner{
         padding-left:12px;
+
         padding-right:12px;
     }
 
@@ -483,10 +509,12 @@ body{
 }
 
 </style>
+
 </head>
 
 
 <body>
+
 
 <main class="content">
 
@@ -521,6 +549,7 @@ body{
             전체
         </button>
 
+
         <button
             type="button"
             class="type-button"
@@ -530,6 +559,7 @@ body{
             그룹 직캠
         </button>
 
+
         <button
             type="button"
             class="type-button"
@@ -538,6 +568,7 @@ body{
         >
             멤버 직캠
         </button>
+
 
         <button
             type="button"
@@ -569,6 +600,7 @@ body{
             The Chase
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -577,6 +609,7 @@ body{
         >
             STYLE
         </button>
+
 
         <button
             type="button"
@@ -587,6 +620,7 @@ body{
             Pretty Please
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -596,14 +630,16 @@ body{
             FOCUS
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
             data-album="RUDE"
-            onclick="showAlbum('RUDE"
+            onclick="showAlbum('RUDE')"
         >
             RUDE!
         </button>
+
 
         <button
             type="button"
@@ -613,6 +649,7 @@ body{
         >
             Lemon Tang
         </button>
+
 
         <button
             type="button"
@@ -644,6 +681,7 @@ body{
             지우
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -652,6 +690,7 @@ body{
         >
             카르멘
         </button>
+
 
         <button
             type="button"
@@ -662,6 +701,7 @@ body{
             유하
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -670,6 +710,7 @@ body{
         >
             스텔라
         </button>
+
 
         <button
             type="button"
@@ -680,6 +721,7 @@ body{
             주은
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -689,6 +731,7 @@ body{
             에이나
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -697,6 +740,7 @@ body{
         >
             이안
         </button>
+
 
         <button
             type="button"
@@ -750,9 +794,64 @@ body{
 <script>
 
 
-/* =========================
+/* =========================================================
+   JSON 설정
+========================================================= */
+
+
+/*
+    video.json
+    → 그룹 직캠
+
+    멤버 JSON
+    → 각 멤버 직캠
+
+    etc.json
+    → 기타
+*/
+
+const DATA_FILES = {
+
+    group:
+        "video.json",
+
+    members: {
+
+        "지우":
+            "jiwoo.json",
+
+        "카르멘":
+            "carmen.json",
+
+        "유하":
+            "yuha.json",
+
+        "스텔라":
+            "stella.json",
+
+        "주은":
+            "jueun.json",
+
+        "에이나":
+            "aina.json",
+
+        "이안":
+            "ian.json",
+
+        "예온":
+            "yeon.json"
+
+    },
+
+    etc:
+        "etc.json"
+
+};
+
+
+/* =========================================================
    상태값
-========================= */
+========================================================= */
 
 let allVideos = [];
 
@@ -771,14 +870,17 @@ let currentMember = "all";
 let currentDate = "";
 
 
-/* =========================
+/* =========================================================
    영상 출력
-========================= */
+========================================================= */
 
 function renderVideos(videos){
 
     const grid =
-        document.getElementById("videoGrid");
+        document.getElementById(
+            "videoGrid"
+        );
+
 
     grid.innerHTML = "";
 
@@ -786,9 +888,11 @@ function renderVideos(videos){
     if(videos.length === 0){
 
         grid.innerHTML = `
+
             <div class="empty">
                 해당하는 직캠이 없습니다.
             </div>
+
         `;
 
         return;
@@ -822,10 +926,15 @@ function renderVideos(videos){
         ========================= */
 
         const programInfo = [
+
             video.program,
+
             video.type
+
         ]
+
             .filter(Boolean)
+
             .join(" ");
 
 
@@ -842,35 +951,45 @@ function renderVideos(videos){
                 loading="lazy"
             >
 
+
             <div class="video-info">
+
 
                 ${
                     video.broadcaster
                         ? `
+
                             <div class="video-broadcaster">
                                 ${video.broadcaster}
                             </div>
+
                           `
                         : ""
                 }
+
 
                 <div class="video-title">
                     ${video.title || ""}
                 </div>
 
+
                 ${
                     programInfo
                         ? `
+
                             <div class="video-program">
                                 ${programInfo}
                             </div>
+
                           `
                         : ""
                 }
 
+
                 <div class="video-date">
                     ${video.date || ""}
                 </div>
+
 
             </div>
 
@@ -884,22 +1003,27 @@ function renderVideos(videos){
 }
 
 
-/* =========================
+/* =========================================================
    날짜 필터
-========================= */
+========================================================= */
 
 function filterByDate(videos){
 
     if(currentDate === ""){
+
         return videos;
+
     }
 
 
     return videos.filter(video => {
 
         const compactDate =
+
             (video.date || "")
+
                 .replaceAll("-", "")
+
                 .slice(2);
 
 
@@ -912,76 +1036,89 @@ function filterByDate(videos){
 }
 
 
-/* =========================
+/* =========================================================
    필터 적용
-========================= */
+========================================================= */
 
 function applyFilters(){
 
     let filtered = [];
 
 
-    /* =========================
+    /* =====================================================
        전체
-    ========================= */
+    ===================================================== */
 
     if(currentType === "all"){
 
         filtered = [
+
             ...groupVideos,
+
             ...memberVideos,
+
             ...etcVideos
+
         ];
 
     }
 
 
-    /* =========================
+    /* =====================================================
        그룹 직캠
-    ========================= */
+    ===================================================== */
 
     else if(currentType === "group"){
 
         filtered = [
+
             ...groupVideos
+
         ];
 
     }
 
 
-    /* =========================
+    /* =====================================================
        멤버 직캠
-    ========================= */
+    ===================================================== */
 
     else if(currentType === "member"){
 
         filtered = [
+
             ...memberVideos
+
         ];
 
     }
 
 
-    /* =========================
+    /* =====================================================
        기타
-    ========================= */
+    ===================================================== */
 
     else if(currentType === "etc"){
 
         filtered = [
+
             ...etcVideos
+
         ];
 
     }
 
 
-    /* =========================
-       앨범
-    ========================= */
+    /* =====================================================
+       그룹 앨범 필터
+    ===================================================== */
 
     if(
+
         currentType === "group" &&
+
         currentAlbum !== "all"
+
     ){
 
         filtered =
@@ -993,13 +1130,16 @@ function applyFilters(){
     }
 
 
-    /* =========================
-       멤버
-    ========================= */
+    /* =====================================================
+       멤버 필터
+    ===================================================== */
 
     if(
+
         currentType === "member" &&
+
         currentMember !== "all"
+
     ){
 
         filtered =
@@ -1011,9 +1151,9 @@ function applyFilters(){
     }
 
 
-    /* =========================
-       날짜
-    ========================= */
+    /* =====================================================
+       날짜 필터
+    ===================================================== */
 
     filtered =
         filterByDate(filtered);
@@ -1024,19 +1164,27 @@ function applyFilters(){
 }
 
 
-/* =========================
+/* =========================================================
    종류 버튼 상태
-========================= */
+========================================================= */
 
 function updateTypeButtons(){
 
     document
-        .querySelectorAll(".type-button")
+
+        .querySelectorAll(
+            ".type-button"
+        )
+
         .forEach(button => {
 
             button.classList.toggle(
+
                 "active",
-                button.dataset.type === currentType
+
+                button.dataset.type ===
+                    currentType
+
             );
 
         });
@@ -1044,52 +1192,67 @@ function updateTypeButtons(){
 }
 
 
-/* =========================
+/* =========================================================
    세부 필터 표시
-========================= */
+========================================================= */
 
 function updateFilterVisibility(){
 
     const albumFilters =
+
         document.getElementById(
             "albumFilters"
         );
 
+
     const memberFilters =
+
         document.getElementById(
             "memberFilters"
         );
 
 
     albumFilters.classList.toggle(
+
         "show",
+
         currentType === "group"
+
     );
 
 
     memberFilters.classList.toggle(
+
         "show",
+
         currentType === "member"
+
     );
 
 }
 
 
-/* =========================
+/* =========================================================
    앨범 버튼 상태
-========================= */
+========================================================= */
 
 function updateAlbumButtons(){
 
     document
+
         .querySelectorAll(
             "#albumFilters .sub-category-button"
         )
+
         .forEach(button => {
 
             button.classList.toggle(
+
                 "active",
-                button.dataset.album === currentAlbum
+
+                button.dataset.album ===
+                    currentAlbum
+
             );
 
         });
@@ -1097,21 +1260,27 @@ function updateAlbumButtons(){
 }
 
 
-/* =========================
+/* =========================================================
    멤버 버튼 상태
-========================= */
+========================================================= */
 
 function updateMemberButtons(){
 
     document
+
         .querySelectorAll(
             "#memberFilters .sub-category-button"
         )
+
         .forEach(button => {
 
             button.classList.toggle(
+
                 "active",
-                button.dataset.member === currentMember
+
+                button.dataset.member ===
+                    currentMember
+
             );
 
         });
@@ -1119,9 +1288,9 @@ function updateMemberButtons(){
 }
 
 
-/* =========================
+/* =========================================================
    직캠 종류 선택
-========================= */
+========================================================= */
 
 function showType(type){
 
@@ -1150,9 +1319,9 @@ function showType(type){
 }
 
 
-/* =========================
+/* =========================================================
    앨범 선택
-========================= */
+========================================================= */
 
 function showAlbum(album){
 
@@ -1181,9 +1350,9 @@ function showAlbum(album){
 }
 
 
-/* =========================
+/* =========================================================
    멤버 선택
-========================= */
+========================================================= */
 
 function showMember(member){
 
@@ -1212,17 +1381,24 @@ function showMember(member){
 }
 
 
-/* =========================
+/* =========================================================
    날짜 검색
-========================= */
+========================================================= */
 
 function searchByDate(){
 
     currentDate =
+
         document
-            .getElementById("dateSearch")
+
+            .getElementById(
+                "dateSearch"
+            )
+
             .value
+
             .trim()
+
             .replace(/-/g,"");
 
 
@@ -1231,92 +1407,211 @@ function searchByDate(){
 }
 
 
-/* =========================
-   video.json + etc.json 불러오기
-========================= */
+/* =========================================================
+   JSON 불러오기
+========================================================= */
+
+async function loadJSON(url){
+
+    const response =
+        await fetch(url);
+
+
+    if(!response.ok){
+
+        throw new Error(
+
+            `${url} HTTP ${response.status}`
+
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    if(!Array.isArray(data)){
+
+        throw new Error(
+
+            `${url} 배열 형식이 아닙니다.`
+
+        );
+
+    }
+
+
+    return data;
+
+}
+
+
+/* =========================================================
+   전체 데이터 불러오기
+========================================================= */
 
 async function loadVideos(){
 
     try{
 
+
+        /* =================================================
+           그룹 JSON
+        ================================================= */
+
+        const groupPromise =
+            loadJSON(
+                DATA_FILES.group
+            );
+
+
+        /* =================================================
+           멤버 JSON
+        ================================================= */
+
+        const memberEntries =
+            Object.entries(
+                DATA_FILES.members
+            );
+
+
+        const memberPromises =
+            memberEntries.map(
+                ([member, file]) =>
+
+                    loadJSON(file)
+                        .then(videos => ({
+
+                            member,
+
+                            videos
+
+                        }))
+
+            );
+
+
+        /* =================================================
+           기타 JSON
+        ================================================= */
+
+        const etcPromise =
+            loadJSON(
+                DATA_FILES.etc
+            );
+
+
+        /* =================================================
+           동시에 불러오기
+        ================================================= */
+
         const [
-            videoResponse,
-            etcResponse
+
+            groupData,
+
+            memberData,
+
+            etcData
+
         ] = await Promise.all([
 
-            fetch("video.json"),
+            groupPromise,
 
-            fetch("etc.json")
+            Promise.all(
+                memberPromises
+            ),
+
+            etcPromise
 
         ]);
 
 
-        if(!videoResponse.ok){
-
-            throw new Error(
-                `video.json HTTP ${videoResponse.status}`
-            );
-
-        }
-
-
-        if(!etcResponse.ok){
-
-            throw new Error(
-                `etc.json HTTP ${etcResponse.status}`
-            );
-
-        }
-
-
-        /* =========================
-           JSON 데이터
-        ========================= */
-
-        const videoData =
-            await videoResponse.json();
-
-
-        const etcData =
-            await etcResponse.json();
-
-
-        /* =========================
-           video.json 분류
-        ========================= */
+        /* =================================================
+           그룹
+        ================================================= */
 
         groupVideos =
-            videoData.filter(
-                video => !video.member
-            );
+            groupData.map(video => ({
+
+                ...video,
+
+                /*
+
+                    video.json은
+                    그룹 직캠이므로
+                    member를 강제로 넣지 않음.
+
+                */
+
+            }));
 
 
-        memberVideos =
-            videoData.filter(
-                video => !!video.member
-            );
+        /* =================================================
+           멤버
+        ================================================= */
+
+        memberVideos = [];
 
 
-        /* =========================
+        memberData.forEach(
+            ({member, videos}) => {
+
+                videos.forEach(video => {
+
+                    memberVideos.push({
+
+                        ...video,
+
+                        /*
+                            멤버 JSON에서
+                            member 값이 없더라도
+                            파일 이름 기준으로
+                            자동 지정
+                        */
+
+                        member:
+                            member
+
+                    });
+
+                });
+
+            }
+        );
+
+
+        /* =================================================
            기타
-        ========================= */
+        ================================================= */
 
         etcVideos =
-            Array.isArray(etcData)
-                ? etcData
-                : [];
+            etcData.map(video => ({
+
+                ...video
+
+            }));
 
 
-        /* =========================
-           전체 데이터
-        ========================= */
+        /* =================================================
+           전체
+        ================================================= */
 
         allVideos = [
+
             ...groupVideos,
+
             ...memberVideos,
+
             ...etcVideos
+
         ];
 
+
+        /* =================================================
+           화면 출력
+        ================================================= */
 
         applyFilters();
 
@@ -1336,7 +1631,9 @@ async function loadVideos(){
         ).innerHTML = `
 
             <div class="empty">
+
                 영상을 불러오지 못했습니다.
+
             </div>
 
         `;
@@ -1346,13 +1643,14 @@ async function loadVideos(){
 }
 
 
-/* =========================
+/* =========================================================
    시작
-========================= */
+========================================================= */
 
 loadVideos();
 
 </script>
+
 
 </body>
 </html>
