@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>음방 직캠 | H2HCHIVE</title>
 
 <style>
@@ -44,19 +45,25 @@ body{
 .main-title h1{
     display:inline-block;
     position:relative;
+
     margin:0;
     padding:0 0 10px;
+
     font-size:1.1rem;
     font-weight:700;
 }
 
 .main-title h1::after{
     content:"";
+
     position:absolute;
+
     left:0;
     right:0;
     bottom:-11px;
+
     height:2px;
+
     background:#89CFF0;
 }
 
@@ -69,11 +76,15 @@ body{
     display:flex;
     flex-direction:column;
     gap:6px;
+
     max-height:126px;
     overflow-y:auto;
+
     margin-bottom:16px;
     padding:8px;
+
     background:#fff;
+
     border:1px solid #e5e5e5;
     border-radius:10px;
 }
@@ -102,14 +113,20 @@ body{
 
 .type-button{
     flex-shrink:0;
+
     padding:8px 10px;
+
     border:0;
     border-radius:8px;
+
     background:#fff;
     color:#666;
+
     font-family:inherit;
     font-size:.75rem;
+
     text-align:left;
+
     cursor:pointer;
 }
 
@@ -130,13 +147,18 @@ body{
 
 .sub-category-list{
     display:none;
+
     flex-direction:column;
     gap:6px;
+
     max-height:126px;
     overflow-y:auto;
+
     margin-bottom:16px;
     padding:8px;
+
     background:#fff;
+
     border:1px solid #e5e5e5;
     border-radius:10px;
 }
@@ -147,14 +169,20 @@ body{
 
 .sub-category-button{
     flex-shrink:0;
+
     padding:8px 10px;
+
     border:0;
     border-radius:8px;
+
     background:#fff;
     color:#666;
+
     font-family:inherit;
     font-size:.75rem;
+
     text-align:left;
+
     cursor:pointer;
 }
 
@@ -179,13 +207,18 @@ body{
 
 #dateSearch{
     width:100%;
+
     padding:10px 11px;
+
     border:1px solid #ddd;
     border-radius:9px;
+
     background:#fff;
     color:#222;
+
     font-family:inherit;
     font-size:.8rem;
+
     outline:none;
 }
 
@@ -204,7 +237,10 @@ body{
 
 .video-grid{
     display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
+
+    grid-template-columns:
+        repeat(2,minmax(0,1fr));
+
     gap:10px;
 }
 
@@ -215,19 +251,29 @@ body{
 
 .video-card{
     display:block;
+
     overflow:hidden;
+
     background:#fff;
+
     border-radius:13px;
+
     text-decoration:none;
     color:#222;
-    box-shadow:0 2px 7px rgba(0,0,0,.05);
+
+    box-shadow:
+        0 2px 7px rgba(0,0,0,.05);
 }
 
 .video-thumbnail{
     display:block;
+
     width:100%;
+
     aspect-ratio:16 / 9;
+
     object-fit:cover;
+
     background:#eee;
 }
 
@@ -240,50 +286,102 @@ body{
     padding:9px 10px 11px;
 }
 
+
+/* =========================================
+   BROADCASTER / MEMBER
+========================================= */
+
 .video-broadcaster{
     margin-bottom:5px;
+
     color:#70b9d8;
+
     font-size:.65rem;
+
     font-weight:600;
+
     line-height:1.3;
+
     white-space:nowrap;
+
     overflow:hidden;
+
     text-overflow:ellipsis;
 }
+
+
+/* =========================================
+   ALBUM
+========================================= */
 
 .video-album{
     margin-bottom:4px;
+
     color:#777;
+
     font-size:.68rem;
+
     line-height:1.3;
+
     white-space:nowrap;
+
     overflow:hidden;
+
     text-overflow:ellipsis;
 }
+
+
+/* =========================================
+   TITLE
+========================================= */
 
 .video-title{
     margin-bottom:4px;
+
     font-size:.8rem;
+
     font-weight:600;
+
     line-height:1.35;
+
     display:-webkit-box;
+
     -webkit-box-orient:vertical;
+
     -webkit-line-clamp:2;
+
     overflow:hidden;
 }
+
+
+/* =========================================
+   PROGRAM
+========================================= */
 
 .video-program{
     margin-bottom:4px;
+
     color:#777;
+
     font-size:.68rem;
+
     line-height:1.3;
+
     white-space:nowrap;
+
     overflow:hidden;
+
     text-overflow:ellipsis;
 }
 
+
+/* =========================================
+   DATE
+========================================= */
+
 .video-date{
     color:#999;
+
     font-size:.7rem;
 }
 
@@ -294,9 +392,13 @@ body{
 
 .empty{
     grid-column:1 / -1;
+
     padding:45px 10px;
+
     color:#999;
+
     font-size:.8rem;
+
     text-align:center;
 }
 
@@ -341,16 +443,30 @@ body{
 </style>
 </head>
 
+
 <body>
 
 <main class="content">
 
 <div class="content-inner">
 
+
+    <!-- =====================================
+         TITLE
+    ====================================== -->
+
     <div class="main-title">
-        <h1>음방 직캠</h1>
+
+        <h1>
+            음방 직캠
+        </h1>
+
     </div>
 
+
+    <!-- =====================================
+         TYPE FILTER
+    ====================================== -->
 
     <div class="type-list">
 
@@ -363,6 +479,7 @@ body{
             전체
         </button>
 
+
         <button
             type="button"
             class="type-button"
@@ -372,6 +489,7 @@ body{
             그룹 직캠
         </button>
 
+
         <button
             type="button"
             class="type-button"
@@ -380,6 +498,7 @@ body{
         >
             멤버 직캠
         </button>
+
 
         <button
             type="button"
@@ -392,6 +511,10 @@ body{
 
     </div>
 
+
+    <!-- =====================================
+         GROUP ALBUM FILTER
+    ====================================== -->
 
     <div
         id="albumFilters"
@@ -407,6 +530,7 @@ body{
             The Chase
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -415,6 +539,7 @@ body{
         >
             STYLE
         </button>
+
 
         <button
             type="button"
@@ -425,6 +550,7 @@ body{
             Pretty Please
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -433,6 +559,7 @@ body{
         >
             FOCUS
         </button>
+
 
         <button
             type="button"
@@ -443,6 +570,7 @@ body{
             RUDE!
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -451,6 +579,7 @@ body{
         >
             Lemon Tang
         </button>
+
 
         <button
             type="button"
@@ -463,6 +592,10 @@ body{
 
     </div>
 
+
+    <!-- =====================================
+         MEMBER FILTER
+    ====================================== -->
 
     <div
         id="memberFilters"
@@ -478,6 +611,7 @@ body{
             지우
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -486,6 +620,7 @@ body{
         >
             카르멘
         </button>
+
 
         <button
             type="button"
@@ -496,6 +631,7 @@ body{
             유하
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -504,6 +640,7 @@ body{
         >
             스텔라
         </button>
+
 
         <button
             type="button"
@@ -514,6 +651,7 @@ body{
             주은
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -523,6 +661,7 @@ body{
             에이나
         </button>
 
+
         <button
             type="button"
             class="sub-category-button"
@@ -531,6 +670,7 @@ body{
         >
             이안
         </button>
+
 
         <button
             type="button"
@@ -544,6 +684,10 @@ body{
     </div>
 
 
+    <!-- =====================================
+         DATE SEARCH
+    ====================================== -->
+
     <div class="search-area">
 
         <input
@@ -556,6 +700,10 @@ body{
     </div>
 
 
+    <!-- =====================================
+         VIDEO GRID
+    ====================================== -->
+
     <div
         class="video-grid"
         id="videoGrid"
@@ -567,12 +715,14 @@ body{
 
     </div>
 
+
 </div>
 
 </main>
 
 
 <script>
+
 
 /* =====================================================
    JSON 설정
@@ -583,14 +733,23 @@ const DATA_FILES = {
     group: "video.json",
 
     members: {
+
         "지우": "jiwoo.json",
+
         "카르멘": "carmen.json",
+
         "유하": "yuha.json",
+
         "스텔라": "stella.json",
+
         "주은": "jueun.json",
+
         "에이나": "aina.json",
+
         "이안": "ian.json",
+
         "예온": "yeon.json"
+
     },
 
     etc: "etc.json"
@@ -603,13 +762,19 @@ const DATA_FILES = {
 ===================================================== */
 
 let allVideos = [];
+
 let groupVideos = [];
+
 let memberVideos = [];
+
 let etcVideos = [];
 
 let currentType = "all";
+
 let currentAlbum = "all";
+
 let currentMember = "all";
+
 let currentDate = "";
 
 
@@ -623,12 +788,14 @@ function getAlbumByDate(date){
         return "";
     }
 
+
     const matchedVideo =
         groupVideos.find(
             video =>
                 video.date === date &&
                 video.album
         );
+
 
     return matchedVideo
         ? matchedVideo.album
@@ -644,7 +811,10 @@ function getAlbumByDate(date){
 function renderVideos(videos){
 
     const grid =
-        document.getElementById("videoGrid");
+        document.getElementById(
+            "videoGrid"
+        );
+
 
     grid.innerHTML = "";
 
@@ -652,9 +822,11 @@ function renderVideos(videos){
     if(videos.length === 0){
 
         grid.innerHTML = `
+
             <div class="empty">
                 해당하는 직캠이 없습니다.
             </div>
+
         `;
 
         return;
@@ -666,24 +838,31 @@ function renderVideos(videos){
         const card =
             document.createElement("a");
 
-        card.className = "video-card";
+
+        card.className =
+            "video-card";
+
 
         card.href =
             `https://www.youtube.com/watch?v=${video.videoId}`;
 
-        card.target = "_blank";
+
+        card.target =
+            "_blank";
+
 
         card.rel =
             "noopener noreferrer";
 
 
         /* =========================================
-           그룹 직캠
+           GROUP
         ========================================= */
 
         if(video.dataType === "group"){
 
             card.innerHTML = `
+
                 <img
                     class="video-thumbnail"
                     src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
@@ -710,19 +889,21 @@ function renderVideos(videos){
                     </div>
 
                 </div>
+
             `;
 
         }
 
 
         /* =========================================
-           멤버 직캠
-           기존 출력 그대로
+           MEMBER
+           기존 출력 유지
         ========================================= */
 
         else if(video.dataType === "member"){
 
             card.innerHTML = `
+
                 <img
                     class="video-thumbnail"
                     src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
@@ -755,24 +936,33 @@ function renderVideos(videos){
                     </div>
 
                 </div>
+
             `;
 
         }
 
 
         /* =========================================
-           기타 직캠
+           ETC
 
-           출력:
+           JSON:
+           broadcaster = 방송사
+           program    = 프로그램
+           title      = 곡명/무대명
+           album      = 기타
+           date       = 날짜
+
+           화면:
            방송사
            프로그램
-           앨범
+           곡명/무대명
            날짜
         ========================================= */
 
         else if(video.dataType === "etc"){
 
             card.innerHTML = `
+
                 <img
                     class="video-thumbnail"
                     src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
@@ -786,31 +976,20 @@ function renderVideos(videos){
                         ${video.broadcaster || ""}
                     </div>
 
-                    ${
-                        video.program
-                            ? `
-                                <div class="video-title">
-                                    ${video.program}
-                                </div>
-                              `
-                            : ""
-                    }
+                    <div class="video-title">
+                        ${video.program || ""}
+                    </div>
 
-                    ${
-                        video.album
-                            ? `
-                                <div class="video-album">
-                                    ${video.album}
-                                </div>
-                              `
-                            : ""
-                    }
+                    <div class="video-album">
+                        ${video.title || ""}
+                    </div>
 
                     <div class="video-date">
                         ${video.date || ""}
                     </div>
 
                 </div>
+
             `;
 
         }
@@ -830,8 +1009,11 @@ function renderVideos(videos){
 function filterByDate(videos){
 
     if(currentDate === ""){
+
         return videos;
+
     }
+
 
     return videos.filter(video => {
 
@@ -840,7 +1022,10 @@ function filterByDate(videos){
                 .replaceAll("-", "")
                 .slice(2);
 
-        return compactDate.includes(currentDate);
+
+        return compactDate.includes(
+            currentDate
+        );
 
     });
 
@@ -859,41 +1044,59 @@ function applyFilters(){
     if(currentType === "all"){
 
         filtered = [
+
             ...groupVideos,
             ...memberVideos,
             ...etcVideos
+
         ];
 
     }
+
 
     else if(currentType === "group"){
 
         filtered = [
+
             ...groupVideos
+
         ];
 
     }
+
 
     else if(currentType === "member"){
 
         filtered = [
+
             ...memberVideos
+
         ];
 
     }
+
 
     else if(currentType === "etc"){
 
         filtered = [
+
             ...etcVideos
+
         ];
 
     }
 
 
+    /* -----------------------------------------
+       GROUP ALBUM
+    ----------------------------------------- */
+
     if(
+
         currentType === "group" &&
+
         currentAlbum !== "all"
+
     ){
 
         filtered =
@@ -905,9 +1108,16 @@ function applyFilters(){
     }
 
 
+    /* -----------------------------------------
+       MEMBER
+    ----------------------------------------- */
+
     if(
+
         currentType === "member" &&
+
         currentMember !== "all"
+
     ){
 
         filtered =
@@ -935,12 +1145,18 @@ function applyFilters(){
 function updateTypeButtons(){
 
     document
-        .querySelectorAll(".type-button")
+        .querySelectorAll(
+            ".type-button"
+        )
         .forEach(button => {
 
             button.classList.toggle(
+
                 "active",
-                button.dataset.type === currentType
+
+                button.dataset.type ===
+                    currentType
+
             );
 
         });
@@ -955,20 +1171,32 @@ function updateTypeButtons(){
 function updateFilterVisibility(){
 
     const albumFilters =
-        document.getElementById("albumFilters");
+        document.getElementById(
+            "albumFilters"
+        );
+
 
     const memberFilters =
-        document.getElementById("memberFilters");
+        document.getElementById(
+            "memberFilters"
+        );
 
 
     albumFilters.classList.toggle(
+
         "show",
+
         currentType === "group"
+
     );
 
+
     memberFilters.classList.toggle(
+
         "show",
+
         currentType === "member"
+
     );
 
 }
@@ -987,8 +1215,12 @@ function updateAlbumButtons(){
         .forEach(button => {
 
             button.classList.toggle(
+
                 "active",
-                button.dataset.album === currentAlbum
+
+                button.dataset.album ===
+                    currentAlbum
+
             );
 
         });
@@ -1009,8 +1241,12 @@ function updateMemberButtons(){
         .forEach(button => {
 
             button.classList.toggle(
+
                 "active",
-                button.dataset.member === currentMember
+
+                button.dataset.member ===
+                    currentMember
+
             );
 
         });
@@ -1024,13 +1260,24 @@ function updateMemberButtons(){
 
 function showType(type){
 
-    currentType = type;
-    currentAlbum = "all";
-    currentMember = "all";
+    currentType =
+        type;
+
+
+    currentAlbum =
+        "all";
+
+
+    currentMember =
+        "all";
+
 
     updateTypeButtons();
+
     updateFilterVisibility();
+
     updateAlbumButtons();
+
     updateMemberButtons();
 
     applyFilters();
@@ -1044,13 +1291,24 @@ function showType(type){
 
 function showAlbum(album){
 
-    currentType = "group";
-    currentAlbum = album;
-    currentMember = "all";
+    currentType =
+        "group";
+
+
+    currentAlbum =
+        album;
+
+
+    currentMember =
+        "all";
+
 
     updateTypeButtons();
+
     updateFilterVisibility();
+
     updateAlbumButtons();
+
     updateMemberButtons();
 
     applyFilters();
@@ -1064,13 +1322,24 @@ function showAlbum(album){
 
 function showMember(member){
 
-    currentType = "member";
-    currentMember = member;
-    currentAlbum = "all";
+    currentType =
+        "member";
+
+
+    currentMember =
+        member;
+
+
+    currentAlbum =
+        "all";
+
 
     updateTypeButtons();
+
     updateFilterVisibility();
+
     updateAlbumButtons();
+
     updateMemberButtons();
 
     applyFilters();
@@ -1085,11 +1354,15 @@ function showMember(member){
 function searchByDate(){
 
     currentDate =
+
         document
-            .getElementById("dateSearch")
+            .getElementById(
+                "dateSearch"
+            )
             .value
             .trim()
             .replace(/-/g,"");
+
 
     applyFilters();
 
@@ -1141,12 +1414,20 @@ async function loadVideos(){
 
     try{
 
-        const groupPromise =
-            loadJSON(DATA_FILES.group);
+        /* GROUP */
 
+        const groupPromise =
+            loadJSON(
+                DATA_FILES.group
+            );
+
+
+        /* MEMBERS */
 
         const memberEntries =
-            Object.entries(DATA_FILES.members);
+            Object.entries(
+                DATA_FILES.members
+            );
 
 
         const memberPromises =
@@ -1155,26 +1436,38 @@ async function loadVideos(){
 
                     loadJSON(file)
                         .then(videos => ({
+
                             member,
                             videos
+
                         }))
 
             );
 
 
-        const etcPromise =
-            loadJSON(DATA_FILES.etc);
+        /* ETC */
 
+        const etcPromise =
+            loadJSON(
+                DATA_FILES.etc
+            );
+
+
+        /* LOAD */
 
         const [
+
             groupData,
             memberData,
             etcData
+
         ] = await Promise.all([
 
             groupPromise,
 
-            Promise.all(memberPromises),
+            Promise.all(
+                memberPromises
+            ),
 
             etcPromise
 
@@ -1188,7 +1481,8 @@ async function loadVideos(){
 
                 ...video,
 
-                dataType: "group"
+                dataType:
+                    "group"
 
             }));
 
@@ -1234,7 +1528,8 @@ async function loadVideos(){
 
                 ...video,
 
-                dataType: "etc"
+                dataType:
+                    "etc"
 
             }));
 
