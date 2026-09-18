@@ -400,6 +400,27 @@ body{
 
 
 /* =========================
+   프로그램 + 영상 종류
+========================= */
+
+.video-program{
+    margin-bottom:4px;
+
+    color:#777;
+
+    font-size:.68rem;
+
+    line-height:1.3;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+/* =========================
    날짜
 ========================= */
 
@@ -452,6 +473,10 @@ body{
 
     .video-title{
         font-size:.76rem;
+    }
+
+    .video-program{
+        font-size:.64rem;
     }
 
     .video-date{
@@ -734,116 +759,6 @@ let currentMember = "all";
 let currentDate = "";
 
 
-
-/* =========================
-   방송사 판별
-========================= */
-
-function getBroadcaster(title){
-
-    const text =
-        String(title || "")
-            .toLowerCase();
-
-
-    /* -------------------------
-       더쇼
-    ------------------------- */
-
-    if(
-        text.includes("더쇼") ||
-        text.includes("the show")
-    ){
-
-        return "SBS LIFE";
-
-    }
-
-
-    /* -------------------------
-       쇼챔피언
-    ------------------------- */
-
-    if(
-        text.includes("쇼챔피언") ||
-        text.includes("show champion")
-    ){
-
-        return "MBC M";
-
-    }
-
-
-    /* -------------------------
-       엠카운트다운
-    ------------------------- */
-
-    if(
-        text.includes("엠카운트다운") ||
-        text.includes("m countdown") ||
-        text.includes("mcountdown")
-    ){
-
-        return "Mnet";
-
-    }
-
-
-    /* -------------------------
-       뮤직뱅크
-    ------------------------- */
-
-    if(
-        text.includes("뮤직뱅크") ||
-        text.includes("music bank") ||
-        text.includes("musicbank")
-    ){
-
-        return "KBS";
-
-    }
-
-
-    /* -------------------------
-       음악중심
-    ------------------------- */
-
-    if(
-        text.includes("음악중심") ||
-        text.includes("show! music core") ||
-        text.includes("show music core") ||
-        text.includes("music core")
-    ){
-
-        return "MBC";
-
-    }
-
-
-    /* -------------------------
-       인기가요
-    ------------------------- */
-
-    if(
-        text.includes("인기가요") ||
-        text.includes("inkigayo")
-    ){
-
-        return "SBS";
-
-    }
-
-
-    /* -------------------------
-       판별 불가
-    ------------------------- */
-
-    return "";
-
-}
-
-
-
 /* =========================
    영상 출력
 ========================= */
@@ -891,13 +806,15 @@ function renderVideos(videos){
 
 
         /* =========================
-           방송사
+           프로그램 + 영상 종류
         ========================= */
 
-        const broadcaster =
-            getBroadcaster(
-                video.title
-            );
+        const programInfo = [
+            video.program,
+            video.type
+        ]
+            .filter(Boolean)
+            .join(" ");
 
 
         /* =========================
@@ -916,10 +833,10 @@ function renderVideos(videos){
             <div class="video-info">
 
                 ${
-                    broadcaster
+                    video.broadcaster
                         ? `
                             <div class="video-broadcaster">
-                                ${broadcaster}
+                                ${video.broadcaster}
                             </div>
                           `
                         : ""
@@ -928,6 +845,16 @@ function renderVideos(videos){
                 <div class="video-title">
                     ${video.title}
                 </div>
+
+                ${
+                    programInfo
+                        ? `
+                            <div class="video-program">
+                                ${programInfo}
+                            </div>
+                          `
+                        : ""
+                }
 
                 <div class="video-date">
                     ${video.date}
@@ -943,7 +870,6 @@ function renderVideos(videos){
     });
 
 }
-
 
 
 /* =========================
@@ -1038,7 +964,6 @@ function applyFilters(){
 }
 
 
-
 /* =========================
    종류 버튼 상태
 ========================= */
@@ -1057,7 +982,6 @@ function updateTypeButtons(){
         });
 
 }
-
 
 
 /* =========================
@@ -1091,7 +1015,6 @@ function updateFilterVisibility(){
 }
 
 
-
 /* =========================
    앨범 버튼 상태
 ========================= */
@@ -1114,7 +1037,6 @@ function updateAlbumButtons(){
 }
 
 
-
 /* =========================
    멤버 버튼 상태
 ========================= */
@@ -1135,7 +1057,6 @@ function updateMemberButtons(){
         });
 
 }
-
 
 
 /* =========================
@@ -1169,7 +1090,6 @@ function showType(type){
 }
 
 
-
 /* =========================
    앨범 선택
 ========================= */
@@ -1199,7 +1119,6 @@ function showAlbum(album){
     applyFilters();
 
 }
-
 
 
 /* =========================
@@ -1233,7 +1152,6 @@ function showMember(member){
 }
 
 
-
 /* =========================
    날짜 검색
 ========================= */
@@ -1251,7 +1169,6 @@ function searchByDate(){
     applyFilters();
 
 }
-
 
 
 /* =========================
@@ -1302,7 +1219,6 @@ async function loadVideos(){
     }
 
 }
-
 
 
 /* =========================
