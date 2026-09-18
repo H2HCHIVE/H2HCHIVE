@@ -322,6 +322,24 @@ body{
     padding:12px 13px 13px;
 }
 
+
+/* 이름 */
+
+.content-category{
+    margin-bottom:5px;
+
+    color:#70b9d8;
+
+    font-size:.65rem;
+
+    font-weight:600;
+
+    line-height:1.3;
+}
+
+
+/* 제목 */
+
 .content-title{
     margin-bottom:5px;
 
@@ -336,6 +354,9 @@ body{
 
     overflow:hidden;
 }
+
+
+/* 날짜 */
 
 .content-date{
     color:#999;
@@ -403,6 +424,10 @@ body{
 
     .content-card-inner{
         padding:11px 12px 12px;
+    }
+
+    .content-category{
+        font-size:.62rem;
     }
 
     .content-title{
@@ -837,6 +862,20 @@ function render(){
 
 
             /* =========================
+               이름
+            ========================= */
+
+            const categories =
+                Array.isArray(item.category)
+                    ? item.category
+                        .map(name =>
+                            escapeHtml(name)
+                        )
+                        .join(" · ")
+                    : "";
+
+
+            /* =========================
                위버스 URL 자동 생성
             ========================= */
 
@@ -883,9 +922,27 @@ function render(){
 
                     <div class="content-card-inner">
 
+                        <!-- 이름 -->
+
+                        ${
+                            categories
+                                ? `
+                                    <div class="content-category">
+                                        ${categories}
+                                    </div>
+                                  `
+                                : ""
+                        }
+
+
+                        <!-- 제목 -->
+
                         <div class="content-title">
                             ${title}
                         </div>
+
+
+                        <!-- 날짜 -->
 
                         <div class="content-date">
                             ${date}
