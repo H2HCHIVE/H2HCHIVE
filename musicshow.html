@@ -897,7 +897,12 @@ function renderVideos(videos){
 
         /* =========================================
            MEMBER
-           기존 출력 유지
+           
+           album이 있으면:
+           이름 → album → title → date
+
+           content가 있으면:
+           이름 → title → content → date
         ========================================= */
 
         else if(video.dataType === "member"){
@@ -918,18 +923,38 @@ function renderVideos(videos){
                     </div>
 
                     ${
-                        video.album
+                        video.content
                             ? `
-                                <div class="video-album">
-                                    ${video.album}
-                                </div>
-                              `
-                            : ""
-                    }
 
-                    <div class="video-title">
-                        ${video.title || ""}
-                    </div>
+                                <div class="video-title">
+                                    ${video.title || ""}
+                                </div>
+
+                                <div class="video-album">
+                                    ${video.content || ""}
+                                </div>
+
+                              `
+                            : `
+
+                                ${
+                                    video.album
+                                        ? `
+
+                                            <div class="video-album">
+                                                ${video.album}
+                                            </div>
+
+                                          `
+                                        : ""
+                                }
+
+                                <div class="video-title">
+                                    ${video.title || ""}
+                                </div>
+
+                              `
+                    }
 
                     <div class="video-date">
                         ${video.date || ""}
