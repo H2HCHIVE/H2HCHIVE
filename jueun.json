@@ -24,6 +24,11 @@
     "videoId": "gOdLJs5LBmI"
   },
   {
+    "date": "2026-08-09",
+    "title": "Lemon Tang + / 15-LOVE",
+    "videoId": "fEuCnD4DUdo"
+  },
+  {
     "date": "2026-07-12",
     "album": "Lemon Tang",
     "title": "인기가요 페이스캠",
@@ -76,6 +81,11 @@
     "album": "Lemon Tang",
     "title": "엠카운트다운 세로캠",
     "videoId": "uhY8HkAerXA"
+  },
+  {
+    "date": "2026-05-08",
+    "title": "Electric Shock",
+    "videoId": "ZaR_h6nOyYE"
   },
   {
     "date": "2026-03-14",
@@ -144,6 +154,22 @@
     "videoId": "7setutijlLk"
   },
   {
+    "date": "2026-02-22",
+    "content": "스튜디오춤",
+    "title": "RUDE!",
+    "videoId": "Pm-2W5Yb0ts"
+  },
+  {
+    "date": "2025-12-31",
+    "title": "Anymotion",
+    "videoId": "LPtD4B2v_kE"
+  },
+  {
+    "date": "2025-12-30",
+    "title": "소원을 말해봐",
+    "videoId": "olAXESh891o"
+  },
+  {
     "date": "2025-11-15",
     "album": "FOCUS",
     "title": "음악중심 세로캠",
@@ -192,16 +218,22 @@
     "videoId": "jwYZ-scRQ5U"
   },
   {
-    "date": "2025-10-02",
-    "album": "Pretty Please",
-    "title": "엠카운트다운 세로캠",
-    "videoId": "1R2aTajBb2M"
+    "date": "2025-10-22",
+    "content": "스튜디오춤",
+    "title": "FOCUS",
+    "videoId": "MW1W4tlUW4o"
   },
   {
     "date": "2025-10-04",
     "album": "Pretty Please",
     "title": "음악중심 세로캠",
     "videoId": "hhHWAkqoOPo"
+  },
+  {
+    "date": "2025-10-02",
+    "album": "Pretty Please",
+    "title": "엠카운트다운 세로캠",
+    "videoId": "1R2aTajBb2M"
   },
   {
     "date": "2025-09-28",
@@ -222,6 +254,11 @@
     "videoId": "cRrKusyDdIQ"
   },
   {
+    "date": "2025-08-09",
+    "title": "별의 탄생 (Twinkle Twins) + / STYLE",
+    "videoId": "MwSH9ewOWhg"
+  },
+  {
     "date": "2025-06-28",
     "album": "STYLE",
     "title": "음악중심 세로캠",
@@ -232,6 +269,12 @@
     "album": "STYLE",
     "title": "인기가요 세로캠",
     "videoId": "UkIdZZmwnJE"
+  },
+  {
+    "date": "2025-06-22",
+    "content": "Move to Performance",
+    "title": "STYLE",
+    "videoId": "mIyP71IJKMw"
   },
   {
     "date": "2025-06-21",
@@ -292,5 +335,11 @@
     "album": "The Chase",
     "title": "엠카운트다운 세로캠",
     "videoId": "92CSltXb2b4"
+  },
+  {
+    "date": "2025-02-26",
+    "content": "스튜디오춤",
+    "title": "The Chase",
+    "videoId": "zXyEVShzOcQ"
   }
 ]
