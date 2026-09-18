@@ -285,6 +285,7 @@ body{
     color:#222;
 
     font-family:inherit;
+
     font-size:.8rem;
 
     outline:none;
@@ -345,16 +346,21 @@ body{
     background:#eee;
 }
 
+
+/* =========================
+   영상 정보
+========================= */
+
 .video-info{
     padding:9px 10px 11px;
 }
 
 
 /* =========================
-   음방명
+   방송사
 ========================= */
 
-.video-category{
+.video-broadcaster{
     margin-bottom:5px;
 
     color:#70b9d8;
@@ -440,7 +446,7 @@ body{
         padding:8px 9px 10px;
     }
 
-    .video-category{
+    .video-broadcaster{
         font-size:.62rem;
     }
 
@@ -730,14 +736,42 @@ let currentDate = "";
 
 
 /* =========================
-   음방명 판별
+   방송사 판별
 ========================= */
 
-function getMusicShow(title){
+function getBroadcaster(title){
 
     const text =
         String(title || "")
             .toLowerCase();
+
+
+    /* -------------------------
+       더쇼
+    ------------------------- */
+
+    if(
+        text.includes("더쇼") ||
+        text.includes("the show")
+    ){
+
+        return "SBS LIFE";
+
+    }
+
+
+    /* -------------------------
+       쇼챔피언
+    ------------------------- */
+
+    if(
+        text.includes("쇼챔피언") ||
+        text.includes("show champion")
+    ){
+
+        return "MBC M";
+
+    }
 
 
     /* -------------------------
@@ -750,7 +784,7 @@ function getMusicShow(title){
         text.includes("mcountdown")
     ){
 
-        return "엠카운트다운";
+        return "Mnet";
 
     }
 
@@ -765,7 +799,7 @@ function getMusicShow(title){
         text.includes("musicbank")
     ){
 
-        return "뮤직뱅크";
+        return "KBS";
 
     }
 
@@ -776,13 +810,12 @@ function getMusicShow(title){
 
     if(
         text.includes("음악중심") ||
-        text.includes("쇼! 음악중심") ||
         text.includes("show! music core") ||
         text.includes("show music core") ||
         text.includes("music core")
     ){
 
-        return "음악중심";
+        return "MBC";
 
     }
 
@@ -793,11 +826,10 @@ function getMusicShow(title){
 
     if(
         text.includes("인기가요") ||
-        text.includes("inkigayo") ||
         text.includes("inkigayo")
     ){
 
-        return "인기가요";
+        return "SBS";
 
     }
 
@@ -859,11 +891,11 @@ function renderVideos(videos){
 
 
         /* =========================
-           음방명
+           방송사
         ========================= */
 
-        const musicShow =
-            getMusicShow(
+        const broadcaster =
+            getBroadcaster(
                 video.title
             );
 
@@ -884,10 +916,10 @@ function renderVideos(videos){
             <div class="video-info">
 
                 ${
-                    musicShow
+                    broadcaster
                         ? `
-                            <div class="video-category">
-                                ${musicShow}
+                            <div class="video-broadcaster">
+                                ${broadcaster}
                             </div>
                           `
                         : ""
