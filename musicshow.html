@@ -172,7 +172,7 @@ body{
     margin-bottom:5px;
     color:#70b9d8;
     font-size:.65rem;
-    font-weight:700;
+    font-weight:600;
     line-height:1.3;
     white-space:nowrap;
     overflow:hidden;
@@ -183,7 +183,7 @@ body{
     margin-bottom:4px;
     color:#777;
     font-size:.68rem;
-    font-weight:400;
+    font-weight:600;
     line-height:1.3;
     white-space:nowrap;
     overflow:hidden;
@@ -193,7 +193,7 @@ body{
 .video-title{
     margin-bottom:4px;
     font-size:.8rem;
-    font-weight:700;
+    font-weight:400;
     line-height:1.35;
     display:-webkit-box;
     -webkit-box-orient:vertical;
@@ -205,18 +205,6 @@ body{
     color:#999;
     font-size:.7rem;
     font-weight:400;
-}
-
-/* =========================
-   MEMBER CONTENT TITLE
-========================= */
-
-.video-title.thin{
-    font-weight:400;
-}
-
-.video-album.bold{
-    font-weight:700;
 }
 
 /* =========================
@@ -569,13 +557,46 @@ async function loadJSON(url){
 
 async function loadVideos(){
 
-    /*
-     * 그룹 데이터를 먼저 로드해서
-     * 멤버의 album 자동 매칭에 사용
-     */
+    const groupPromise =
+        loadJSON(DATA_FILES.group);
 
-    const groupData =
-        await loadJSON(DATA_FILES.group);
+    const etcPromise =
+        loadJSON(DATA_FILES.etc);
+
+    const memberEntries =
+        Object.entries(DATA_FILES.members);
+
+    const memberPromises =
+        memberEntries.map(async ([member, file]) => {
+
+            const data = await loadJSON(file);
+
+            return data.map(video => ({
+
+                ...video,
+
+                album:
+                    video.album ||
+                    getAlbumByDate(video.date),
+
+                member: member,
+
+                dataType: "member"
+
+            }));
+
+        });
+
+
+    const [
+        groupData,
+        etcData,
+        ...memberData
+    ] = await Promise.all([
+        groupPromise,
+        etcPromise,
+        ...memberPromises
+    ]);
 
 
     const groupVideos =
@@ -586,66 +607,6 @@ async function loadVideos(){
             dataType: "group"
 
         }));
-
-
-    /*
-     * getAlbumByDate()가 그룹 데이터를
-     * 찾을 수 있도록 먼저 저장
-     */
-
-    allVideos = [
-        ...groupVideos
-    ];
-
-
-    const etcPromise =
-        loadJSON(DATA_FILES.etc);
-
-
-    const memberEntries =
-        Object.entries(DATA_FILES.members);
-
-
-    const memberPromises =
-        memberEntries.map(
-            async ([member, file]) => {
-
-                const data =
-                    await loadJSON(file);
-
-
-                return data.map(video => ({
-
-                    ...video,
-
-                    /*
-                     * album이 있으면 JSON의 album 사용
-                     *
-                     * album이 없으면 날짜를 기준으로
-                     * video.json의 그룹 영상 album 자동 적용
-                     */
-
-                    album:
-                        video.album ||
-                        getAlbumByDate(video.date),
-
-                    member: member,
-
-                    dataType: "member"
-
-                }));
-
-            }
-        );
-
-
-    const [
-        etcData,
-        ...memberData
-    ] = await Promise.all([
-        etcPromise,
-        ...memberPromises
-    ]);
 
 
     const etcVideos =
@@ -804,11 +765,6 @@ function renderVideos(){
 
         /* =========================
            GROUP
-           
-           방송사 → 굵게
-           앨범 → 얇게
-           프로그램 + 타입 → 굵게
-           날짜 → 얇게
         ========================= */
 
         if(video.dataType === "group"){
@@ -873,42 +829,30 @@ function renderVideos(){
 
                     ${
                         video.content
-
                             ? `
 
-                                <!--
-                                    MEMBER + CONTENT
-
-                                    지우 → 굵게
-                                    The Chase → 얇게
-                                    스튜디오춤 → 굵게
-                                    날짜 → 얇게
-                                -->
-
-                                <div class="video-album">
+                                <div class="video-title">
                                     ${video.title || ""}
                                 </div>
 
-                                <div class="video-title">
+                                <div class="video-album">
                                     ${video.content || ""}
                                 </div>
 
                               `
-
                             : `
 
-                                <!--
-                                    MEMBER + ALBUM
+                                ${
+                                    video.album
+                                        ? `
 
-                                    지우 → 굵게
-                                    15-LOVE → 얇게
-                                    인기가요 페이스캠 → 굵게
-                                    날짜 → 얇게
-                                -->
+                                            <div class="video-album">
+                                                ${video.album}
+                                            </div>
 
-                                <div class="video-album">
-                                    ${video.album || ""}
-                                </div>
+                                          `
+                                        : ""
+                                }
 
                                 <div class="video-title">
                                     ${video.title || ""}
@@ -952,11 +896,9 @@ function renderVideos(){
                     ${
                         video.album
                             ? `
-
                                 <div class="video-album">
                                     ${video.album}
                                 </div>
-
                               `
                             : ""
                     }
