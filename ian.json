@@ -192,6 +192,32 @@
     "videoId": "iObaKETaGRc"
   },
   {
+    "date": "2025-12-31",
+    "album": "STYLE",
+    "title": "2025 MBC 가요대제전",
+    "videoId": "Dmx7QhJB8Lg"
+  },
+  {
+    "date": "2025-12-31",
+    "title": "UP",
+    "videoId": "MaPMvZSYl5Y"
+  },
+  {
+    "date": "2025-12-31",
+    "title": "UP",
+    "videoId": "3kUI9Lb7-KQ"
+  },
+  {
+    "date": "2025-12-30",
+    "title": "소원을 말해봐",
+    "videoId": "J7Y7z0GKSCE"
+  },
+  {
+    "date": "2025-12-25",
+    "title": "FOCUS X Dirty Work (Mash Up Ver.)",
+    "videoId": "XLp7Pi5cIJs"
+  },
+  {
     "date": "2025-11-16",
     "album": "FOCUS",
     "title": "인기가요 세로캠",
@@ -208,6 +234,36 @@
     "album": "FOCUS",
     "title": "인기가요 세로캠",
     "videoId": "DNI7vUv7noY"
+  },
+  {
+    "date": "2025-11-03",
+    "album": "FOCUS",
+    "title": "고려대학교 교육방송국",
+    "videoId": "0eGmfCNKbds"
+  },
+  {
+    "date": "2025-11-03",
+    "album": "Pretty Please",
+    "title": "고려대학교TV방송국",
+    "videoId": "hvIW8yNN1ak"
+  },
+  {
+    "date": "2025-11-03",
+    "album": "The Chase",
+    "title": "고려대학교 교육방송국",
+    "videoId": "bvDptsDxvAg"
+  },
+  {
+    "date": "2025-11-03",
+    "album": "The Chase",
+    "title": "고려대학교TV방송국",
+    "videoId": "27-QtYvMqFU"
+  },
+  {
+    "date": "2025-11-03",
+    "album": "Pretty Please",
+    "title": "고려대학교 교육방송국",
+    "videoId": "KyoFH-7DkYA"
   },
   {
     "date": "2025-11-02",
@@ -288,6 +344,18 @@
     "videoId": "RkqpW1-tLWg"
   },
   {
+    "date": "2025-10-22",
+    "content": "스튜디오춤",
+    "title": "FOCUS",
+    "videoId": "rYeNs0XejcU"
+  },
+  {
+    "date": "2025-10-18",
+    "album": "FOCUS",
+    "title": "놀라운 토요일",
+    "videoId": "-w76HqnkHxU"
+  },
+  {
     "date": "2025-10-04",
     "album": "Pretty Please",
     "title": "음악중심 세로캠",
@@ -319,9 +387,9 @@
   },
   {
     "date": "2025-09-28",
-    "album": "Pretty Please",
-    "title": "인기가요 페이스캠",
-    "videoId": "vqwqQ0nelCo"
+    "content": "Move to Performance",
+    "title": "Pretty Please",
+    "videoId": "WBJsRKNzF6E"
   },
   {
     "date": "2025-09-27",
@@ -346,6 +414,11 @@
     "album": "Pretty Please",
     "title": "뮤직뱅크 얼빡캠",
     "videoId": "abLrnaLP3UE"
+  },
+  {
+    "date": "2025-08-09",
+    "title": "별의 탄생 (Twinkle Twins) + STYLE",
+    "videoId": "pfoB6SoMoW4"
   },
   {
     "date": "2025-06-28",
@@ -496,5 +569,23 @@
     "album": "The Chase",
     "title": "엠카운트다운 입덕캠",
     "videoId": "GU8Z83GcrYI"
+  },
+  {
+    "date": "2025-02-26",
+    "content": "스튜디오춤",
+    "title": "The Chase",
+    "videoId": "0-VLTMGBFAM"
+  },
+  {
+    "date": "2025-06-22",
+    "content": "Move to Performance",
+    "title": "STYLE",
+    "videoId": "KRt56coY4qU"
+  },
+  {
+    "date": "2025-02-26",
+    "content": "스튜디오춤",
+    "title": "The Chase",
+    "videoId": "0-VLTMGBFAM"
   }
 ]
