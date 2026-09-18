@@ -617,6 +617,15 @@ body{
                 15-LOVE
             </button>
 
+            <button
+                type="button"
+                class="sub-category-button"
+                data-album="기타"
+                onclick="showAlbum('기타')"
+            >
+                기타
+            </button>
+
         </div>
 
 
@@ -760,6 +769,22 @@ let currentDate = "";
 
 
 /* =========================
+   HTML 이스케이프
+========================= */
+
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================
    영상 출력
 ========================= */
 
@@ -794,7 +819,7 @@ function renderVideos(videos){
 
 
         card.href =
-            `https://www.youtube.com/watch?v=${video.videoId}`;
+            `https://www.youtube.com/watch?v=${encodeURIComponent(video.videoId)}`;
 
 
         card.target =
@@ -825,8 +850,8 @@ function renderVideos(videos){
 
             <img
                 class="video-thumbnail"
-                src="https://img.youtube.com/vi/${video.videoId}/hqdefault.jpg"
-                alt="${video.title}"
+                src="https://img.youtube.com/vi/${encodeURIComponent(video.videoId)}/hqdefault.jpg"
+                alt="${escapeHtml(video.title)}"
                 loading="lazy"
             >
 
@@ -836,28 +861,28 @@ function renderVideos(videos){
                     video.broadcaster
                         ? `
                             <div class="video-broadcaster">
-                                ${video.broadcaster}
+                                ${escapeHtml(video.broadcaster)}
                             </div>
                           `
                         : ""
                 }
 
                 <div class="video-title">
-                    ${video.title}
+                    ${escapeHtml(video.title)}
                 </div>
 
                 ${
                     programInfo
                         ? `
                             <div class="video-program">
-                                ${programInfo}
+                                ${escapeHtml(programInfo)}
                             </div>
                           `
                         : ""
                 }
 
                 <div class="video-date">
-                    ${video.date}
+                    ${escapeHtml(video.date)}
                 </div>
 
             </div>
@@ -1172,28 +1197,75 @@ function searchByDate(){
 
 
 /* =========================
-   video.json 불러오기
+   musicshow.json + etc.json 불러오기
 ========================= */
 
 async function loadVideos(){
 
     try{
 
-        const response =
-            await fetch("video.json");
+        const [
+            musicshowResponse,
+            etcResponse
+        ] =
+            await Promise.all([
+
+                fetch("musicshow.json"),
+
+                fetch("etc.json")
+
+            ]);
 
 
-        if(!response.ok){
+        if(!musicshowResponse.ok){
 
             throw new Error(
-                `HTTP ${response.status}`
+                `musicshow.json HTTP ${musicshowResponse.status}`
             );
 
         }
 
 
-        allVideos =
-            await response.json();
+        if(!etcResponse.ok){
+
+            throw new Error(
+                `etc.json HTTP ${etcResponse.status}`
+            );
+
+        }
+
+
+        const [
+            musicshowVideos,
+            etcVideos
+        ] =
+            await Promise.all([
+
+                musicshowResponse.json(),
+
+                etcResponse.json()
+
+            ]);
+
+
+        allVideos = [
+            ...musicshowVideos,
+            ...etcVideos
+        ];
+
+
+        /* =========================
+           최신순 정렬
+        ========================= */
+
+        allVideos.sort((a,b) => {
+
+            return String(b.date || "")
+                .localeCompare(
+                    String(a.date || "")
+                );
+
+        });
 
 
         applyFilters();
@@ -1203,7 +1275,7 @@ async function loadVideos(){
     catch(error){
 
         console.error(
-            "video.json 불러오기 실패:",
+            "musicshow.json / etc.json 불러오기 실패:",
             error
         );
 
