@@ -24,6 +24,11 @@
     "videoId": "gM11LEOI4P4"
   },
   {
+    "date": "2026-08-09",
+    "title": "2026 SBS 가요대전: SUMMER",
+    "videoId": "Si-qbZpEVZM"
+  },
+  {
     "date": "2026-07-08",
     "album": "Lemon Tang",
     "title": "쇼챔피언 세로캠",
@@ -76,6 +81,12 @@
     "album": "Lemon Tang",
     "title": "엠카운트다운 세로캠",
     "videoId": "n2iKgOHgINk"
+  },
+  {
+    "date": "2026-06-22",
+    "album": "Lemon Tang",
+    "title": "인기가요 얼빡캠",
+    "videoId": "hnUEcZUbVS4"
   },
   {
     "date": "2026-03-14",
@@ -150,10 +161,21 @@
     "videoId": "Iw_gsutsVFE"
   },
   {
-    "date": "2026-06-22",
-    "album": "Lemon Tang",
-    "title": "인기가요 얼빡캠",
-    "videoId": "hnUEcZUbVS4"
+    "date": "2026-02-22",
+    "content": "스튜디오춤",
+    "title": "RUDE!",
+    "videoId": "hHrfox2QPF0"
+  },
+  {
+    "date": "2025-12-30",
+    "title": "소원을 말해봐",
+    "videoId": "I7I2c_Cphfw"
+  },
+  {
+    "date": "2025-12-25",
+    "album": "FOCUS",
+    "title": "FOCUS X Dirty Work (Mash Up Ver.)",
+    "videoId": "xMOwt4QAgVE"
   },
   {
     "date": "2025-11-15",
@@ -216,6 +238,12 @@
     "videoId": "BLpcz7zxUyE"
   },
   {
+    "date": "2025-10-22",
+    "content": "스튜디오춤",
+    "title": "FOCUS",
+    "videoId": "l3qFBPTAZ2U"
+  },
+  {
     "date": "2025-10-04",
     "album": "Pretty Please",
     "title": "음악중심 세로캠",
@@ -232,6 +260,11 @@
     "album": "Pretty Please",
     "title": "엠카운트다운 세로캠",
     "videoId": "5AgHca3Yypc"
+  },
+  {
+    "date": "2025-09-28",
+    "title": "Pretty Please",
+    "videoId": "9cHjdvwwxZc"
   },
   {
     "date": "2025-09-28",
@@ -268,6 +301,11 @@
     "album": "Pretty Please",
     "title": "뮤직뱅크 세로캠",
     "videoId": "3jHu97CQnUY"
+  },
+  {
+    "date": "2025-08-09",
+    "title": "STYLE",
+    "videoId": "inSTBrs2LPY"
   },
   {
     "date": "2025-06-28",
@@ -400,5 +438,11 @@
     "album": "The Chase",
     "title": "엠카운트다운 세로캠",
     "videoId": "S-SRrfK6rms"
+  },
+  {
+    "date": "2025-02-26",
+    "content": "스튜디오춤",
+    "title": "The Chase",
+    "videoId": "ljjBxYR1PJY"
   }
 ]
