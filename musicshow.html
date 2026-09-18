@@ -399,6 +399,27 @@ body{
 
 
 /* =========================
+   앨범
+========================= */
+
+.video-album{
+    margin-bottom:4px;
+
+    color:#777;
+
+    font-size:.68rem;
+
+    line-height:1.3;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+}
+
+
+/* =========================
    제목
 ========================= */
 
@@ -492,6 +513,10 @@ body{
 
     .video-broadcaster{
         font-size:.62rem;
+    }
+
+    .video-album{
+        font-size:.64rem;
     }
 
     .video-title{
@@ -756,7 +781,7 @@ body{
 
     <!-- =========================
          날짜 검색
-    ========================= -->
+========================= -->
 
     <div class="search-area">
 
@@ -797,18 +822,6 @@ body{
 /* =========================================================
    JSON 설정
 ========================================================= */
-
-
-/*
-    video.json
-    → 그룹 직캠
-
-    멤버 JSON
-    → 각 멤버 직캠
-
-    etc.json
-    → 기타
-*/
 
 const DATA_FILES = {
 
@@ -868,6 +881,51 @@ let currentAlbum = "all";
 let currentMember = "all";
 
 let currentDate = "";
+
+
+/* =========================================================
+   멤버 영상 앨범 자동 연결
+========================================================= */
+
+/*
+    멤버 JSON에는 album을 넣지 않음.
+
+    같은 날짜의 그룹 직캠을 video.json에서 찾아
+    해당 날짜의 album을 자동으로 가져옴.
+
+    예:
+
+    지우.json
+    2026-08-30
+    ↓
+    video.json에서 2026-08-30 검색
+    ↓
+    15-LOVE
+*/
+
+
+function getAlbumByDate(date){
+
+    if(!date){
+
+        return "";
+
+    }
+
+
+    const matchedVideo =
+        groupVideos.find(
+            video =>
+                video.date === date &&
+                video.album
+        );
+
+
+    return matchedVideo
+        ? matchedVideo.album
+        : "";
+
+}
 
 
 /* =========================================================
@@ -931,12 +989,6 @@ function renderVideos(videos){
 
         /* =========================
            첫 번째 정보
-           
-           멤버 직캠
-           → 멤버명
-
-           그룹 / 기타
-           → 방송사
         ========================= */
 
         const topInfo =
@@ -946,9 +998,29 @@ function renderVideos(videos){
 
 
         /* =========================
+           앨범
+           
+           멤버:
+           → 같은 날짜의 그룹
+              앨범 정보 사용
+
+           그룹:
+           → 기존 video.album 사용
+        ========================= */
+
+        const albumInfo =
+            video.album ||
+            getAlbumByDate(video.date);
+
+
+        /* =========================
            프로그램 + 영상 종류
            
-           멤버 직캠에서는 숨김
+           멤버:
+           → 제목에 이미 포함되어 있으므로 숨김
+
+           그룹 / 기타:
+           → 기존 방식 유지
         ========================= */
 
         const programInfo = [
@@ -992,6 +1064,19 @@ function renderVideos(videos){
 
                             <div class="video-broadcaster">
                                 ${topInfo}
+                            </div>
+
+                          `
+                        : ""
+                }
+
+
+                ${
+                    albumInfo
+                        ? `
+
+                            <div class="video-album">
+                                ${albumInfo}
                             </div>
 
                           `
@@ -1566,15 +1651,7 @@ async function loadVideos(){
         groupVideos =
             groupData.map(video => ({
 
-                ...video,
-
-                /*
-
-                    video.json은
-                    그룹 직캠이므로
-                    member를 강제로 넣지 않음.
-
-                */
+                ...video
 
             }));
 
@@ -1596,11 +1673,17 @@ async function loadVideos(){
                         ...video,
 
                         /*
-                            멤버 JSON에서
-                            member 값이 없더라도
-                            파일 이름 기준으로
-                            자동 지정
+                            멤버 JSON에는
+                            album을 넣지 않음.
+
+                            같은 날짜의 그룹 직캠에서
+                            album을 자동으로 가져옴.
                         */
+
+                        album:
+                            getAlbumByDate(
+                                video.date
+                            ),
 
                         member:
                             member
