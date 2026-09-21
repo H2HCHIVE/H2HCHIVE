@@ -119,8 +119,9 @@ body{
         type="button"
         class="guide-toggle"
         onclick="toggleGuide()"
+        id="guide-toggle"
     >
-        응원법 가이드
+        ▼ 응원법 가이드
     </button>
 
     <div class="guide-content" id="guide-content">
@@ -139,8 +140,15 @@ body{
 function toggleGuide(){
 
     const content = document.getElementById("guide-content");
+    const button = document.getElementById("guide-toggle");
 
     content.classList.toggle("open");
+
+    if(content.classList.contains("open")){
+        button.textContent = "▲ 응원법 가이드";
+    }else{
+        button.textContent = "▼ 응원법 가이드";
+    }
 }
 </script>
 
