@@ -203,7 +203,7 @@ body{
 ========================================= */
 
 .search-area{
-    margin-bottom:16px;
+    margin-bottom:8px;
 }
 
 #dateSearch{
@@ -229,6 +229,52 @@ body{
 
 #dateSearch::placeholder{
     color:#aaa;
+}
+
+
+/* =========================================
+   SORT
+========================================= */
+
+.sort-area{
+    display:flex;
+
+    justify-content:flex-end;
+    align-items:center;
+
+    margin-bottom:16px;
+
+    white-space:nowrap;
+}
+
+.sort-button{
+    padding:0;
+
+    border:0;
+
+    background:transparent;
+
+    color:#aaa;
+
+    font-family:inherit;
+
+    font-size:.75rem;
+
+    cursor:pointer;
+}
+
+.sort-button.active{
+    color:#4aa8d5;
+
+    font-weight:600;
+}
+
+.sort-divider{
+    margin:0 6px;
+
+    color:#ddd;
+
+    font-size:.75rem;
 }
 
 
@@ -705,6 +751,35 @@ body{
 
 
 <!-- =====================================
+     SORT
+====================================== -->
+
+<div class="sort-area">
+
+    <button
+        type="button"
+        class="sort-button active"
+        data-sort="newest"
+        onclick="changeSort('newest')"
+    >
+        최신순
+    </button>
+
+    <span class="sort-divider">|</span>
+
+    <button
+        type="button"
+        class="sort-button"
+        data-sort="oldest"
+        onclick="changeSort('oldest')"
+    >
+        오래된순
+    </button>
+
+</div>
+
+
+<!-- =====================================
      VIDEO GRID
 ====================================== -->
 
@@ -779,6 +854,8 @@ let currentAlbum = "all";
 let currentMember = "all";
 
 let currentDate = "";
+
+let currentSort = "newest";
 
 
 /* =====================================================
@@ -1061,6 +1138,46 @@ function filterByDate(videos){
 
 
 /* =====================================================
+   날짜 정렬
+===================================================== */
+
+function sortByDate(videos){
+
+    return videos.sort((a,b) => {
+
+        const dateA =
+            String(a.date || "");
+
+        const dateB =
+            String(b.date || "");
+
+
+        if(dateA === dateB){
+
+            return 0;
+
+        }
+
+
+        if(currentSort === "oldest"){
+
+            return dateA.localeCompare(
+                dateB
+            );
+
+        }
+
+
+        return dateB.localeCompare(
+            dateA
+        );
+
+    });
+
+}
+
+
+/* =====================================================
    필터 적용
 ===================================================== */
 
@@ -1159,6 +1276,14 @@ function applyFilters(){
 
     filtered =
         filterByDate(filtered);
+
+
+    /* -----------------------------------------
+       DATE SORT
+    ----------------------------------------- */
+
+    filtered =
+        sortByDate(filtered);
 
 
     renderVideos(filtered);
@@ -1390,6 +1515,39 @@ function searchByDate(){
             .value
             .trim()
             .replace(/-/g,"");
+
+
+    applyFilters();
+
+}
+
+
+/* =====================================================
+   SORT
+===================================================== */
+
+function changeSort(sort){
+
+    currentSort =
+        sort;
+
+
+    document
+        .querySelectorAll(
+            ".sort-button"
+        )
+        .forEach(button => {
+
+            button.classList.toggle(
+
+                "active",
+
+                button.dataset.sort ===
+                    currentSort
+
+            );
+
+        });
 
 
     applyFilters();
