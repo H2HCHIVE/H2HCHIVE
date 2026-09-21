@@ -25,22 +25,23 @@ body{
 .tabs{
     display:flex;
     gap:6px;
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
 
 .tab{
     flex:1;
     text-align:center;
-    padding:8px 0;
+    padding:9px 0;
     background:white;
     border-radius:10px;
     font-size:0.85rem;
     cursor:pointer;
     box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    transition:.2s;
 }
 
 .tab.active{
-    background:#222;
+    background:#89CFF0;
     color:white;
 }
 
@@ -66,13 +67,37 @@ body{
 
 /* 필터 */
 .filters{
-    display:flex;
-    gap:6px;
-    flex-wrap:wrap;
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
-.filters button{
+.filter-group{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-bottom:7px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.filter-group::-webkit-scrollbar{
+    display:none;
+}
+
+.filter-label{
+    flex-shrink:0;
+    font-size:0.72rem;
+    font-weight:600;
+    color:#999;
+    width:34px;
+}
+
+.filter-buttons{
+    display:flex;
+    gap:6px;
+    flex-shrink:0;
+}
+
+.filter-buttons button{
     border:none;
     background:white;
     padding:6px 10px;
@@ -80,9 +105,10 @@ body{
     font-size:0.8rem;
     cursor:pointer;
     box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    flex-shrink:0;
 }
 
-.filters button.active{
+.filter-buttons button.active{
     background:#222;
     color:white;
 }
@@ -196,24 +222,42 @@ body{
             <button class="btn" onclick="next()">→</button>
         </div>
 
+        <!-- 필터 -->
         <div class="filters">
-            <button onclick="setFilter('all', this)" class="active">전체</button>
-            <button onclick="setFilter('📺', this)">📺</button>
-            <button onclick="setFilter('📻', this)">📻</button>
-            <button onclick="setFilter('✒️', this)">✒️</button>
-            <button onclick="setFilter('🎤', this)">🎤</button>
-            <button onclick="setFilter('💿', this)">💿</button>
-            <button onclick="setFilter('▶️', this)">▶️</button>
-            <button onclick="setFilter('🗓', this)">🗓</button>
 
-            <button onclick="setFilter('🍓', this)">🍓</button>
-            <button onclick="setFilter('🌴', this)">🌴</button>
-            <button onclick="setFilter('🎀', this)">🎀</button>
-            <button onclick="setFilter('🧁', this)">🧁</button>
-            <button onclick="setFilter('👾', this)">👾</button>
-            <button onclick="setFilter('🌻', this)">🌻</button>
-            <button onclick="setFilter('🫛', this)">🫛</button>
-            <button onclick="setFilter('😊', this)">😊</button>
+            <!-- 일정 종류 -->
+            <div class="filter-group">
+                <div class="filter-label">종류</div>
+
+                <div class="filter-buttons">
+                    <button onclick="setTypeFilter('all', this)" class="active">전체</button>
+                    <button onclick="setTypeFilter('📺', this)">📺</button>
+                    <button onclick="setTypeFilter('📻', this)">📻</button>
+                    <button onclick="setTypeFilter('✒️', this)">✒️</button>
+                    <button onclick="setTypeFilter('🎤', this)">🎤</button>
+                    <button onclick="setTypeFilter('💿', this)">💿</button>
+                    <button onclick="setTypeFilter('▶️', this)">▶️</button>
+                    <button onclick="setTypeFilter('🗓', this)">🗓</button>
+                </div>
+            </div>
+
+            <!-- 멤버 -->
+            <div class="filter-group">
+                <div class="filter-label">멤버</div>
+
+                <div class="filter-buttons">
+                    <button onclick="setMemberFilter('all', this)" class="active">전체</button>
+                    <button onclick="setMemberFilter('🍓', this)">🍓</button>
+                    <button onclick="setMemberFilter('🌴', this)">🌴</button>
+                    <button onclick="setMemberFilter('🎀', this)">🎀</button>
+                    <button onclick="setMemberFilter('🧁', this)">🧁</button>
+                    <button onclick="setMemberFilter('👾', this)">👾</button>
+                    <button onclick="setMemberFilter('🌻', this)">🌻</button>
+                    <button onclick="setMemberFilter('🫛', this)">🫛</button>
+                    <button onclick="setMemberFilter('😊', this)">😊</button>
+                </div>
+            </div>
+
         </div>
 
         <div class="weekdays">
@@ -253,13 +297,18 @@ let data = {};
 
 /*
    이미 불러온 연도 데이터를 저장
-   예:
-   loadedYears[2026] = {...}
-   loadedYears[2027] = {...}
 */
 let loadedYears = {};
 
-let filter = 'all';
+/*
+   일정 종류 필터
+*/
+let typeFilter = 'all';
+
+/*
+   멤버 필터
+*/
+let memberFilter = 'all';
 
 
 /* ==========================================
@@ -268,23 +317,12 @@ let filter = 'all';
 
 function loadYear(year){
 
-    /*
-       이미 해당 연도를 불러왔다면
-       다시 다운로드하지 않음
-    */
     if(loadedYears[year]){
         data = loadedYears[year];
         render();
         return;
     }
 
-    /*
-       연도별 파일명
-       schedule-2026.json
-       schedule-2027.json
-       schedule-2028.json
-       ...
-    */
     fetch(`./schedule-${year}.json`)
         .then(res => {
 
@@ -296,14 +334,7 @@ function loadYear(year){
         })
         .then(json => {
 
-            /*
-               불러온 데이터를 해당 연도에 저장
-            */
             loadedYears[year] = json;
-
-            /*
-               현재 화면 데이터로 설정
-            */
             data = json;
 
             render();
@@ -312,10 +343,6 @@ function loadYear(year){
 
             console.error(err);
 
-            /*
-               해당 연도 파일이 아직 없더라도
-               캘린더 자체는 정상적으로 표시
-            */
             loadedYears[year] = {};
             data = {};
 
@@ -356,19 +383,65 @@ function setTab(t, el){
 
 
 /* ==========================================
-   필터
+   일정 종류 필터
 ========================================== */
 
-function setFilter(f, btn){
+function setTypeFilter(f, btn){
 
-    filter = f;
+    typeFilter = f;
 
-    document.querySelectorAll('.filters button')
+    document.querySelectorAll('.filter-group:nth-child(1) button')
         .forEach(b => b.classList.remove('active'));
 
     btn.classList.add('active');
 
     render();
+}
+
+
+/* ==========================================
+   멤버 필터
+========================================== */
+
+function setMemberFilter(f, btn){
+
+    memberFilter = f;
+
+    document.querySelectorAll('.filter-group:nth-child(2) button')
+        .forEach(b => b.classList.remove('active'));
+
+    btn.classList.add('active');
+
+    render();
+}
+
+
+/* ==========================================
+   필터 매칭
+========================================== */
+
+function matchesFilter(text){
+
+    const typeMatch =
+        typeFilter === 'all' ||
+        text.includes(typeFilter);
+
+    const memberMatch =
+        memberFilter === 'all' ||
+        text.includes(memberFilter);
+
+    return typeMatch && memberMatch;
+}
+
+
+/* ==========================================
+   현재 필터가 적용되어 있는지
+========================================== */
+
+function hasActiveFilter(){
+
+    return typeFilter !== 'all' ||
+           memberFilter !== 'all';
 }
 
 
@@ -423,13 +496,12 @@ function render(){
 
         const isToday = key === todayKey;
 
-        const match =
-            filter === 'all' || text.includes(filter);
+        const match = matchesFilter();
 
 
         cal.innerHTML += `
             <div
-                class="day ${isToday ? 'today' : ''} ${filter !== 'all' && !match ? 'dim' : ''}"
+                class="day ${isToday ? 'today' : ''} ${hasActiveFilter() && !match ? 'dim' : ''}"
                 onclick="show('${key}')"
             >
                 ${d}
@@ -478,11 +550,23 @@ function show(key){
 
     const html = lines.map(line => {
 
-        if(filter === 'all'){
+        const typeMatch =
+            typeFilter === 'all' ||
+            line.includes(typeFilter);
+
+        const memberMatch =
+            memberFilter === 'all' ||
+            line.includes(memberFilter);
+
+        const match =
+            typeMatch && memberMatch;
+
+
+        if(!hasActiveFilter()){
             return `<div class="line">${line}</div>`;
         }
 
-        if(line.includes(filter)){
+        if(match){
             return `<div class="line highlight">${line}</div>`;
         }
 
@@ -605,10 +689,6 @@ function prev(){
     const year =
         date.getFullYear();
 
-    /*
-       연도가 바뀐 경우에만
-       새로운 JSON을 불러옴
-    */
 
     if(!loadedYears[year]){
 
@@ -634,10 +714,6 @@ function next(){
     const year =
         date.getFullYear();
 
-    /*
-       연도가 바뀐 경우에만
-       새로운 JSON을 불러옴
-    */
 
     if(!loadedYears[year]){
 
