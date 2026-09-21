@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -175,6 +174,8 @@ body{
 .control-area{
     display:flex;
 
+    flex-direction:column;
+
     gap:8px;
 
     margin-bottom:16px;
@@ -183,7 +184,7 @@ body{
 .search-area{
     display:flex;
 
-    flex:1;
+    width:100%;
 
     gap:8px;
 
@@ -225,23 +226,42 @@ body{
 ========================= */
 
 .sort-select{
-    flex-shrink:0;
+    display:flex;
 
-    padding:10px 10px;
+    justify-content:flex-end;
+    align-items:center;
 
-    border:1px solid #ddd;
-    border-radius:9px;
+    white-space:nowrap;
+}
 
-    background:#fff;
+.sort-button{
+    padding:0;
 
-    color:#555;
+    border:0;
+
+    background:transparent;
+
+    color:#aaa;
 
     font-family:inherit;
+
     font-size:.75rem;
 
-    outline:none;
-
     cursor:pointer;
+}
+
+.sort-button.active{
+    color:#4aa8d5;
+
+    font-weight:600;
+}
+
+.sort-divider{
+    margin:0 6px;
+
+    color:#ddd;
+
+    font-size:.75rem;
 }
 
 
@@ -412,10 +432,6 @@ body{
         width:100%;
     }
 
-    .sort-select{
-        width:100%;
-    }
-
 }
 
 
@@ -522,20 +538,27 @@ body{
             </div>
 
 
-            <select
-                id="sortSelect"
-                class="sort-select"
-            >
+            <div class="sort-select">
 
-                <option value="newest">
+                <button
+                    type="button"
+                    class="sort-button active"
+                    data-sort="newest"
+                >
                     최신순
-                </option>
+                </button>
 
-                <option value="oldest">
+                <span class="sort-divider">|</span>
+
+                <button
+                    type="button"
+                    class="sort-button"
+                    data-sort="oldest"
+                >
                     오래된순
-                </option>
+                </button>
 
-            </select>
+            </div>
 
         </div>
 
@@ -596,9 +619,6 @@ const titleSearch =
 
 const dateSearch =
     document.getElementById("dateSearch");
-
-const sortSelect =
-    document.getElementById("sortSelect");
 
 
 /* =========================
@@ -961,6 +981,8 @@ function renderRadios(){
 
     /*
        정렬
+
+       기본값: 최신순
     */
 
     filteredRadios.sort(
@@ -986,18 +1008,18 @@ function renderRadios(){
 
             if(
                 currentSort ===
-                "newest"
+                "oldest"
             ){
 
-                return dateB.localeCompare(
-                    dateA
+                return dateA.localeCompare(
+                    dateB
                 );
 
             }
 
 
-            return dateA.localeCompare(
-                dateB
+            return dateB.localeCompare(
+                dateA
             );
 
         }
@@ -1167,17 +1189,42 @@ dateSearch.addEventListener(
    정렬
 ========================= */
 
-sortSelect.addEventListener(
-    "change",
-    () => {
+document
+    .querySelectorAll(".sort-button")
+    .forEach(button => {
 
-        currentSort =
-            sortSelect.value;
+        button.addEventListener(
+            "click",
+            () => {
 
-        renderRadios();
+                document
+                    .querySelectorAll(
+                        ".sort-button"
+                    )
+                    .forEach(item => {
 
-    }
-);
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                currentSort =
+                    button.dataset.sort;
+
+
+                renderRadios();
+
+            }
+        );
+
+    });
 
 
 /* =========================
