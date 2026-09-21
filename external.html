@@ -83,13 +83,14 @@ body{
 
 .control-area{
     display:flex;
+    flex-direction:column;
     gap:8px;
     margin-bottom:16px;
 }
 
 .search-area{
     display:flex;
-    flex:1;
+    width:100%;
     gap:8px;
     min-width:0;
 }
@@ -112,17 +113,38 @@ body{
     border-color:#89CFF0;
 }
 
+
+/* =========================
+   SORT BUTTON
+========================= */
+
 .sort-select{
-    flex-shrink:0;
-    padding:10px 10px;
-    border:1px solid #ddd;
-    border-radius:9px;
-    background:#fff;
-    color:#555;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:0;
+    white-space:nowrap;
+}
+
+.sort-button{
+    padding:0;
+    border:0;
+    background:transparent;
+    color:#aaa;
     font-family:inherit;
     font-size:.75rem;
-    outline:none;
     cursor:pointer;
+}
+
+.sort-button.active{
+    color:#4aa8d5;
+    font-weight:600;
+}
+
+.sort-divider{
+    margin:0 6px;
+    color:#ddd;
+    font-size:.75rem;
 }
 
 /* =========================
@@ -235,15 +257,13 @@ body{
 
     .control-area{
         flex-direction:column;
+        align-items:stretch;
     }
 
     .search-area{
         width:100%;
     }
 
-    .sort-select{
-        width:100%;
-    }
 }
 
 @media(max-width:360px){
@@ -392,20 +412,28 @@ body{
 
         </div>
 
-        <select
-            id="sortSelect"
-            class="sort-select"
-        >
 
-            <option value="newest">
+        <div class="sort-select">
+
+            <button
+                type="button"
+                class="sort-button active"
+                data-sort="newest"
+            >
                 최신순
-            </option>
+            </button>
 
-            <option value="oldest">
+            <span class="sort-divider">|</span>
+
+            <button
+                type="button"
+                class="sort-button"
+                data-sort="oldest"
+            >
                 오래된순
-            </option>
+            </button>
 
-        </select>
+        </div>
 
     </div>
 
@@ -432,6 +460,8 @@ const JSON_URL = "external.json";
 let contents = [];
 
 let currentCategory = "전체";
+
+let currentSort = "newest";
 
 
 /* =========================
@@ -493,12 +523,6 @@ function getFilteredContents(){
             .toLowerCase();
 
 
-    const sortType =
-        document
-            .getElementById("sortSelect")
-            .value;
-
-
     let result =
         contents.filter(item => {
 
@@ -551,7 +575,12 @@ function getFilteredContents(){
             String(b.date || "");
 
 
-        if(sortType === "oldest"){
+        if(dateA === dateB){
+            return 0;
+        }
+
+
+        if(currentSort === "oldest"){
 
             return dateA.localeCompare(
                 dateB
@@ -779,12 +808,46 @@ document
     );
 
 
+/* =========================
+   SORT EVENTS
+========================= */
+
 document
-    .getElementById("sortSelect")
-    .addEventListener(
-        "change",
-        renderContents
-    );
+    .querySelectorAll(".sort-button")
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        ".sort-button"
+                    )
+                    .forEach(item => {
+
+                        item.classList.remove(
+                            "active"
+                        );
+
+                    });
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                currentSort =
+                    button.dataset.sort;
+
+
+                renderContents();
+
+            }
+        );
+
+    });
 
 
 /* =========================
