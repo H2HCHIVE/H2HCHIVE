@@ -65,6 +65,72 @@ body{
     cursor:pointer;
 }
 
+/* 월 이동 슬라이드 */
+#calendarView{
+    touch-action:pan-y;
+    overflow:hidden;
+}
+
+#calendarView.slide-left{
+    animation:slideLeft .25s ease forwards;
+}
+
+#calendarView.slide-right{
+    animation:slideRight .25s ease forwards;
+}
+
+#calendarView.slide-in-left{
+    animation:slideInLeft .25s ease forwards;
+}
+
+#calendarView.slide-in-right{
+    animation:slideInRight .25s ease forwards;
+}
+
+@keyframes slideLeft{
+    from{
+        opacity:1;
+        transform:translateX(0);
+    }
+    to{
+        opacity:0;
+        transform:translateX(-35px);
+    }
+}
+
+@keyframes slideRight{
+    from{
+        opacity:1;
+        transform:translateX(0);
+    }
+    to{
+        opacity:0;
+        transform:translateX(35px);
+    }
+}
+
+@keyframes slideInLeft{
+    from{
+        opacity:0;
+        transform:translateX(35px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes slideInRight{
+    from{
+        opacity:0;
+        transform:translateX(-35px);
+    }
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
 /* 필터 */
 .filters{
     margin-bottom:12px;
@@ -687,27 +753,109 @@ function renderHighlight(){
 
 
 /* ==========================================
+   월 이동 애니메이션
+========================================== */
+
+let monthAnimating = false;
+
+function changeMonth(direction){
+
+    if(monthAnimating){
+        return;
+    }
+
+    monthAnimating = true;
+
+    const calendarView =
+        document.getElementById('calendarView');
+
+
+    calendarView.classList.remove(
+        'slide-left',
+        'slide-right',
+        'slide-in-left',
+        'slide-in-right'
+    );
+
+
+    /*
+       다음 달:
+       현재 화면이 왼쪽으로 빠짐
+
+       이전 달:
+       현재 화면이 오른쪽으로 빠짐
+    */
+
+    if(direction > 0){
+        calendarView.classList.add('slide-left');
+    }else{
+        calendarView.classList.add('slide-right');
+    }
+
+
+    setTimeout(function(){
+
+        date.setMonth(date.getMonth() + direction);
+
+        const year =
+            date.getFullYear();
+
+
+        if(!loadedYears[year]){
+
+            loadYear(year);
+
+        }else{
+
+            data = loadedYears[year];
+
+            render();
+        }
+
+
+        calendarView.classList.remove(
+            'slide-left',
+            'slide-right'
+        );
+
+
+        /*
+           다음 달:
+           오른쪽에서 들어옴
+
+           이전 달:
+           왼쪽에서 들어옴
+        */
+
+        if(direction > 0){
+            calendarView.classList.add('slide-in-left');
+        }else{
+            calendarView.classList.add('slide-in-right');
+        }
+
+
+        setTimeout(function(){
+
+            calendarView.classList.remove(
+                'slide-in-left',
+                'slide-in-right'
+            );
+
+            monthAnimating = false;
+
+        },250);
+
+    },250);
+}
+
+
+/* ==========================================
    이전 달
 ========================================== */
 
 function prev(){
 
-    date.setMonth(date.getMonth() - 1);
-
-    const year =
-        date.getFullYear();
-
-
-    if(!loadedYears[year]){
-
-        loadYear(year);
-
-    }else{
-
-        data = loadedYears[year];
-
-        render();
-    }
+    changeMonth(-1);
 }
 
 
@@ -717,23 +865,109 @@ function prev(){
 
 function next(){
 
-    date.setMonth(date.getMonth() + 1);
-
-    const year =
-        date.getFullYear();
-
-
-    if(!loadedYears[year]){
-
-        loadYear(year);
-
-    }else{
-
-        data = loadedYears[year];
-
-        render();
-    }
+    changeMonth(1);
 }
+
+
+/* ==========================================
+   캘린더 스와이프
+========================================== */
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+const calendarView =
+    document.getElementById('calendarView');
+
+
+calendarView.addEventListener(
+    'touchstart',
+    function(e){
+
+        /*
+           필터의 가로 스크롤을
+           월 이동으로 인식하지 않도록 처리
+        */
+
+        if(e.target.closest('.filter-group')){
+            touchStartX = 0;
+            touchStartY = 0;
+            return;
+        }
+
+        touchStartX =
+            e.touches[0].clientX;
+
+        touchStartY =
+            e.touches[0].clientY;
+
+    },
+    { passive:true }
+);
+
+
+calendarView.addEventListener(
+    'touchend',
+    function(e){
+
+        if(touchStartX === 0){
+            return;
+        }
+
+        const touchEndX =
+            e.changedTouches[0].clientX;
+
+        const touchEndY =
+            e.changedTouches[0].clientY;
+
+
+        const distanceX =
+            touchEndX - touchStartX;
+
+        const distanceY =
+            touchEndY - touchStartY;
+
+
+        /*
+           세로 스크롤보다
+           가로 이동이 클 때만 작동
+        */
+
+        if(
+            Math.abs(distanceX) >
+            Math.abs(distanceY)
+        ){
+
+            /*
+               왼쪽 스와이프
+               → 다음 달
+            */
+
+            if(distanceX < -50){
+
+                next();
+
+            }
+
+            /*
+               오른쪽 스와이프
+               → 이전 달
+            */
+
+            else if(distanceX > 50){
+
+                prev();
+
+            }
+        }
+
+
+        touchStartX = 0;
+        touchStartY = 0;
+
+    },
+    { passive:true }
+);
 
 </script>
 
