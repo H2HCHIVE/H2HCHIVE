@@ -29,12 +29,43 @@ display:flex;
 align-items:center;
 justify-content:space-between;
 gap:10px;
+overflow:hidden;
 }
 
 #dday-box{
 flex:1;
 text-align:center;
 padding:6px 0;
+}
+
+#dday-box.slide-out{
+animation:ddaySlideOut .4s ease forwards;
+}
+
+#dday-box.slide-in{
+animation:ddaySlideIn .4s ease forwards;
+}
+
+@keyframes ddaySlideOut{
+from{
+opacity:1;
+transform:translateX(0);
+}
+to{
+opacity:0;
+transform:translateX(-30px);
+}
+}
+
+@keyframes ddaySlideIn{
+from{
+opacity:0;
+transform:translateX(30px);
+}
+to{
+opacity:1;
+transform:translateX(0);
+}
 }
 
 #dday-text{
@@ -47,19 +78,6 @@ font-size:1.6rem;
 font-weight:900;
 }
 
-.dday-btn{
-background:none;
-border:none;
-font-size:22px;
-font-weight:900;
-cursor:pointer;
-padding:6px 10px;
-color:#222;
-}
-
-.dday-btn:active{
-opacity:0.5;
-}
 
 /* grid */
 .grid{
@@ -320,16 +338,12 @@ display:block;
 
 <div id="dday-container">
 
-<button class="dday-btn" onclick="moveDday(-1)">‹</button>
-
 <div id="dday-box">
 
 <div id="dday-text"></div>
 <div id="dday-label"></div>
 
 </div>
-
-<button class="dday-btn" onclick="moveDday(1)">›</button>
 
 </div>
 
@@ -594,14 +608,15 @@ mission.innerHTML = currentMission.length
 
 const ddayList = [
 { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00", type:"dday" },
-{ name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
 { name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" },
+{ name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
 { name:"🎉 데뷔", 
 date:"2025-02-24T00:00:00+09:00", type:"debut" },
 ];
 
 let ddayIndex = 0;
 
+const ddayBox = document.getElementById("dday-box");
 const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
 
@@ -645,21 +660,40 @@ if (diff > 0) {
 
 }
 
-function moveDday(dir){
 
-ddayIndex += dir;
+/* ===== DDAY AUTO SLIDE ===== */
 
-if(ddayIndex < 0)
-ddayIndex = ddayList.length - 1;
+function moveDday(){
 
-if(ddayIndex >= ddayList.length)
-ddayIndex = 0;
+    ddayBox.classList.remove("slide-in");
+    ddayBox.classList.add("slide-out");
 
-updateDday();
+    setTimeout(function(){
+
+        ddayIndex++;
+
+        if(ddayIndex >= ddayList.length){
+            ddayIndex = 0;
+        }
+
+        updateDday();
+
+        ddayBox.classList.remove("slide-out");
+        ddayBox.classList.add("slide-in");
+
+        setTimeout(function(){
+            ddayBox.classList.remove("slide-in");
+        },400);
+
+    },400);
 
 }
 
 updateDday();
+
+setInterval(function(){
+    moveDday();
+},5000);
 
 
 /* ===== MOONRIDE COUNTER ===== */
