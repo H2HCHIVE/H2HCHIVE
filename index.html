@@ -109,6 +109,27 @@ font-size:1.6rem;
 font-weight:900;
 }
 
+/* ===== DDAY INDICATOR ===== */
+#dday-indicator{
+display:flex;
+justify-content:center;
+align-items:center;
+gap:5px;
+margin-top:3px;
+}
+
+.dday-dot{
+font-size:8px;
+line-height:1;
+color:#d5d5d5;
+transition:color .25s ease, transform .25s ease;
+}
+
+.dday-dot.active{
+color:#89CFF0;
+transform:scale(1.15);
+}
+
 
 /* grid */
 .grid{
@@ -378,6 +399,8 @@ display:block;
 
 </div>
 
+<div id="dday-indicator"></div>
+
 <div class="swiper mvSwiper">
 
   <div class="swiper-wrapper">
@@ -639,8 +662,8 @@ mission.innerHTML = currentMission.length
 
 const ddayList = [
 { name:"🫛 이안 생일", date:"2026-10-09T00:00:00+09:00", type:"dday" },
-{ name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" },
 { name:"👾 주은 생일", date:"2026-12-03T00:00:00+09:00", type:"dday" },
+{ name:"🌻 에이나 생일", date:"2026-12-20T00:00:00+09:00", type:"dday" },
 { name:"🎉 데뷔", date:"2025-02-24T00:00:00+09:00", type:"debut" },
 ];
 
@@ -649,6 +672,40 @@ let ddayIndex = 0;
 const ddayBox = document.getElementById("dday-box");
 const ddayText = document.getElementById("dday-text");
 const ddayLabel = document.getElementById("dday-label");
+const ddayIndicator = document.getElementById("dday-indicator");
+
+
+/* ===== DDAY INDICATOR ===== */
+
+ddayIndicator.innerHTML =
+    ddayList.map((item, index) => {
+
+        return `
+            <span
+                class="dday-dot ${index === 0 ? "active" : ""}"
+                data-index="${index}"
+            >●</span>
+        `;
+
+    }).join("");
+
+
+function updateDdayIndicator(){
+
+    const dots =
+        ddayIndicator.querySelectorAll(".dday-dot");
+
+    dots.forEach((dot, index) => {
+
+        dot.classList.toggle(
+            "active",
+            index === ddayIndex
+        );
+
+    });
+
+}
+
 
 function updateDday(){
 
@@ -684,6 +741,8 @@ Math.floor(
 ddayLabel.textContent =
 `D+${diffDays}`;
 
+updateDdayIndicator();
+
 return;
 
 }
@@ -700,6 +759,8 @@ ddayLabel.textContent =
 
 }
 
+updateDdayIndicator();
+
 }
 
 
@@ -708,6 +769,20 @@ ddayLabel.textContent =
    ========================================================= */
 
 let ddayAnimating = false;
+let ddayTimer;
+
+function resetDdayTimer(){
+
+    clearTimeout(ddayTimer);
+
+    ddayTimer = setTimeout(function(){
+
+        moveDday(1);
+
+    },10000);
+
+}
+
 
 function moveDday(dir = 1){
 
@@ -724,12 +799,13 @@ function moveDday(dir = 1){
 
 
     /*
-       다음으로 이동:
-       현재 화면 → 왼쪽으로 사라짐
-
-       이전으로 이동:
-       현재 화면 → 오른쪽으로 사라짐
+       자동/스와이프 후
+       다음 자동 전환까지 10초
+       다시 카운트
     */
+
+    clearTimeout(ddayTimer);
+
 
     ddayBox.classList.remove(
         "slide-in-left",
@@ -792,8 +868,7 @@ function moveDday(dir = 1){
 
 
         /*
-           새로운 항목은
-           이동한 방향의 반대편에서 등장
+           새로운 항목 등장
         */
 
         if(dir > 0){
@@ -820,6 +895,13 @@ function moveDday(dir = 1){
 
             ddayAnimating = false;
 
+            /*
+               전환이 끝난 시점부터
+               다시 10초 카운트
+            */
+
+            resetDdayTimer();
+
         },400);
 
     },400);
@@ -827,18 +909,11 @@ function moveDday(dir = 1){
 }
 
 
+/* ===== 초기 표시 ===== */
+
 updateDday();
 
-
-/* =========================================================
-   5초마다 자동 슬라이드
-   ========================================================= */
-
-setInterval(function(){
-
-    moveDday(1);
-
-},5000);
+resetDdayTimer();
 
 
 /* =========================================================
