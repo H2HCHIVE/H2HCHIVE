@@ -226,23 +226,46 @@ body{
 ========================= */
 
 .sort-select{
+    display:flex;
+
     flex-shrink:0;
 
-    padding:10px 10px;
+    align-items:center;
 
-    border:1px solid #ddd;
-    border-radius:9px;
+    gap:0;
 
-    background:#fff;
+    margin-left:auto;
 
-    color:#555;
+    white-space:nowrap;
+}
+
+.sort-button{
+    padding:0;
+
+    border:0;
+
+    background:transparent;
+
+    color:#aaa;
 
     font-family:inherit;
     font-size:.75rem;
 
-    outline:none;
-
     cursor:pointer;
+}
+
+.sort-button.active{
+    color:#4aa8d5;
+
+    font-weight:600;
+}
+
+.sort-divider{
+    margin:0 6px;
+
+    color:#ddd;
+
+    font-size:.75rem;
 }
 
 
@@ -422,14 +445,11 @@ body{
 @media(max-width:600px){
 
     .control-area{
-        flex-direction:column;
+        flex-direction:row;
+        align-items:center;
     }
 
     .search-area{
-        width:100%;
-    }
-
-    .sort-select{
         width:100%;
     }
 
@@ -600,20 +620,27 @@ body{
             </div>
 
 
-            <select
-                id="sortSelect"
-                class="sort-select"
-            >
+            <div class="sort-select">
 
-                <option value="newest">
+                <button
+                    type="button"
+                    class="sort-button active"
+                    data-sort="newest"
+                >
                     최신순
-                </option>
+                </button>
 
-                <option value="oldest">
+                <span class="sort-divider">|</span>
+
+                <button
+                    type="button"
+                    class="sort-button"
+                    data-sort="oldest"
+                >
                     오래된순
-                </option>
+                </button>
 
-            </select>
+            </div>
 
         </div>
 
@@ -672,8 +699,8 @@ const titleSearch =
 const dateSearch =
     document.getElementById("dateSearch");
 
-const sortSelect =
-    document.getElementById("sortSelect");
+const sortButtons =
+    document.querySelectorAll(".sort-button");
 
 const categoryButtons =
     document.querySelectorAll(".category");
@@ -1096,17 +1123,36 @@ dateSearch.addEventListener(
    정렬
 ========================= */
 
-sortSelect.addEventListener(
-    "change",
-    () => {
+sortButtons.forEach(button => {
 
-        currentSort =
-            sortSelect.value;
+    button.addEventListener(
+        "click",
+        () => {
 
-        renderVideos();
+            sortButtons.forEach(item => {
 
-    }
-);
+                item.classList.remove(
+                    "active"
+                );
+
+            });
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            currentSort =
+                button.dataset.sort;
+
+
+            renderVideos();
+
+        }
+    );
+
+});
 
 
 /* =========================
