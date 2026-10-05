@@ -1288,13 +1288,38 @@ ddayBox.addEventListener(
    ========================================================= */
 
 /*
-   기준 시각
+   스밍리스트 기준
 
    2026-10-05 18:30:00 KST
 
-   이때 17번 곡
-   ICONIC HEART (Korean.ver)
+   이 시점에
+   17번 ICONIC HEART (Korean.ver)
    3번째 재생이 0:00부터 시작.
+
+
+   전체 재생목록
+
+   01 Lemon Tang                       2:43
+   02 ICONIC HEART (Korean.ver)       3:09
+   03 RUDE!                            3:20
+   04 FOCUS                            2:58
+   05 Moonride                         2:57
+   06 Lemon Tang                       2:43
+   07 ICONIC HEART (Japanese.ver)     3:09
+   08 RUDE!                            3:20
+   09 STYLE                            3:30
+   10 15-LOVE                          2:35
+   11 Lemon Tang                       2:43
+   12 ICONIC HEART (Korean.ver)       3:09
+   13 RUDE!                            3:20
+   14 FOCUS                            2:58
+   15 ICONIC HEART (Japanese.ver)     3:09
+   16 Lemon Tang                       2:43
+   17 ICONIC HEART (Korean.ver)       3:09
+   18 RUDE!                            3:20
+   19 STYLE                            3:30
+
+   TOTAL = 58분 25초
 */
 
 
@@ -1428,7 +1453,7 @@ const kstTotalDuration =
 
 
 /*
-   3505초
+   총 3505초
    = 58분 25초
 */
 
@@ -1499,6 +1524,34 @@ function formatKstTime(seconds){
 
 
 /* =========================================================
+   START OFFSET
+   ========================================================= */
+
+/*
+   17번 곡이 플레이리스트에서
+   시작하는 위치.
+
+   1~16번 합계 = 2906초
+*/
+
+const kstStartOffset =
+    kstPlaylist
+        .slice(
+            0,
+            kstStartIndex
+        )
+        .reduce(
+            (
+                total,
+                song
+            ) =>
+                total +
+                song.duration,
+            0
+        );
+
+
+/* =========================================================
    CURRENT PLAYLIST POSITION
    ========================================================= */
 
@@ -1539,38 +1592,13 @@ function getKstPlayerPosition(){
 
 
     /*
-       17번 곡 이전까지의
-       누적 재생시간
-    */
-
-    const startOffset =
-        kstPlaylist
-            .slice(
-                0,
-                kstStartIndex
-            )
-            .reduce(
-                (
-                    total,
-                    song
-                ) =>
-                    total +
-                    song.duration,
-                0
-            );
-
-
-    /*
-       18:30 = 17번 0:00
-
-       이후
-
-       17 → 18 → 19 → 1 → 2 ...
+       17번 0:00을 기준으로
+       전체 플레이리스트를 순환.
     */
 
     const cyclePosition =
         (
-            startOffset +
+            kstStartOffset +
             elapsed
         ) %
         kstTotalDuration;
@@ -1698,13 +1726,27 @@ updateKstPlayer();
    ========================================================= */
 
 /*
-   ICONIC HEART (Korean.ver)
+   Korean.ver 위치
 
-   2번
+   02번
    12번
    17번
 
-   → 한 바퀴당 3회
+   한 사이클 = 3회
+
+
+   기준 시각:
+
+   2026-10-05 18:30:00 KST
+   = 17번 Korean.ver 0:00
+
+
+   여기서는 '재생 완료' 기준으로 계산.
+
+   18:30:00 → 0회
+   17번 종료      → 1회
+   다음 2번 종료  → 2회
+   다음 12번 종료 → 3회
 */
 
 
@@ -1715,20 +1757,48 @@ const iconicHeartIndexes = [
 ];
 
 
+/* =========================================================
+   ICONIC HEART COMPLETION OFFSETS
+   ========================================================= */
+
 /*
-   기준 시각인 18:30에는
-   17번 ICONIC HEART가
-   아직 재생되기 시작한 순간.
+   17번 0:00을 기준으로
+   Korean.ver 재생 완료 시점.
 
-   따라서 18:30:00 자체는
-   누적 0회로 시작하고,
+   17번 완료:
+   3:09 = 189초
 
-   17번 곡이 끝나는 시점부터
-   해당 재생을 1회로 계산.
+   다음 2번 완료:
+   3:09 + 3:20 + 3:30 + 2:43 + 3:09
+   = 951초
 
-   즉 실제 '곡 재생 완료 기준' 카운트.
+   다음 12번 완료:
+   = 2775초
+
+   따라서 한 사이클 안에서
+
+   189초
+   951초
+   2775초
+
+   총 3회.
 */
 
+
+const iconicHeartCompletionOffsets = [
+
+    189,
+
+    951,
+
+    2775
+
+];
+
+
+/* =========================================================
+   GET ICONIC HEART COUNT
+   ========================================================= */
 
 function getIconicHeartCount(){
 
@@ -1762,113 +1832,48 @@ function getIconicHeartCount(){
 
 
     /*
-       기준점의 플레이리스트 위치
-
-       17번 = 2906초 지점
-    */
-
-    const startOffset =
-        kstPlaylist
-            .slice(
-                0,
-                kstStartIndex
-            )
-            .reduce(
-                (
-                    total,
-                    song
-                ) =>
-                    total +
-                    song.duration,
-                0
-            );
-
-
-    /*
-       현재까지 진행된
-       전체 플레이리스트 위치
-    */
-
-    const currentAbsolute =
-        startOffset +
-        elapsed;
-
-
-    /*
-       지금까지 완전히 끝난
-       플레이리스트 회전 수
+       완전히 지난 스밍 사이클 수
     */
 
     const completedCycles =
         Math.floor(
-            currentAbsolute /
+            elapsed /
             kstTotalDuration
         );
 
 
     /*
-       현재 회전 내부 위치
+       현재 사이클에서
+       얼마나 진행됐는지
     */
 
     const currentCyclePosition =
-        currentAbsolute %
+        elapsed %
         kstTotalDuration;
 
 
     /*
-       완전히 끝난 한 바퀴마다
+       완전히 지난 사이클마다
        Korean.ver 3회
     */
 
     let count =
-        completedCycles *
-        3;
+        completedCycles * 3;
 
 
     /*
-       현재 바퀴에서
-       이미 시작된 Korean.ver를 계산.
-
-       단, 기준 시각에 걸려 있는
-       17번 곡은 18:30에 시작했으므로
-       시작 즉시 1회로 카운트하지 않고
-       '완료' 기준으로 계산한다.
+       현재 사이클에서
+       이미 완료된 Korean.ver 계산
     */
 
     for(
-        const index of iconicHeartIndexes
+        const completionOffset
+        of iconicHeartCompletionOffsets
     ){
-
-        let songStart =
-            kstPlaylist
-                .slice(
-                    0,
-                    index
-                )
-                .reduce(
-                    (
-                        total,
-                        song
-                    ) =>
-                        total +
-                        song.duration,
-                    0
-                );
-
-
-        let songEnd =
-            songStart +
-            kstPlaylist[index].duration;
-
-
-        /*
-           현재 바퀴에서
-           Korean.ver가 완전히 끝난 경우
-        */
 
         if(
             currentCyclePosition >=
-            songEnd
+            completionOffset
         ){
 
             count++;
@@ -1882,6 +1887,10 @@ function getIconicHeartCount(){
 
 }
 
+
+/* =========================================================
+   UPDATE ICONIC HEART COUNT
+   ========================================================= */
 
 function updateIconicHeartCount(){
 
