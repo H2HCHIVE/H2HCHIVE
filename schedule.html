@@ -56,6 +56,17 @@ body{
 .month{
     font-size:1.3rem;
     font-weight:700;
+    cursor:pointer;
+    border:none;
+    background:none;
+    color:#222;
+    font-family:inherit;
+    padding:5px 8px;
+    border-radius:8px;
+}
+
+.month:active{
+    background:#e6f5fc;
 }
 
 .btn{
@@ -63,6 +74,120 @@ body{
     border:none;
     background:none;
     cursor:pointer;
+}
+
+/* 연도·월 선택창 */
+.picker-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    z-index:1000;
+    box-sizing:border-box;
+}
+
+.picker-overlay.open{
+    display:flex;
+}
+
+.picker{
+    width:100%;
+    max-width:360px;
+    background:#f5f6f8;
+    border-radius:18px;
+    padding:20px;
+    box-sizing:border-box;
+    box-shadow:0 8px 30px rgba(0,0,0,0.18);
+}
+
+.picker-title{
+    font-size:1.1rem;
+    font-weight:700;
+    text-align:center;
+    margin-bottom:18px;
+}
+
+.picker-year-row{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:16px;
+    margin-bottom:20px;
+}
+
+.picker-year-btn{
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    font-size:1.2rem;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,0.06);
+}
+
+.picker-year{
+    font-size:1.15rem;
+    font-weight:700;
+    min-width:100px;
+    text-align:center;
+}
+
+.picker-months{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+}
+
+.picker-month{
+    border:none;
+    border-radius:10px;
+    background:white;
+    padding:13px 0;
+    font-size:0.9rem;
+    cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,0.05);
+    color:#222;
+}
+
+.picker-month.selected{
+    background:#89CFF0;
+    color:white;
+    font-weight:700;
+}
+
+.picker-month:active,
+.picker-year-btn:active{
+    opacity:0.7;
+}
+
+.picker-actions{
+    display:flex;
+    gap:8px;
+    margin-top:18px;
+}
+
+.picker-action{
+    flex:1;
+    border:none;
+    border-radius:10px;
+    padding:12px 0;
+    font-size:0.9rem;
+    cursor:pointer;
+}
+
+.picker-cancel{
+    background:white;
+    color:#555;
+}
+
+.picker-confirm{
+    background:#89CFF0;
+    color:white;
+    font-weight:700;
 }
 
 /* 월 이동 슬라이드 */
@@ -284,7 +409,10 @@ body{
 
         <div class="header">
             <button class="btn" onclick="prev()">←</button>
-            <div class="month" id="month"></div>
+
+            <!-- 날짜 클릭 시 연도·월 선택창 열기 -->
+            <button class="month" id="month" onclick="openPicker()"></button>
+
             <button class="btn" onclick="next()">→</button>
         </div>
 
@@ -347,6 +475,61 @@ body{
 
 </div>
 
+<!-- 연도·월 선택창 -->
+<div
+    class="picker-overlay"
+    id="pickerOverlay"
+    onclick="handleOverlayClick(event)"
+>
+    <div class="picker" role="dialog" aria-modal="true" aria-label="날짜 이동">
+
+        <div class="picker-title">날짜 이동</div>
+
+        <div class="picker-year-row">
+            <button
+                class="picker-year-btn"
+                onclick="changePickerYear(-1)"
+                aria-label="이전 연도"
+            >‹</button>
+
+            <div class="picker-year" id="pickerYear"></div>
+
+            <button
+                class="picker-year-btn"
+                onclick="changePickerYear(1)"
+                aria-label="다음 연도"
+            >›</button>
+        </div>
+
+        <div class="picker-months" id="pickerMonths">
+            <button class="picker-month" data-month="0" onclick="selectPickerMonth(0)">1월</button>
+            <button class="picker-month" data-month="1" onclick="selectPickerMonth(1)">2월</button>
+            <button class="picker-month" data-month="2" onclick="selectPickerMonth(2)">3월</button>
+            <button class="picker-month" data-month="3" onclick="selectPickerMonth(3)">4월</button>
+            <button class="picker-month" data-month="4" onclick="selectPickerMonth(4)">5월</button>
+            <button class="picker-month" data-month="5" onclick="selectPickerMonth(5)">6월</button>
+            <button class="picker-month" data-month="6" onclick="selectPickerMonth(6)">7월</button>
+            <button class="picker-month" data-month="7" onclick="selectPickerMonth(7)">8월</button>
+            <button class="picker-month" data-month="8" onclick="selectPickerMonth(8)">9월</button>
+            <button class="picker-month" data-month="9" onclick="selectPickerMonth(9)">10월</button>
+            <button class="picker-month" data-month="10" onclick="selectPickerMonth(10)">11월</button>
+            <button class="picker-month" data-month="11" onclick="selectPickerMonth(11)">12월</button>
+        </div>
+
+        <div class="picker-actions">
+            <button
+                class="picker-action picker-cancel"
+                onclick="closePicker()"
+            >취소</button>
+
+            <button
+                class="picker-action picker-confirm"
+                onclick="confirmPicker()"
+            >이동</button>
+        </div>
+
+    </div>
+</div>
 
 <script>
 
@@ -363,6 +546,10 @@ let loadedYears = {};
 let typeFilter = 'all';
 
 let memberFilter = 'all';
+
+/* 연도·월 선택창 상태 */
+let pickerYear = date.getFullYear();
+let pickerMonth = date.getMonth();
 
 
 /* ==========================================
@@ -410,6 +597,118 @@ function loadYear(year){
 ========================================== */
 
 loadYear(date.getFullYear());
+
+
+/* ==========================================
+   연도·월 선택창
+========================================== */
+
+/* 선택창 열기 */
+function openPicker(){
+
+    pickerYear = date.getFullYear();
+    pickerMonth = date.getMonth();
+
+    updatePicker();
+
+    document
+        .getElementById('pickerOverlay')
+        .classList.add('open');
+}
+
+
+/* 선택창 닫기 */
+function closePicker(){
+
+    document
+        .getElementById('pickerOverlay')
+        .classList.remove('open');
+}
+
+
+/* 바깥 영역 클릭 시 닫기 */
+function handleOverlayClick(event){
+
+    if(event.target.id === 'pickerOverlay'){
+        closePicker();
+    }
+}
+
+
+/* 선택창 연도 변경 */
+function changePickerYear(direction){
+
+    pickerYear += direction;
+
+    updatePicker();
+}
+
+
+/* 월 선택 */
+function selectPickerMonth(month){
+
+    pickerMonth = month;
+
+    updatePicker();
+}
+
+
+/* 선택창 화면 갱신 */
+function updatePicker(){
+
+    document.getElementById('pickerYear').innerText =
+        `${pickerYear}년`;
+
+    document
+        .querySelectorAll('.picker-month')
+        .forEach(button => {
+
+            const month =
+                Number(button.dataset.month);
+
+            button.classList.toggle(
+                'selected',
+                month === pickerMonth
+            );
+
+        });
+}
+
+
+/* 선택한 연도·월로 이동 */
+function confirmPicker(){
+
+    const targetYear = pickerYear;
+    const targetMonth = pickerMonth;
+
+    const yearChanged =
+        targetYear !== date.getFullYear();
+
+    date = new Date(
+        targetYear,
+        targetMonth,
+        1
+    );
+
+    closePicker();
+
+    /*
+       다른 연도로 이동하면 해당 연도의 JSON을 불러온다.
+       같은 연도라면 현재 데이터를 그대로 사용한다.
+    */
+
+    if(yearChanged){
+
+        loadYear(targetYear);
+
+    }else{
+
+        data = loadedYears[targetYear] || data;
+
+        render();
+
+    }
+}
 
 
 /* ==========================================
@@ -604,6 +903,11 @@ function render(){
     ){
 
         show(todayKey);
+    }else{
+
+        document.getElementById('eventBox').innerHTML =
+            '날짜를 클릭하세요';
+
     }
 }
 
